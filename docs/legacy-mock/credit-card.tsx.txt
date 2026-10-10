@@ -1,0 +1,89 @@
+"use client";
+
+import { CreditCard as CardIcon } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+
+export type CreditCardProps = {
+  label: string;
+  number: string;
+  holder: string;
+  expiry: string;
+  selected?: boolean;
+  onSelect?: () => void;
+};
+
+export function CreditCard({ label, number, holder, expiry, selected = false, onSelect }: CreditCardProps) {
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [9, -9]), {
+    stiffness: 180,
+    damping: 22,
+    mass: 0.7
+  });
+  const rotateY = useSpring(useTransform(pointerX, [-0.5, 0.5], [-11, 11]), {
+    stiffness: 180,
+    damping: 22,
+    mass: 0.7
+  });
+
+  return (
+    <motion.div
+      className="credit-card-tilt"
+      style={{ rotateX, rotateY, transformPerspective: 1100 }}
+      initial={{ opacity: 0, y: 18, scale: 0.97 }}
+      animate={
+        selected
+          ? { opacity: 1, y: [0, -4, 0], scale: 1 }
+          : { opacity: 1, y: 0, scale: 0.985 }
+      }
+      whileHover={{ scale: 1.025 }}
+      whileTap={{ scale: 0.975, rotateZ: -0.5 }}
+      transition={
+        selected
+          ? {
+              opacity: { duration: 0.42 },
+              scale: { type: "spring", stiffness: 180, damping: 20 },
+              y: { duration: 3.6, repeat: Infinity, ease: "easeInOut" }
+            }
+          : { type: "spring", stiffness: 180, damping: 22 }
+      }
+      onPointerMove={(event) => {
+        const bounds = event.currentTarget.getBoundingClientRect();
+        pointerX.set((event.clientX - bounds.left) / bounds.width - 0.5);
+        pointerY.set((event.clientY - bounds.top) / bounds.height - 0.5);
+      }}
+      onPointerLeave={() => {
+        pointerX.set(0);
+        pointerY.set(0);
+      }}
+    >
+      <motion.button
+        type="button"
+        className={selected ? "credit-card-view selected" : "credit-card-view"}
+        onClick={onSelect}
+        animate={selected ? { borderColor: ["rgba(155,234,19,.5)", "rgba(155,234,19,.9)", "rgba(155,234,19,.5)"] } : {}}
+        transition={{ duration: 2.8, repeat: selected ? Infinity : 0, ease: "easeInOut" }}
+      >
+        <span className="credit-card-top">
+          <span>
+            <small>GREENBEL DEMO</small>
+            <strong>{label}</strong>
+          </span>
+          <CardIcon size={26} />
+        </span>
+        <span className="credit-card-chip" aria-hidden="true" />
+        <span className="credit-card-number">{number}</span>
+        <span className="credit-card-bottom">
+          <span>
+            <small>Titular</small>
+            <strong>{holder}</strong>
+          </span>
+          <span>
+            <small>Exp.</small>
+            <strong>{expiry}</strong>
+          </span>
+        </span>
+      </motion.button>
+    </motion.div>
+  );
+}

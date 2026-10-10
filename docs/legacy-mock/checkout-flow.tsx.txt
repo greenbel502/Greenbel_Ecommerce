@@ -1,0 +1,1324 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Banknote,
+  Building2,
+  CalendarDays,
+  Check,
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+  CreditCard,
+  Download,
+  Landmark,
+  Link2,
+  LockKeyhole,
+  MessageCircle,
+  PackageCheck,
+  PencilLine,
+  PhoneCall,
+  Plus,
+  ShieldCheck,
+  Truck,
+  X
+} from "lucide-react";
+import { motion } from "motion/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import { formatCurrency } from "@/application/use-cases/cartCalculations";
+import type { CartLine, CartTotals } from "@/domain/entities/cart";
+import type { PaymentMethod } from "@/domain/entities/checkout";
+import { guatemalaDepartments } from "@/lib/config";
+import { CreditCard as CreditCardPreview } from "@/presentation/components/credit-card";
+import { useCart } from "@/presentation/providers/cart-provider";
+import { AnimatedTitle, Reveal } from "./motion-primitives";
+
+const GREENBEL_WHATSAPP_NUMBER = "50243426033";
+const SAVED_CARDS_KEY = "greenbel-demo-cards";
+
+const checkoutSchema = z.object({
+  firstName: z.string().min(2, "Ingresa tu nombre"),
+  lastName: z.string().min(2, "Ingresa tu apellido"),
+  email: z.string().email("Ingresa un correo válido"),
+  phone: z.string().min(8, "Ingresa un teléfono válido"),
+  nit: z.string().optional(),
+  address: z.string().min(8, "Agrega una dirección más completa"),
+  department: z.string().min(1, "Selecciona un departamento"),
+  municipality: z.string().min(2, "Ingresa el municipio"),
+  reference: z.string().min(3, "Agrega una referencia"),
+  notes: z.string().optional()
+});
+type CheckoutFields = z.infer<typeof checkoutSchema>;
+type DemoCardInput = { number: string; expiry: string; cvv: string; holder: string };
+
+const methods: Array<{ id: PaymentMethod; label: string; description: string; icon: typeof CreditCard }> = [
+  {
+    id: "card",
+    label: "Tarjeta",
+    description: "Selecciona una tarjeta demo o registra una nueva.",
+    icon: CreditCard
+  },
+  {
+    id: "whatsapp",
+    label: "WhatsApp",
+    description: "Genera PDF y mensaje para enviarlo a un asesor.",
+    icon: MessageCircle
+  },
+  {
+    id: "cash-on-delivery",
+    label: "Contra entrega",
+    description: "Elige Forza, Guatex u otro proveedor.",
+    icon: Banknote
+  },
+  {
+    id: "cooperative",
+    label: "Cooperativa",
+    description: "Solicita financiamiento con banco o cooperativa.",
+    icon: Landmark
+  },
+  {
+    id: "payment-link",
+    label: "Link de pago",
+    description: "Genera un enlace demo tipo Visalink.",
+    icon: Link2
+  }
+];
+
+const savedCards = [
+  { id: "visa-4242", label: "Visa agrícola", number: "•••• 4242", holder: "Cliente GreenBel", expiry: "08/29" },
+  { id: "master-1188", label: "Mastercard compras", number: "•••• 1188", holder: "Finca Demo", expiry: "11/28" }
+];
+type DemoCard = (typeof savedCards)[number];
+type JsPdfDocument = import("jspdf").jsPDF;
+
+const deliveryServices = [
+  { id: "Forza", name: "Forza", image: "/images/froza.png", note: "Entrega en 1-2 días" },
+  { id: "Cargo Expreso", name: "Cargo Expreso", image: "/images/cargo expresso.png", note: "Cobertura nacional" },
+  { id: "Guatex", name: "Guatex", image: "/images/guatex.png", note: "Más de 300 agencias" },
+  { id: "Otra empresa", name: "Otra empresa", image: null, note: "Especificar manualmente" }
+];
+
+const deliveryTimeWindows = ["08:00 - 12:00", "12:00 - 16:00", "16:00 - 18:00"];
+
+export function CheckoutFlow() {
+  const { clearCart, lines, totals } = useCart();
+  const paymentMethodsRef = useRef<HTMLDivElement>(null);
+  const deliveryServicesRef = useRef<HTMLDivElement>(null);
+  const [method, setMethod] = useState<PaymentMethod>("card");
+  const [modal, setModal] = useState<PaymentMethod | null>(null);
+  const [order, setOrder] = useState<{ number: string; whatsappUrl?: string; pdfUrl?: string } | null>(null);
+  const [cards, setCards] = useState<DemoCard[]>(savedCards);
+  const [selectedCard, setSelectedCard] = useState(savedCards[0].id);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [newCard, setNewCard] = useState({ number: "", expiry: "", cvv: "", holder: "" });
+  const [cardErrors, setCardErrors] = useState<Record<string, string>>({});
+  const [whatsappMessage, setWhatsappMessage] = useState("Hola GreenBel, quiero confirmar este pedido. Adjunto el resumen generado para revisión.");
+  const [whatsappPdfUrl, setWhatsappPdfUrl] = useState<string | null>(null);
+  const [delivery, setDelivery] = useState({ provider: "Forza", address: "", notes: "", date: getDefaultDeliveryDate(), timeWindow: deliveryTimeWindows[0] });
+  const [cooperative, setCooperative] = useState({ entity: "", contactTime: "", notes: "" });
+  const [paymentLink, setPaymentLink] = useState({ name: "", channel: "WhatsApp", generatedUrl: "" });
+  const {
+    register,
+    getValues,
+    trigger,
+    formState: { errors, isSubmitting }
+  } = useForm<CheckoutFields>({
+    resolver: zodResolver(checkoutSchema),
+    defaultValues: { department: "Guatemala" }
+  });
+
+  const orderLines = useMemo(
+    () =>
+      lines
+        .map(
+          (line) =>
+            `${line.quantity} x ${line.product.name} (${line.product.sku}) - ${formatMaybeMoney(line.product.price === null ? null : line.product.price * line.quantity)}`
+        )
+        .join("\n"),
+    [lines]
+  );
+
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem(SAVED_CARDS_KEY);
+      if (!stored) return;
+      const parsed = JSON.parse(stored) as DemoCard[];
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        setCards(parsed);
+        setSelectedCard(parsed[0].id);
+        setActiveCardIndex(0);
+      }
+    } catch {
+      setCards(savedCards);
+    }
+  }, []);
+
+  async function openPaymentModal(nextMethod = method) {
+    setMethod(nextMethod);
+    setModal(nextMethod);
+  }
+
+  async function confirmOrder(nextMethod: PaymentMethod, details: string) {
+    const valid = await trigger();
+    if (!valid) return;
+
+    await new Promise((resolve) => window.setTimeout(resolve, 450));
+    const data = getValues();
+    const number = `GB-${new Date().getFullYear()}-${Math.floor(10000 + Math.random() * 90000)}`;
+    const pdfUrl = await createOrderPdfUrl({ number, data, lines, totals, method: nextMethod, details });
+    const message = buildWhatsappMessage({ number, data, linesText: orderLines, totals, method: nextMethod, details });
+
+    setOrder({
+      number,
+      pdfUrl,
+      whatsappUrl: `https://wa.me/${GREENBEL_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+    });
+    setModal(null);
+    clearCart();
+  }
+
+  function saveDemoCard() {
+    const validation = validateDemoCard(newCard);
+    setCardErrors(validation.errors);
+    if (!validation.valid) return null;
+
+    const digits = newCard.number.replace(/\D/g, "");
+    const card: DemoCard = {
+      id: `demo-${Date.now()}`,
+      label: detectCardBrand(digits),
+      number: `•••• ${digits.slice(-4)}`,
+      holder: newCard.holder.trim(),
+      expiry: newCard.expiry.trim()
+    };
+    const nextCards = [card, ...cards];
+    setCards(nextCards);
+    setSelectedCard(card.id);
+    setActiveCardIndex(0);
+    setNewCard({ number: "", expiry: "", cvv: "", holder: "" });
+    window.localStorage.setItem(SAVED_CARDS_KEY, JSON.stringify(nextCards));
+    return card;
+  }
+
+  function confirmCardOrder() {
+    let details = `Tarjeta seleccionada: ${selectedCard}`;
+    const hasNewCardData = Object.values(newCard).some((value) => value.trim().length > 0);
+    if (hasNewCardData) {
+      const saved = saveDemoCard();
+      if (!saved) return;
+      details = `Nueva tarjeta demo guardada: ${saved.number}`;
+    }
+    void confirmOrder("card", details);
+  }
+
+  function selectDeliveryService(index: number) {
+    const normalizedIndex = (index + deliveryServices.length) % deliveryServices.length;
+    const service = deliveryServices[normalizedIndex];
+    setDelivery((current) => ({ ...current, provider: service.id }));
+    deliveryServicesRef.current?.children.item(normalizedIndex)?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center"
+    });
+  }
+
+  async function generateWhatsappPdf() {
+    const data = getPdfCheckoutData(getValues());
+    const number = `GB-${new Date().getFullYear()}-${Math.floor(10000 + Math.random() * 90000)}`;
+    const pdfUrl = await createOrderPdfUrl({ number, data, lines, totals, method: "whatsapp", details: whatsappMessage });
+    downloadUrl(pdfUrl, `${number}-greenbel.pdf`);
+    setWhatsappPdfUrl(pdfUrl);
+    return { number, pdfUrl, data };
+  }
+
+  async function confirmWhatsappOrder() {
+    const generated = await generateWhatsappPdf();
+    if (!generated) return;
+
+    const message = buildWhatsappMessage({
+      number: generated.number,
+      data: generated.data,
+      linesText: orderLines,
+      totals,
+      method: "whatsapp",
+      details: whatsappMessage
+    });
+    const whatsappUrl = `https://wa.me/${GREENBEL_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    openExternalUrl(whatsappUrl);
+    setOrder({ number: generated.number, pdfUrl: generated.pdfUrl, whatsappUrl });
+    setModal(null);
+    clearCart();
+  }
+
+  if (order)
+    return (
+      <section className="order-success">
+        <div className="success-icon">
+          <CheckCircle2 />
+        </div>
+        <Reveal as="span" className="eyebrow">Pedido simulado recibido</Reveal>
+        <AnimatedTitle as="h1" lines={["Todo listo", "para confirmar."]} />
+        <Reveal as="p" delay={0.16}>
+          Tu número de orden es <strong>{order.number}</strong>. No se realizó ningún cobro real.
+        </Reveal>
+        <div className="order-success-card">
+          <span>
+            <PackageCheck /> Resumen generado
+          </span>
+          <span>
+            <ShieldCheck /> Datos protegidos
+          </span>
+          <span>
+            <Truck /> Un asesor confirmará por llamada
+          </span>
+        </div>
+        <div className="success-actions">
+          <Link href="/productos" className="secondary-dark-button">
+            Volver a productos
+          </Link>
+          {order.pdfUrl && (
+            <a href={order.pdfUrl} download={`${order.number}-greenbel.pdf`} className="secondary-dark-button">
+              <Download size={18} /> Descargar PDF
+            </a>
+          )}
+          {order.whatsappUrl && (
+            <a href={order.whatsappUrl} target="_blank" rel="noreferrer" className="primary-button">
+              <MessageCircle size={18} /> Enviar por WhatsApp
+            </a>
+          )}
+        </div>
+      </section>
+    );
+
+  if (lines.length === 0)
+    return (
+      <section className="empty-state">
+        <PackageCheck size={42} />
+        <AnimatedTitle as="h1" lines={["No hay productos", "para pagar"]} />
+        <Reveal as="p" delay={0.16}>Agrega un equipo o repuesto para probar el checkout.</Reveal>
+        <Link href="/productos" className="primary-button">
+          Ir al catálogo
+        </Link>
+      </section>
+    );
+
+  return (
+    <section className="checkout-shell">
+      <div className="checkout-intro">
+        <Reveal as="span" className="eyebrow">Checkout demostrativo</Reveal>
+        <AnimatedTitle as="h1" lines={["Finaliza tu pedido."]} />
+        <Reveal as="p" delay={0.16}>Completa los datos para simular la confirmación. Ningún pago será procesado.</Reveal>
+        <Reveal className="checkout-steps" delay={0.24}>
+          <span className="active">
+            <b>1</b> Datos
+          </span>
+          <span>
+            <b>2</b> Entrega
+          </span>
+          <span>
+            <b>3</b> Pago
+          </span>
+          <span>
+            <b>4</b> Confirmación
+          </span>
+        </Reveal>
+      </div>
+      <div className="checkout-layout">
+        <form className="checkout-form" noValidate>
+          <section className="form-section">
+            <div className="form-section-heading">
+              <span>01</span>
+              <div>
+                <h2>Datos del cliente</h2>
+                <p>Usaremos esta información solo para la simulación.</p>
+              </div>
+            </div>
+            <div className="form-grid">
+              <Field label="Nombre" error={errors.firstName?.message}>
+                <input {...register("firstName")} autoComplete="given-name" />
+              </Field>
+              <Field label="Apellido" error={errors.lastName?.message}>
+                <input {...register("lastName")} autoComplete="family-name" />
+              </Field>
+              <Field label="Correo" error={errors.email?.message}>
+                <input {...register("email")} type="email" autoComplete="email" />
+              </Field>
+              <Field label="Teléfono / WhatsApp" error={errors.phone?.message}>
+                <input {...register("phone")} inputMode="tel" autoComplete="tel" />
+              </Field>
+              <Field label="NIT (opcional)">
+                <input {...register("nit")} />
+              </Field>
+            </div>
+          </section>
+          <section className="form-section">
+            <div className="form-section-heading">
+              <span>02</span>
+              <div>
+                <h2>Dirección de entrega</h2>
+                <p>La cobertura y el costo final se confirmarán.</p>
+              </div>
+            </div>
+            <div className="form-grid">
+              <Field label="Dirección" error={errors.address?.message} wide>
+                <input {...register("address")} autoComplete="street-address" />
+              </Field>
+              <Field label="Departamento" error={errors.department?.message}>
+                <select {...register("department")}>
+                  {guatemalaDepartments.map((department) => (
+                    <option key={department}>{department}</option>
+                  ))}
+                </select>
+              </Field>
+              <Field label="Municipio" error={errors.municipality?.message}>
+                <input {...register("municipality")} />
+              </Field>
+              <Field label="Referencia" error={errors.reference?.message} wide>
+                <input {...register("reference")} placeholder="Finca, bodega, color de portón..." />
+              </Field>
+              <Field label="Notas del pedido" wide>
+                <textarea {...register("notes")} />
+              </Field>
+            </div>
+          </section>
+          <section className="form-section">
+            <div className="form-section-heading">
+              <span>03</span>
+              <div>
+                <h2>Método de pago</h2>
+                <p>Selecciona una opción para abrir su configuración.</p>
+              </div>
+            </div>
+            <div className="payment-method-carousel">
+              <button
+                type="button"
+                className="carousel-control"
+                aria-label="Método anterior"
+                onClick={() => paymentMethodsRef.current?.scrollBy({ left: -260, behavior: "smooth" })}
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <div className="payment-methods payment-methods-carousel" ref={paymentMethodsRef}>
+                {methods.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <button
+                      type="button"
+                      key={item.id}
+                      className={method === item.id ? "selected" : ""}
+                      onClick={() => openPaymentModal(item.id)}
+                    >
+                      <Icon />
+                      <span>
+                        <strong>{item.label}</strong>
+                        <small>{item.description}</small>
+                      </span>
+                      {method === item.id && <Check className="selected-check" />}
+                    </button>
+                  );
+                })}
+              </div>
+              <button
+                type="button"
+                className="carousel-control"
+                aria-label="Siguiente método"
+                onClick={() => paymentMethodsRef.current?.scrollBy({ left: 260, behavior: "smooth" })}
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+            <div className="method-message">
+              <LockKeyhole />
+              <div>
+                <strong>Validación antes de envío</strong>
+                <p>Un asesor GreenBel llamará para confirmar disponibilidad, dirección, entrega y forma de pago antes de enviar el pedido.</p>
+              </div>
+            </div>
+          </section>
+          <button className="primary-button full-width checkout-submit" type="button" disabled={isSubmitting} onClick={() => openPaymentModal()}>
+            Continuar con {methods.find((item) => item.id === method)?.label}
+          </button>
+        </form>
+        <CheckoutSummary lines={lines} totals={totals} />
+      </div>
+
+      {modal === "card" && (
+        <PaymentModal title="Pago con tarjeta" eyebrow="Aprobación demo" icon={<CreditCard />} onClose={() => setModal(null)}>
+          <div className="card-carousel" aria-label="Tarjetas guardadas">
+            <button
+              type="button"
+              className="carousel-control"
+              aria-label="Tarjeta anterior"
+              onClick={() => {
+                const nextIndex = activeCardIndex === 0 ? cards.length - 1 : activeCardIndex - 1;
+                setActiveCardIndex(nextIndex);
+                setSelectedCard(cards[nextIndex].id);
+              }}
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <div className="card-carousel-window">
+              <div className="card-carousel-track" style={{ transform: `translateX(-${activeCardIndex * 100}%)` }}>
+                {cards.map((card, index) => (
+                  <CreditCardPreview
+                    key={card.id}
+                    label={card.label}
+                    number={card.number}
+                    holder={card.holder}
+                    expiry={card.expiry}
+                    selected={selectedCard === card.id}
+                    onSelect={() => {
+                      setSelectedCard(card.id);
+                      setActiveCardIndex(index);
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+            <button
+              type="button"
+              className="carousel-control"
+              aria-label="Siguiente tarjeta"
+              onClick={() => {
+                const nextIndex = activeCardIndex === cards.length - 1 ? 0 : activeCardIndex + 1;
+                setActiveCardIndex(nextIndex);
+                setSelectedCard(cards[nextIndex].id);
+              }}
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+          <div className="carousel-dots">
+            {cards.map((card, index) => (
+              <button
+                key={card.id}
+                type="button"
+                aria-label={`Ver tarjeta ${index + 1}`}
+                className={index === activeCardIndex ? "active" : ""}
+                onClick={() => {
+                  setActiveCardIndex(index);
+                  setSelectedCard(card.id);
+                }}
+              />
+            ))}
+          </div>
+          <div className="modal-divider"><span><Plus size={15} /> Registrar nueva tarjeta</span></div>
+          <div className="form-grid modal-form-grid">
+            <Field label="Número de tarjeta">
+              <input value={newCard.number} onChange={(event) => setNewCard({ ...newCard, number: formatCardInput(event.target.value) })} inputMode="numeric" placeholder="4242 4242 4242 4242" />
+              {cardErrors.number && <span className="field-error" role="alert">{cardErrors.number}</span>}
+            </Field>
+            <Field label="Titular">
+              <input value={newCard.holder} onChange={(event) => setNewCard({ ...newCard, holder: event.target.value })} placeholder="Nombre completo" />
+              {cardErrors.holder && <span className="field-error" role="alert">{cardErrors.holder}</span>}
+            </Field>
+            <Field label="Expiración">
+              <input value={newCard.expiry} onChange={(event) => setNewCard({ ...newCard, expiry: formatExpiryInput(event.target.value) })} placeholder="MM/AA" />
+              {cardErrors.expiry && <span className="field-error" role="alert">{cardErrors.expiry}</span>}
+            </Field>
+            <Field label="CVV">
+              <input value={newCard.cvv} onChange={(event) => setNewCard({ ...newCard, cvv: event.target.value.replace(/\D/g, "").slice(0, 4) })} inputMode="numeric" placeholder="123" />
+              {cardErrors.cvv && <span className="field-error" role="alert">{cardErrors.cvv}</span>}
+            </Field>
+          </div>
+          <p className="secure-note"><LockKeyhole size={15} /> La tarjeta se guarda solo en localStorage para simular selección futura; no se procesa ningún cobro.</p>
+          <ModalActions onCancel={() => setModal(null)} onConfirm={confirmCardOrder} label="Confirmar tarjeta demo" />
+        </PaymentModal>
+      )}
+
+      {modal === "whatsapp" && (
+        <PaymentModal title="Pedido por WhatsApp" eyebrow="Resumen para asesor" icon={<MessageCircle />} onClose={() => setModal(null)}>
+          <Field label="Mensaje para enviar" wide>
+            <textarea value={whatsappMessage} onChange={(event) => setWhatsappMessage(event.target.value)} />
+          </Field>
+          <div className="pdf-preview">
+            <Download />
+            <div>
+              <strong>PDF del pedido</strong>
+              <p>Descarga una plantilla PDF con productos, cliente, entrega y totales para adjuntarla en WhatsApp.</p>
+            </div>
+          </div>
+          <div className="modal-actions">
+            <button type="button" className="secondary-dark-button" onClick={() => setModal(null)}>Cancelar</button>
+            <button type="button" className="secondary-dark-button" onClick={() => void generateWhatsappPdf()}><Download size={17} /> Descargar PDF</button>
+            <button type="button" className="primary-button" onClick={() => void confirmWhatsappOrder()}><MessageCircle size={17} /> Descargar y abrir WhatsApp</button>
+          </div>
+          {whatsappPdfUrl && <p className="secure-note"><CheckCircle2 size={15} /> PDF generado. Puedes volver a descargarlo o abrir WhatsApp.</p>}
+        </PaymentModal>
+      )}
+
+      {modal === "cash-on-delivery" && (
+        <PaymentModal title="Pago contra entrega" eyebrow="Entrega por confirmar" icon={<Truck />} onClose={() => setModal(null)}>
+          <div className="delivery-carousel" aria-label="Empresas disponibles para la entrega">
+            <button
+              type="button"
+              className="carousel-control"
+              aria-label="Empresa de entrega anterior"
+              onClick={() => selectDeliveryService(deliveryServices.findIndex((service) => service.id === delivery.provider) - 1)}
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <div className="delivery-options" ref={deliveryServicesRef}>
+              {deliveryServices.map((service, index) => (
+                <motion.button
+                  type="button"
+                  key={service.id}
+                  className={delivery.provider === service.id ? "selected" : ""}
+                  onClick={() => selectDeliveryService(index)}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={delivery.provider === service.id ? { opacity: 1, y: [0, -3, 0] } : { opacity: 1, y: 0 }}
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={
+                    delivery.provider === service.id
+                      ? { opacity: { duration: 0.46 }, y: { duration: 3.4, repeat: Infinity, ease: "easeInOut" } }
+                      : { duration: 0.46, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }
+                  }
+                >
+                  <span className="delivery-radio" aria-hidden="true" />
+                  {delivery.provider === service.id && <CheckCircle2 className="delivery-selected-icon" size={20} />}
+                  <motion.span
+                    className={service.id === "Forza" ? "delivery-logo-frame delivery-logo-forza" : "delivery-logo-frame"}
+                    whileHover={{ scale: 1.04 }}
+                    transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {service.image ? <Image src={service.image} alt={service.name} width={132} height={82} /> : <Truck size={28} />}
+                  </motion.span>
+                  <span>{service.name}</span>
+                  <small>{service.note}</small>
+                </motion.button>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="carousel-control"
+              aria-label="Siguiente empresa de entrega"
+              onClick={() => selectDeliveryService(deliveryServices.findIndex((service) => service.id === delivery.provider) + 1)}
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+          <div className="carousel-dots delivery-carousel-dots">
+            {deliveryServices.map((service, index) => (
+              <button
+                key={service.id}
+                type="button"
+                className={delivery.provider === service.id ? "active" : ""}
+                aria-label={`Seleccionar ${service.name}`}
+                onClick={() => selectDeliveryService(index)}
+              />
+            ))}
+          </div>
+          <DeliveryDateSelector
+            date={delivery.date}
+            timeWindow={delivery.timeWindow}
+            onDateChange={(date) => setDelivery({ ...delivery, date })}
+            onTimeWindowChange={(timeWindow) => setDelivery({ ...delivery, timeWindow })}
+          />
+          <Field label="Dirección para la empresa de entrega" wide>
+            <textarea value={delivery.address} onChange={(event) => setDelivery({ ...delivery, address: event.target.value })} placeholder="Puedes repetir o ajustar la dirección de entrega." />
+          </Field>
+          <Field label="Indicaciones adicionales" wide>
+            <input value={delivery.notes} onChange={(event) => setDelivery({ ...delivery, notes: event.target.value })} placeholder="Horario, contacto en recepción, referencia..." />
+          </Field>
+          <div className="callout-note">
+            <PhoneCall />
+            <div>
+              <strong>Te contactaremos antes de enviar tu pedido</strong>
+              <p>GreenBel llamará para confirmar cobertura, costo de entrega y disponibilidad.</p>
+            </div>
+          </div>
+          <ModalActions
+            onCancel={() => setModal(null)}
+            onConfirm={() =>
+              confirmOrder(
+                "cash-on-delivery",
+                `Entrega: ${delivery.provider}. Fecha tentativa: ${formatReadableDate(delivery.date)} (${delivery.timeWindow}). ${delivery.address}. ${delivery.notes}`
+              )
+            }
+            label="Agendar contra entrega"
+          />
+        </PaymentModal>
+      )}
+
+      {modal === "cooperative" && (
+        <PaymentModal title="Financiamiento con cooperativa" eyebrow="Solicitud demo" icon={<Building2 />} onClose={() => setModal(null)}>
+          <div className="cooperative-panel">
+            <Landmark />
+            <div>
+              <strong>Solicitud de financiamiento</strong>
+              <p>GreenBel tomará tus datos para coordinar una posible alianza con banco o cooperativa y revisar si tu compra puede financiarse.</p>
+            </div>
+          </div>
+          <div className="cooperative-steps" aria-label="Proceso de financiamiento">
+            {["Alianza", "Eliges tus equipos", "Revisión financiera", "Cobro y entrega", "Pago a entidad"].map((step, index) => (
+              <div key={step}>
+                <span>{index + 1}</span>
+                <strong>{step}</strong>
+              </div>
+            ))}
+          </div>
+          <div className="form-grid modal-form-grid">
+            <Field label="Banco o cooperativa de preferencia">
+              <input
+                value={cooperative.entity}
+                onChange={(event) => setCooperative({ ...cooperative, entity: event.target.value })}
+                placeholder="Ej. cooperativa local, banco agrícola..."
+              />
+            </Field>
+            <Field label="Horario ideal para llamada">
+              <input
+                value={cooperative.contactTime}
+                onChange={(event) => setCooperative({ ...cooperative, contactTime: event.target.value })}
+                placeholder="Ej. mañana, tarde, después de las 4..."
+              />
+            </Field>
+            <Field label="Comentario para el asesor" wide>
+              <textarea
+                value={cooperative.notes}
+                onChange={(event) => setCooperative({ ...cooperative, notes: event.target.value })}
+                placeholder="Monto aproximado, plazo deseado o información de la cooperativa..."
+              />
+            </Field>
+          </div>
+          <ModalActions
+            onCancel={() => setModal(null)}
+            onConfirm={() =>
+              confirmOrder(
+                "cooperative",
+                `Solicitud de financiamiento. Entidad preferida: ${cooperative.entity || "por definir"}. Horario de llamada: ${cooperative.contactTime || "por confirmar"}. Comentario: ${cooperative.notes || "sin comentario"}`
+              )
+            }
+            label="Solicitar financiamiento"
+          />
+        </PaymentModal>
+      )}
+
+      {modal === "payment-link" && (
+        <PaymentModal title="Link de pago" eyebrow="Enlace demo" icon={<Link2 />} onClose={() => setModal(null)}>
+          <div className="payment-link-card">
+            <Link2 />
+            <div>
+              <strong>Genera un enlace de pago simulado</strong>
+              <p>Este flujo imita un link de pago tipo Visalink para enviarlo al cliente por WhatsApp, correo o llamada. Ningún cobro será procesado.</p>
+            </div>
+          </div>
+          <div className="form-grid modal-form-grid">
+            <Field label="Nombre para identificar el link">
+              <input
+                value={paymentLink.name}
+                onChange={(event) => setPaymentLink({ ...paymentLink, name: event.target.value })}
+                placeholder="Ej. Pedido finca Los Pinos"
+              />
+            </Field>
+            <Field label="Canal para enviarlo">
+              <select value={paymentLink.channel} onChange={(event) => setPaymentLink({ ...paymentLink, channel: event.target.value })}>
+                <option>WhatsApp</option>
+                <option>Correo electrónico</option>
+                <option>Llamada con asesor</option>
+              </select>
+            </Field>
+          </div>
+          <div className="payment-link-preview">
+            <small>Vista previa del enlace</small>
+            <strong>{paymentLink.generatedUrl || buildDemoPaymentLink("GB-DEMO")}</strong>
+          </div>
+          <div className="modal-actions">
+            <button type="button" className="secondary-dark-button" onClick={() => setModal(null)}>Cancelar</button>
+            <button
+              type="button"
+              className="secondary-dark-button"
+              onClick={() => {
+                const url = buildDemoPaymentLink(`GB-${new Date().getFullYear()}-${Math.floor(10000 + Math.random() * 90000)}`);
+                setPaymentLink({ ...paymentLink, generatedUrl: url });
+                void navigator.clipboard?.writeText(url);
+                toast.success("Link demo copiado");
+              }}
+            >
+              <Link2 size={17} /> Generar y copiar
+            </button>
+            <button
+              type="button"
+              className="primary-button"
+              onClick={() =>
+                confirmOrder(
+                  "payment-link",
+                  `Link de pago demo generado. Canal: ${paymentLink.channel}. Referencia: ${paymentLink.name || "sin nombre"}. URL: ${
+                    paymentLink.generatedUrl || buildDemoPaymentLink("GB-DEMO")
+                  }`
+                )
+              }
+            >
+              Simular pago por link
+            </button>
+          </div>
+        </PaymentModal>
+      )}
+    </section>
+  );
+}
+
+function CheckoutSummary({ lines, totals }: { lines: CartLine[]; totals: CartTotals }) {
+  return (
+    <aside className="summary-panel checkout-summary">
+      <span className="eyebrow">Tu pedido</span>
+      <h2>Resumen</h2>
+      <div className="checkout-products">
+        {lines.map((line) => (
+          <div key={line.product.id}>
+            <span>
+              <b>{line.quantity}</b>
+              {line.product.name}
+              <small>{line.product.sku}</small>
+            </span>
+            <strong>{formatMaybeMoney(line.product.price === null ? null : line.product.price * line.quantity)}</strong>
+          </div>
+        ))}
+      </div>
+      <div className="summary-lines">
+        <span>
+          Subtotal <strong>{formatMaybeMoney(totals.subtotal)}</strong>
+        </span>
+        <span>
+          Entrega demo <strong>{formatMaybeMoney(totals.shipping, "Pendiente de definir")}</strong>
+        </span>
+        <span className="summary-total">
+          Total <strong>{formatMaybeMoney(totals.total, "Pendiente de confirmar")}</strong>
+        </span>
+      </div>
+      <p className="warranty-note">
+        <ShieldCheck size={16} /> Precios, existencias, entrega y pago son demostrativos.
+      </p>
+    </aside>
+  );
+}
+
+function PaymentModal({
+  title,
+  eyebrow,
+  icon,
+  onClose,
+  children
+}: {
+  title: string;
+  eyebrow: string;
+  icon: React.ReactNode;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
+  if (!mounted) return null;
+
+  return createPortal(
+    <motion.div
+      className="payment-modal-backdrop"
+      role="presentation"
+      onMouseDown={onClose}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.34, ease: "easeOut" }}
+    >
+      <motion.section
+        className="payment-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="payment-modal-title"
+        onMouseDown={(event) => event.stopPropagation()}
+        initial={{ opacity: 0, y: 26, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.48, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="payment-modal-heading">
+          <div className="payment-modal-icon">{icon}</div>
+          <div>
+            <span className="eyebrow">{eyebrow}</span>
+            <h2 id="payment-modal-title">{title}</h2>
+          </div>
+          <button className="icon-button" onClick={onClose} aria-label="Cerrar modal"><X /></button>
+        </div>
+        {children}
+      </motion.section>
+    </motion.div>,
+    document.body
+  );
+}
+
+function ModalActions({ onCancel, onConfirm, label }: { onCancel: () => void; onConfirm: () => void; label: string }) {
+  return (
+    <div className="modal-actions">
+      <button type="button" className="secondary-dark-button" onClick={onCancel}>Cancelar</button>
+      <button type="button" className="primary-button" onClick={onConfirm}>{label}</button>
+    </div>
+  );
+}
+
+function DeliveryDateSelector({
+  date,
+  timeWindow,
+  onDateChange,
+  onTimeWindowChange
+}: {
+  date: string;
+  timeWindow: string;
+  onDateChange: (date: string) => void;
+  onTimeWindowChange: (timeWindow: string) => void;
+}) {
+  return (
+    <motion.div
+      className="delivery-date-panel"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div className="delivery-date-heading">
+        <span><CalendarDays size={18} /> Fecha tentativa de entrega</span>
+        <small>Se confirmará por llamada antes de enviar.</small>
+      </div>
+      <div className="delivery-calendar-row">
+        <label className="delivery-date-custom delivery-date-custom-full">
+          <span><PencilLine size={15} /> Seleccionar fecha</span>
+          <span className="delivery-date-input-shell">
+            <strong>{formatShortDate(date)}</strong>
+            <CalendarDays size={16} />
+            <input type="date" min={getDefaultDeliveryDate()} value={date} onChange={(event) => onDateChange(event.target.value)} />
+          </span>
+        </label>
+        <div className="delivery-readable-date">
+          <small>Fecha seleccionada</small>
+          <strong>{formatReadableDate(date)}</strong>
+        </div>
+      </div>
+      <div className="time-window-options" aria-label="Franja horaria tentativa">
+        {deliveryTimeWindows.map((option) => (
+          <button key={option} type="button" className={timeWindow === option ? "selected" : ""} onClick={() => onTimeWindowChange(option)}>
+            {option}
+          </button>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function Field({
+  label,
+  error,
+  wide = false,
+  children
+}: {
+  label: string;
+  error?: string;
+  wide?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className={wide ? "field-wide" : ""}>
+      {label}
+      {children}
+      {error && (
+        <span className="field-error" role="alert">
+          {error}
+        </span>
+      )}
+    </label>
+  );
+}
+
+function buildWhatsappMessage({
+  number,
+  data,
+  linesText,
+  totals,
+  method,
+  details
+}: {
+  number: string;
+  data: CheckoutFields;
+  linesText: string;
+  totals: CartTotals;
+  method: PaymentMethod;
+  details: string;
+}) {
+  return `Hola GreenBel, quiero confirmar el pedido ${number}.\n\n${linesText}\n\nSubtotal: ${formatMaybeMoney(totals.subtotal)}\nEntrega demo: ${formatMaybeMoney(totals.shipping)}\nTotal: ${formatMaybeMoney(totals.total)}\n\nCliente: ${data.firstName} ${data.lastName}\nTel: ${data.phone}\nEntrega: ${data.address}, ${data.municipality}, ${data.department}\nMétodo: ${paymentLabel(method)}\nDetalle: ${details}\n\nTengo el PDF del pedido generado para adjuntarlo en esta conversación.`;
+}
+
+function paymentLabel(method: PaymentMethod) {
+  const labels: Record<PaymentMethod, string> = {
+    card: "Tarjeta",
+    whatsapp: "WhatsApp",
+    "cash-on-delivery": "Contra entrega",
+    cooperative: "Cooperativa",
+    "payment-link": "Link de pago"
+  };
+  return labels[method];
+}
+
+function buildDemoPaymentLink(reference: string) {
+  return `https://pay.greenbel.gt/visalink/${reference.toLowerCase()}`;
+}
+
+function getPdfCheckoutData(data: CheckoutFields): CheckoutFields {
+  return {
+    firstName: data.firstName || "Cliente",
+    lastName: data.lastName || "por confirmar",
+    email: data.email || "correo-pendiente@greenbel.gt",
+    phone: data.phone || "43426033",
+    nit: data.nit || "",
+    address: data.address || "Direccion pendiente por confirmar",
+    department: data.department || "Guatemala",
+    municipality: data.municipality || "Municipio pendiente",
+    reference: data.reference || "Referencia pendiente",
+    notes: data.notes || ""
+  };
+}
+
+function createOrderPdfUrl({
+  number,
+  data,
+  lines,
+  totals,
+  method,
+  details
+}: {
+  number: string;
+  data: CheckoutFields;
+  lines: CartLine[];
+  totals: CartTotals;
+  method: PaymentMethod;
+  details: string;
+}) {
+  return buildOrderPdf({ number, data, lines, totals, method, details });
+}
+
+function downloadUrl(url: string, filename: string) {
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
+
+function openExternalUrl(url: string) {
+  const link = document.createElement("a");
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noreferrer";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
+
+function formatCardInput(value: string) {
+  return value
+    .replace(/\D/g, "")
+    .slice(0, 19)
+    .replace(/(.{4})/g, "$1 ")
+    .trim();
+}
+
+function formatExpiryInput(value: string) {
+  const digits = value.replace(/\D/g, "").slice(0, 4);
+  if (digits.length <= 2) return digits;
+  return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+}
+
+function validateDemoCard(card: DemoCardInput) {
+  const errors: Record<string, string> = {};
+  const digits = card.number.replace(/\D/g, "");
+  if (!/^\d{13,19}$/.test(digits) || !passesLuhn(digits)) errors.number = "Número de tarjeta inválido";
+  if (card.holder.trim().split(/\s+/).length < 2) errors.holder = "Ingresa nombre y apellido";
+  if (!isValidExpiry(card.expiry)) errors.expiry = "Vencimiento inválido o expirado";
+  if (!/^\d{3,4}$/.test(card.cvv)) errors.cvv = "CVV inválido";
+  return { valid: Object.keys(errors).length === 0, errors };
+}
+
+function passesLuhn(value: string) {
+  let sum = 0;
+  let shouldDouble = false;
+  for (let index = value.length - 1; index >= 0; index -= 1) {
+    let digit = Number(value[index]);
+    if (shouldDouble) {
+      digit *= 2;
+      if (digit > 9) digit -= 9;
+    }
+    sum += digit;
+    shouldDouble = !shouldDouble;
+  }
+  return sum % 10 === 0;
+}
+
+function isValidExpiry(value: string) {
+  const match = value.match(/^(\d{2})\/(\d{2})$/);
+  if (!match) return false;
+  const month = Number(match[1]);
+  const year = 2000 + Number(match[2]);
+  if (month < 1 || month > 12) return false;
+  const expiryDate = new Date(year, month, 0, 23, 59, 59);
+  return expiryDate >= new Date();
+}
+
+function detectCardBrand(digits: string) {
+  if (/^4/.test(digits)) return "Visa demo";
+  if (/^(5[1-5]|2[2-7])/.test(digits)) return "Mastercard demo";
+  if (/^3[47]/.test(digits)) return "Amex demo";
+  return "Tarjeta demo";
+}
+
+function getDefaultDeliveryDate() {
+  const date = new Date();
+  date.setDate(date.getDate() + 1);
+  return formatDateInputValue(date);
+}
+
+function formatDateInputValue(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function formatReadableDate(value: string) {
+  if (!value) return "fecha pendiente";
+  const [year, month, day] = value.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+  return date.toLocaleDateString("es-GT", { weekday: "long", day: "2-digit", month: "long", year: "numeric" });
+}
+
+function formatShortDate(value: string) {
+  if (!value) return "Seleccionar";
+  const [year, month, day] = value.split("-");
+  return `${day}/${month}/${year}`;
+}
+
+async function buildOrderPdf({
+  number,
+  data,
+  lines,
+  totals,
+  method,
+  details
+}: {
+  number: string;
+  data: CheckoutFields;
+  lines: CartLine[];
+  totals: CartTotals;
+  method: PaymentMethod;
+  details: string;
+}) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ format: "a4", unit: "pt" });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const margin = 42;
+  const logo = await loadPdfImage("/images/logo-white.svg");
+
+  const drawHeader = () => {
+    doc.setFillColor(12, 47, 28);
+    doc.rect(0, 0, pageWidth, 104, "F");
+    doc.setFillColor(136, 214, 0);
+    doc.rect(0, 99, pageWidth, 5, "F");
+    if (logo) {
+      doc.addImage(logo.dataUrl, logo.format, margin, 24, 118, 42);
+    } else {
+      doc.setTextColor(136, 214, 0);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(24);
+      doc.text("GreenBel", margin, 52);
+    }
+    doc.setTextColor(246, 248, 239);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text("PEDIDO DEMOSTRATIVO", pageWidth - margin, 34, { align: "right" });
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text(number, pageWidth - margin, 52, { align: "right" });
+    doc.text(new Date().toLocaleDateString("es-GT"), pageWidth - margin, 68, { align: "right" });
+  };
+
+  const drawFooter = () => {
+    doc.setFillColor(239, 244, 229);
+    doc.roundedRect(margin, pageHeight - 76, pageWidth - margin * 2, 38, 8, 8, "F");
+    doc.setTextColor(28, 58, 35);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8.5);
+    doc.text("GreenBel confirmará disponibilidad, entrega y pago por llamada antes de enviar el pedido.", margin + 14, pageHeight - 53);
+    doc.text("Este documento no representa factura ni cobro real.", margin + 14, pageHeight - 40);
+  };
+
+  const ensureSpace = (y: number, required = 110) => {
+    if (y + required <= pageHeight - 100) return y;
+    drawFooter();
+    doc.addPage();
+    drawHeader();
+    return 132;
+  };
+
+  drawHeader();
+
+  doc.setTextColor(12, 47, 28);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(24);
+  doc.text("Resumen del pedido", margin, 145);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(92, 103, 93);
+  doc.text("Catálogo técnico seleccionado para revisión comercial.", margin, 164);
+
+  drawInfoCard(doc, margin, 188, 244, "Cliente", [
+    `${data.firstName} ${data.lastName}`,
+    data.phone,
+    data.email,
+    data.nit ? `NIT: ${data.nit}` : "NIT: CF"
+  ]);
+  drawInfoCard(doc, pageWidth - margin - 244, 188, 244, "Entrega", [
+    `${data.municipality}, ${data.department}`,
+    data.address,
+    `Referencia: ${data.reference}`
+  ]);
+
+  doc.setTextColor(12, 47, 28);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(15);
+  doc.text("Productos seleccionados", margin, 292);
+
+  let y = 312;
+  for (const cartLine of lines) {
+    y = ensureSpace(y, 112);
+    const productImage = await loadPdfImage(cartLine.product.image);
+    doc.setDrawColor(222, 226, 216);
+    doc.setFillColor(255, 255, 251);
+    doc.roundedRect(margin, y, pageWidth - margin * 2, 92, 10, 10, "FD");
+    doc.setFillColor(239, 244, 229);
+    doc.roundedRect(margin + 12, y + 12, 70, 68, 8, 8, "F");
+    if (productImage) {
+      doc.addImage(productImage.dataUrl, productImage.format, margin + 17, y + 17, 60, 58);
+    }
+    doc.setTextColor(12, 47, 28);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text(doc.splitTextToSize(cartLine.product.name, 250), margin + 96, y + 25);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(92, 103, 93);
+    doc.setFontSize(8.5);
+    doc.text(`${cartLine.product.brand} | SKU ${cartLine.product.sku}`, margin + 96, y + 48);
+    doc.text(`Cantidad: ${cartLine.quantity}  |  Unitario: ${formatMaybeMoney(cartLine.product.price)}`, margin + 96, y + 66);
+    doc.setTextColor(12, 47, 28);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.text(formatMaybeMoney(cartLine.product.price === null ? null : cartLine.product.price * cartLine.quantity), pageWidth - margin - 16, y + 50, { align: "right" });
+    y += 104;
+  }
+
+  y = ensureSpace(y, 174);
+  drawInfoCard(doc, margin, y, 270, `Método: ${paymentLabel(method)}`, [
+    ...doc.splitTextToSize(details || "Pendiente de confirmación", 230),
+    data.notes ? `Notas: ${data.notes}` : "Notas: sin observaciones"
+  ]);
+
+  doc.setDrawColor(222, 226, 216);
+  doc.setFillColor(239, 244, 229);
+  doc.roundedRect(pageWidth - margin - 218, y, 218, 126, 10, 10, "FD");
+  doc.setTextColor(12, 47, 28);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.text("Totales", pageWidth - margin - 196, y + 27);
+  drawTotalLine(doc, "Subtotal", totals.subtotal, pageWidth - margin - 196, y + 52, 174);
+  drawTotalLine(doc, "Entrega demo", totals.shipping, pageWidth - margin - 196, y + 75, 174);
+  doc.setDrawColor(196, 205, 190);
+  doc.line(pageWidth - margin - 196, y + 90, pageWidth - margin - 22, y + 90);
+  drawTotalLine(doc, "Total", totals.total, pageWidth - margin - 196, y + 111, 174, true);
+
+  drawFooter();
+  return URL.createObjectURL(doc.output("blob"));
+}
+
+function drawInfoCard(doc: JsPdfDocument, x: number, y: number, width: number, title: string, rows: string[]) {
+  doc.setDrawColor(222, 226, 216);
+  doc.setFillColor(255, 255, 251);
+  doc.roundedRect(x, y, width, 78, 10, 10, "FD");
+  doc.setTextColor(12, 47, 28);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.text(title, x + 14, y + 21);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(92, 103, 93);
+  doc.setFontSize(8.5);
+  rows.slice(0, 4).forEach((row, index) => {
+    doc.text(doc.splitTextToSize(row, width - 28), x + 14, y + 38 + index * 12);
+  });
+}
+
+function drawTotalLine(doc: JsPdfDocument, label: string, value: number | null, x: number, y: number, width: number, strong = false) {
+  doc.setTextColor(12, 47, 28);
+  doc.setFont("helvetica", strong ? "bold" : "normal");
+  doc.setFontSize(strong ? 12 : 9);
+  doc.text(label, x, y);
+  doc.text(formatMaybeMoney(value), x + width, y, { align: "right" });
+}
+
+function formatMaybeMoney(value: number | null, pending = "Pendiente") {
+  return value === null ? pending : formatCurrency(value);
+}
+
+async function loadPdfImage(src: string) {
+  try {
+    const response = await fetch(src);
+    if (!response.ok) return null;
+    const blob = await response.blob();
+    if (blob.type.includes("svg") || src.endsWith(".svg")) {
+      const svgDataUrl = await blobToDataUrl(blob);
+      return { dataUrl: await svgToPngDataUrl(svgDataUrl, 360, 128), format: "PNG" };
+    }
+    const dataUrl = await blobToDataUrl(blob);
+    const format = blob.type.includes("png") || dataUrl.includes("image/png") ? "PNG" : "JPEG";
+    return { dataUrl, format };
+  } catch {
+    return null;
+  }
+}
+
+function blobToDataUrl(blob: Blob) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(blob);
+  });
+}
+
+function svgToPngDataUrl(src: string, width: number, height: number) {
+  return new Promise<string>((resolve, reject) => {
+    const image = new window.Image();
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext("2d");
+      if (!context) {
+        reject(new Error("No se pudo preparar el logo para PDF"));
+        return;
+      }
+      context.clearRect(0, 0, width, height);
+      context.drawImage(image, 0, 0, width, height);
+      resolve(canvas.toDataURL("image/png"));
+    };
+    image.onerror = () => reject(new Error("No se pudo cargar el logo para PDF"));
+    image.src = src;
+  });
+}

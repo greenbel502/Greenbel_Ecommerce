@@ -1,0 +1,70 @@
+.page {
+  display: grid;
+  width: min(1080px, calc(100% - 40px));
+  grid-template-columns: minmax(0, 1fr) minmax(0, 450px);
+  align-items: center;
+  gap: clamp(30px, 7vw, 100px);
+  margin: 0 auto;
+  padding: clamp(70px, 10vw, 140px) 0;
+}
+
+.intro h1 {
+  max-width: 610px;
+  margin: 14px 0 20px;
+  color: var(--green-950);
+  font-size: clamp(2.7rem, 5vw, 4.8rem);
+  line-height: 1.03;
+}
+
+.intro p {
+  max-width: 520px;
+  margin: 0 0 25px;
+  color: var(--neutral-700);
+  line-height: 1.7;
+}
+
+.card {
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  margin: 0 0 22px;
+  color: var(--green-950);
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.form { display: grid; gap: 17px; }
+.form label { display: grid; gap: 8px; color: var(--green-950); font-size: .8rem; font-weight: 750; }
+.form input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid #cdd4cc;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--neutral-950);
+  font-size: .9rem;
+}
+.form input:focus { outline: 3px solid rgba(136, 214, 0, .3); border-color: var(--green-800); }
+.form button { width: 100%; margin-top: 4px; }
+.links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 22px; }
+.links a { color: var(--green-800); font-size: .8rem; font-weight: 750; text-decoration: underline; text-underline-offset: 3px; }
+.feedback { margin: 0; padding: 12px 14px; border-radius: var(--radius); font-size: .78rem; line-height: 1.55; }
+.error { border: 1px solid #e9b2ac; background: #fff3f1; color: #822820; }
+.notice { border: 1px solid #bdd8b7; background: #eef8e9; color: var(--green-800); }
+.accountDetail { display: grid; gap: 5px; padding: 18px; border: 1px solid var(--neutral-200); border-radius: var(--radius); background: var(--cream-50); }
+.accountDetail small { color: var(--neutral-700); }
+.accountDetail strong { overflow-wrap: anywhere; color: var(--green-950); }
+.accountActions { display: grid; gap: 12px; margin-top: 22px; }
+.accountActions button { width: 100%; }
+
+@media (max-width: 760px) {
+  .page { grid-template-columns: 1fr; gap: 34px; padding: 58px 0 80px; }
+  .intro h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
+}

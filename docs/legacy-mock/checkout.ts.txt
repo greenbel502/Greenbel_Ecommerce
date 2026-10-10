@@ -1,0 +1,7 @@
+export type PaymentMethod = "card" | "whatsapp" | "cash-on-delivery" | "cooperative" | "payment-link";
+
+export type CheckoutSimulation = {
+  method: PaymentMethod;
+  label: string;
+  message: string;
+};

@@ -1,0 +1,33 @@
+import type { CheckoutSimulation, PaymentMethod } from "@/domain/entities/checkout";
+
+export function simulateCheckout(method: PaymentMethod): CheckoutSimulation {
+  const simulations: Record<PaymentMethod, CheckoutSimulation> = {
+    card: {
+      method,
+      label: "Tarjeta",
+      message: "Pago aprobado en modo demo. No se realizó ningún cargo real."
+    },
+    whatsapp: {
+      method,
+      label: "WhatsApp",
+      message: "Pedido preparado para enviarse por WhatsApp con resumen y datos del cliente."
+    },
+    "cash-on-delivery": {
+      method,
+      label: "Contra entrega",
+      message: "Pedido agendado para pago contra entrega con envío simulado por Forza."
+    },
+    cooperative: {
+      method,
+      label: "Cooperativa",
+      message: "Solicitud de financiamiento preparada para revisión con cooperativa en modo demo."
+    },
+    "payment-link": {
+      method,
+      label: "Link de pago",
+      message: "Link de pago generado en modo demo. No se procesó ningún cobro real."
+    }
+  };
+
+  return simulations[method];
+}

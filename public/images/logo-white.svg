@@ -1,0 +1,7 @@
+<svg width="360" height="128" viewBox="0 0 360 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="360" height="128" rx="18" fill="none"/>
+  <path d="M69 28C47.8 28 31 44.8 31 66C31 87.2 47.8 104 69 104H92.6C98.5 104 103.3 99.2 103.3 93.3V69.8C103.3 46.7 92.1 28 69 28Z" fill="#88D600"/>
+  <path d="M50.8 61.4C62.1 50.9 81.6 50.7 94 62.8C83.7 61.6 72.2 64.1 64.5 70.8C76.8 68.7 91.7 72.4 100.9 82.9V94.8C86.3 78.2 65.9 75.2 45.7 80.7C44.5 73.1 46.1 65.8 50.8 61.4Z" fill="#0C2F1C"/>
+  <path d="M96 99.7C88.2 94.4 80.3 90.2 70.1 88.1C78.2 87.6 88.8 90.4 99.3 96.7C98.9 98.2 97.7 99.3 96 99.7Z" fill="#88D600"/>
+  <text x="128" y="80" fill="#FFFFFF" font-family="Manrope, Inter, Arial, sans-serif" font-size="44" font-weight="850" letter-spacing="0">GreenBel</text>
+</svg>

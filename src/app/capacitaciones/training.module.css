@@ -1,0 +1,67 @@
+.intro {
+  max-width: 720px;
+  margin: 18px 0 30px;
+  color: #536455;
+  line-height: 1.65;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+  gap: 22px;
+  margin-top: 32px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 245px;
+  padding: 27px;
+  border: 1px solid #dfe9d8;
+  border-radius: 24px;
+  background: #f7faf1;
+}
+
+.card h2,
+.card h3 {
+  margin: 18px 0 8px;
+  color: #0c2f1c;
+  font-size: 1.25rem;
+}
+
+.card p {
+  margin: 0 0 24px;
+  color: #536455;
+  line-height: 1.55;
+}
+
+.card a,
+.external a,
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #0c2f1c;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.card a { margin-top: auto; }
+.icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 15px; background: #e6f3cf; color: #0c2f1c; }
+.cover { display: block; width: 100%; height: 170px; margin-bottom: 4px; border-radius: 15px; object-fit: cover; background: #e6f3cf; }
+.detailCover { display: block; width: min(100%, 980px); max-height: 420px; margin-top: 26px; border-radius: 20px; object-fit: cover; background: #e6f3cf; }
+.back { margin-bottom: 26px; }
+.video { display: block; width: min(100%, 980px); max-height: 620px; margin-top: 28px; border-radius: 20px; background: #0c2f1c; }
+.external { display: grid; justify-items: center; gap: 14px; width: min(100%, 980px); min-height: 310px; margin-top: 28px; padding: 45px 25px; border-radius: 20px; background: #0c2f1c; color: white; text-align: center; }
+.external p { margin: 0; }
+.external a { color: #b9ef5c; }
+.related { margin-top: 66px; padding-top: 36px; border-top: 1px solid #dfe9d8; }
+.related h2 { margin: 0 0 8px; color: #0c2f1c; font-size: clamp(1.8rem, 3vw, 2.4rem); }
+.related > p { margin: 0; color: #536455; line-height: 1.6; }
+.relatedGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px; margin-top: 24px; }
+.relatedCard { display: flex; flex-direction: column; align-items: flex-start; padding: 22px; border: 1px solid #dfe9d8; border-radius: 15px; background: #f7faf1; }
+.relatedCard small { color: #536455; font-weight: 700; }
+.relatedCard h3 { margin: 10px 0 8px; color: #0c2f1c; font-size: 1.1rem; }
+.relatedCard p { margin: 0 0 18px; color: #536455; line-height: 1.55; }
+.relatedCard a { margin-top: auto; color: #0c2f1c; font-weight: 800; text-decoration: underline; }

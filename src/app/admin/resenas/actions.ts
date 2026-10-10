@@ -1,0 +1,60 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
+import { requireStaffActor } from "@/lib/server/staff-authorization";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+
+export type ReviewModerationState = Readonly<{ status: "idle" | "success" | "error"; message: string }>;
+
+const moderationSchema = z.discriminatedUnion("decision", [
+  z.object({ id: z.uuid(), decision: z.literal("visible"), reason: z.literal("") }),
+  z.object({
+    id: z.uuid(),
+    decision: z.literal("hidden"),
+    reason: z.enum(["spam", "personal_data", "offensive_content"])
+  })
+]);
+
+function field(formData: FormData, name: string) {
+  const value = formData.get(name);
+  return typeof value === "string" ? value.trim() : "";
+}
+
+export async function moderateReviewAction(
+  _previous: ReviewModerationState,
+  formData: FormData
+): Promise<ReviewModerationState> {
+  const parsed = moderationSchema.safeParse({
+    id: field(formData, "id"),
+    decision: field(formData, "decision"),
+    reason: field(formData, "reason")
+  });
+  if (!parsed.success) {
+    return { status: "error", message: "Elige publicar o un motivo de ocultación permitido." };
+  }
+
+  try {
+    const actor = await requireStaffActor(["admin"]);
+    const { id, decision, reason } = parsed.data;
+    const { data, error } = await createSupabaseAdminClient().from("reviews")
+      .update({
+        moderation_status: decision,
+        moderation_reason: decision === "hidden" ? reason : null,
+        moderated_by: actor.userId,
+        moderated_at: new Date().toISOString()
+      })
+      .eq("id", id)
+      .eq("moderation_status", "pending")
+      .select("id,moderation_status,moderated_by")
+      .maybeSingle();
+    if (error || !data || data.moderated_by !== actor.userId || data.moderation_status !== decision) {
+      return { status: "error", message: "No se moderó la reseña. Es posible que ya haya sido atendida; actualiza la vista." };
+    }
+    revalidatePath("/admin/resenas");
+    revalidatePath("/productos/[slug]", "page");
+    return { status: "success", message: decision === "visible" ? "Reseña publicada." : "Reseña ocultada con el motivo registrado." };
+  } catch {
+    return { status: "error", message: "No se pudo verificar el permiso o moderar la reseña." };
+  }
+}
