@@ -14,12 +14,16 @@ import { ProductImageGallery } from "@/presentation/components/product-image-gal
 import { ProductReviewForm } from "@/presentation/components/product-review-form";
 import { AnimatedTitle, Reveal } from "@/presentation/components/motion-primitives";
 import trainingStyles from "@/app/capacitaciones/training.module.css";
+import { readPublicData } from "@/lib/server/public-data-result";
+import { PageStatus } from "@/presentation/components/page-status";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const product = await getProductBySlug(slug);
+  const result = await readPublicData(() => getProductBySlug(slug));
+  if (result.status === "unavailable") return { title: "Producto temporalmente no disponible", robots: { index: false } };
+  const product = result.data;
   return product
     ? { title: product.name, description: product.shortDescription }
     : { title: "Producto no encontrado" };
@@ -27,10 +31,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = await getProductBySlug(slug);
+  const result = await readPublicData(() => getProductBySlug(slug));
+  if (result.status === "unavailable") return <PageStatus kind="unavailable" />;
+  const product = result.data;
   if (!product) notFound();
 
-  const allProducts = await getProducts();
+  const relatedResult = await readPublicData(() => getProducts());
+  if (relatedResult.status === "unavailable") return <PageStatus kind="unavailable" />;
+  const allProducts = relatedResult.data;
   const related = allProducts.filter((item) => item.category === product.category)
     .filter((item) => item.id !== product.id)
     .slice(0, 3);

@@ -5,12 +5,16 @@ import { ArrowLeft, ExternalLink, GraduationCap } from "lucide-react";
 import { getPublicTrainingBySlug, getTrainingRelatedProducts } from "@/application/use-cases/getTrainings";
 import { AnimatedTitle, Reveal } from "@/presentation/components/motion-primitives";
 import styles from "../training.module.css";
+import { readPublicData } from "@/lib/server/public-data-result";
+import { PageStatus } from "@/presentation/components/page-status";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const training = await getPublicTrainingBySlug(slug);
+  const result = await readPublicData(() => getPublicTrainingBySlug(slug));
+  if (result.status === "unavailable") return { title: "Capacitación temporalmente no disponible", robots: { index: false } };
+  const training = result.data;
   return training
     ? { title: training.title, description: training.description ?? "Capacitación pública GreenBel." }
     : { title: "Capacitación no encontrada" };
@@ -18,9 +22,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function TrainingDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const training = await getPublicTrainingBySlug(slug);
+  const result = await readPublicData(() => getPublicTrainingBySlug(slug));
+  if (result.status === "unavailable") return <PageStatus kind="unavailable" />;
+  const training = result.data;
   if (!training) notFound();
-  const relatedProducts = await getTrainingRelatedProducts(training.id);
+  const relatedResult = await readPublicData(() => getTrainingRelatedProducts(training.id));
+  if (relatedResult.status === "unavailable") return <PageStatus kind="unavailable" />;
+  const relatedProducts = relatedResult.data;
   const pathname = new URL(training.videoUrl).pathname.toLowerCase();
   const directlyPlayable = /\.(?:mp4|webm|ogg)$/.test(pathname);
 

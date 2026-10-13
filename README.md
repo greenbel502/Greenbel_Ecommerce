@@ -1,19 +1,28 @@
 # GreenBel Ecommerce
 
-Aplicación Next.js 15 y TypeScript construida sobre el mockup GreenBel. La interfaz conserva su identidad visual. Las migraciones 001–020 están aplicadas en Supabase **DEV**; el estado funcional comprobado de cada recorrido está en [GREENBEL_AVANCE.md](GREENBEL_AVANCE.md).
+Aplicación Next.js 15 y TypeScript construida sobre el mockup GreenBel. La interfaz conserva su identidad visual. Las migraciones 001–021 están aplicadas en Supabase **DEV**; el estado funcional comprobado de cada recorrido está en [GREENBEL_AVANCE.md](GREENBEL_AVANCE.md).
 
 ## Arranque local
 
 ```bash
+cd /Users/diederichsolis/Desktop/Greenbel_Ecommerce
 npm ci
 npm run dev
 ```
+
+Esta es la copia comprobada en `localhost:3000` el 13/10/2026. Para verificar el 404 en el servidor que realmente está abierto, ejecuta `node scripts/qa-live-not-found.mjs`: comprueba la URL reportada `/financiamientosds` y otras dos rutas inexistentes. No usa Supabase ni credenciales.
 
 Abre `http://localhost:3000`. Define `APP_ENV=DEV` en tu archivo `.env` ignorado por Git. Si `DEV_SUPABASE_URL` y `DEV_SUPABASE_PUBLISHABLE_KEY` están configuradas, el catálogo usa Supabase DEV por defecto. `GREENBEL_CATALOG_SOURCE=mock` fuerza fichas y precios **ficticios** para trabajo aislado; esa vista no necesita credenciales de Resend ni de la CLI. Consulta [GREENBEL_VARIABLES_DE_ENTORNO.md](GREENBEL_VARIABLES_DE_ENTORNO.md) para los nombres del `.env` compartido; no copies sus valores al repositorio.
 
 Para conectar Auth y Supabase DEV, se usan `DEV_SUPABASE_URL`, `DEV_SUPABASE_PUBLISHABLE_KEY` y `DEV_APP_URL`. Las operaciones privadas de servidor (cotizaciones, formularios persistidos y panel) requieren además `DEV_SUPABASE_SECRET_KEY`, exigida al usarlas. `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD` y `SUPABASE_DEV_PROJECT_REF` pertenecen a herramientas administrativas y no son requisitos del runtime web. Ninguna variable PROD se usa como respaldo de DEV.
 
 Para disponer de una cuenta de administración sin publicar contraseñas, sigue el [procedimiento de primer administrador DEV](docs/dev-admin-access.md). La [guía de prueba manual](docs/dev-manual-test.md) indica rutas y recorridos. Separa esa provisión manual del registro público de Supabase Auth, que sigue pendiente de SMTP para una prueba con confirmación real.
+
+El login incluye **Continuar con Google** y una nueva vista adaptable. Usa el puerto que indique Next: los callbacks DEV de `localhost:3000` y `localhost:3001` están permitidos. [Cómo probar Google, permisos y marca pendiente](docs/dev-google-auth.md). El primer acceso recibe `customer`; el consentimiento/regreso real y la marca en Google se registran por separado de las verificaciones locales.
+
+`/cuenta` permite guardar nombre, teléfono, dirección preferida y una foto privada, con foto Google/iniciales como alternativa. Checkout permite copiar los datos guardados a campos vacíos. [Cómo probar el perfil](docs/dev-customer-profile.md) y [registro de 021 para futura promoción](docs/migrations/021-customer-profile.md). El merge de código no aplica automáticamente el SQL en Supabase; PROD no se modificó.
+
+El navbar autenticado muestra foto/iniciales, nombre y correo, con menú de cuenta, pedidos y cierre de sesión. En móvil la identidad completa aparece dentro del menú; los cambios de perfil actualizan la barra sin recargar. La consulta es privada y los enlaces administrativos siguen el rol de la base.
 
 `GREENBEL_CATALOG_SOURCE=supabase` también habilita explícitamente la lectura pública con RLS. Si la consulta falla, la aplicación no sustituye silenciosamente los datos por el mockup. En PROD se exige Supabase. Los productos de prueba existentes en DEV están marcados como ficticios; no representan el catálogo comercial.
 

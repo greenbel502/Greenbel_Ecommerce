@@ -1,9 +1,11 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { z } from "zod";
 import { getActiveEnvironment } from "@/lib/server/environment";
 import { createSupabaseActionClient } from "@/lib/supabase/server";
+import { customerAuthDestination, googleCallbackUrl } from "@/lib/supabase/auth-navigation";
 
 export type AuthActionState = {
   status: "idle" | "error" | "notice";
@@ -22,10 +24,34 @@ function error(message: string): AuthActionState {
   return { status: "error", message };
 }
 
+export async function signInWithGoogleAction(_previous: AuthActionState, formData: FormData): Promise<AuthActionState> {
+  let authorizationUrl: string;
+  try {
+    const environment = getActiveEnvironment();
+    const requestHeaders = await headers();
+    const redirectTo = googleCallbackUrl(environment.appUrl, environment.appEnvironment,
+      requestHeaders.get("origin"), field(formData, "returnTo"));
+    const supabase = await createSupabaseActionClient();
+    const { data, error: authError } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo, skipBrowserRedirect: true }
+    });
+    if (authError || !data.url) return error("No se pudo conectar con Google. Inténtalo de nuevo.");
+    const target = new URL(data.url);
+    if (target.origin !== new URL(environment.supabase.url).origin || target.pathname !== "/auth/v1/authorize") {
+      return error("No se pudo iniciar el acceso con Google de forma segura.");
+    }
+    authorizationUrl = target.toString();
+  } catch {
+    return error("El acceso con Google no está disponible en este momento. Inténtalo más tarde.");
+  }
+  redirect(authorizationUrl);
+}
+
 export async function signInAction(_previous: AuthActionState, formData: FormData): Promise<AuthActionState> {
   const email = field(formData, "email").trim();
   const password = field(formData, "password");
-  const returnTo = field(formData, "returnTo") === "/checkout" ? "/checkout" : "/cuenta";
+  const returnTo = customerAuthDestination(field(formData, "returnTo"));
   if (!emailSchema.safeParse(email).success || !password) {
     return error("Ingresa un correo válido y tu contraseña.");
   }
@@ -125,5 +151,15 @@ export async function signOutAction(): Promise<void> {
   const supabase = await createSupabaseActionClient();
   const { error: authError } = await supabase.auth.signOut({ scope: "local" });
   if (authError) throw new Error("No se pudo cerrar la sesión.");
+  redirect("/cuenta/ingresar");
+}
+
+/** The navbar keeps a truthful error state if Auth cannot close the session. */
+export async function signOutMenuAction(): Promise<AuthActionState> {
+  try {
+    const supabase = await createSupabaseActionClient();
+    const { error: authError } = await supabase.auth.signOut({ scope: "local" });
+    if (authError) return error("No pudimos cerrar tu sesión. Inténtalo de nuevo.");
+  } catch { return error("El cierre de sesión no está disponible en este momento."); }
   redirect("/cuenta/ingresar");
 }

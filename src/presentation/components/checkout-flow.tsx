@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ShoppingBag } from "lucide-react";
+import type { CustomerPurchaseProfile } from "@/domain/account/profile";
 import { checkoutReviewRequestSchema, type CheckoutReviewRequest } from "@/domain/checkout/review-request";
 import { useCart } from "@/presentation/providers/cart-provider";
 import { AnimatedTitle } from "./motion-primitives";
@@ -14,7 +15,7 @@ type Rate = { service_id: string; zone_id: string; pricing_mode: "fixed" | "manu
   shipping_fee: string | number | null; shipping_charge_mode: "with_order" | "at_destination" | "customer_choice" };
 type Payment = { id: string; service_id: string; method: "online_gateway" | "cash" | "terminal" | "carrier_cod";
   timing: "prepaid" | "on_delivery" | "on_pickup" };
-type Options = { environment: "DEV" | "PROD"; services: Service[]; zones: Zone[];
+type Options = { environment: "DEV" | "PROD"; profile?: CustomerPurchaseProfile; services: Service[]; zones: Zone[];
   rates: Rate[]; paymentOptions: Payment[] };
 type Review = { reviewId: string; revision: number; stage: "draft" | "pending_shipping";
   merchandiseTotal: string; shippingFee: string | null; total: string | null;
@@ -156,6 +157,8 @@ export function CheckoutFlow() {
   const rate = options?.rates.find((item) => item.service_id === serviceId && item.zone_id === zoneId);
   const payments = options?.paymentOptions.filter((item) => item.service_id === serviceId) ?? [];
   const cartReady = restoreStatus === "ready" && !storageError;
+  const savedProfile = options?.profile;
+  const hasSavedProfile = savedProfile && [savedProfile.displayName, savedProfile.phone, savedProfile.addressLine].some(value => typeof value === "string" && value.length > 0);
   const unsupported = lines.some(({ product }) => product.price === null || product.isMockPrice
     || product.availability !== "available" || !/^[0-9a-f-]{36}$/i.test(product.id));
 
@@ -181,6 +184,19 @@ export function CheckoutFlow() {
     const selected = options?.rates.find((item) => item.service_id === serviceId && item.zone_id === id);
     setChargeMode(selected?.shipping_charge_mode === "customer_choice" ? "" : selected?.shipping_charge_mode ?? "");
     reviewKey.current = null; reviewKeySignature.current = null; confirmationKey.current = null; setMessage(null);
+  }
+
+  function copySavedProfile() {
+    if (!savedProfile || reviewId || resuming) return;
+    // Explicitly fill empty fields only. Never infer CF surname or NIT holder,
+    // and never replace a previously saved review or an historical order snapshot.
+    setPhone(value => value || savedProfile.phone);
+    setFullName(value => value || savedProfile.displayName);
+    setEmail(value => value || savedProfile.email);
+    setRecipientName(value => value || savedProfile.displayName);
+    setRecipientPhone(value => value || savedProfile.phone);
+    setAddressLine(value => value || savedProfile.addressLine);
+    setMessage("Completamos los campos vacíos con tus datos guardados. Revisa nombre y apellido para CF, o los datos de tu NIT, y confirma el destino de entrega.");
   }
 
   async function requestReview(event: React.FormEvent<HTMLFormElement>) {
@@ -278,6 +294,7 @@ export function CheckoutFlow() {
       {loadState === "ready" && !resuming && <form className="checkout-form" onSubmit={requestReview}>
         <section className="form-section" aria-labelledby="billing-title"><div className="form-section-heading"><span>1</span><div>
           <h2 id="billing-title">Datos de facturación</h2><p>GreenBel emite la factura por su proceso interno. Los precios ya incluyen IVA.</p></div></div>
+          {hasSavedProfile && !reviewId && <div className="checkout-saved-profile"><div><strong>Tus datos guardados</strong><p>{savedProfile.displayName || "Completa tu compra más rápido"}. Puedes copiar tu teléfono y datos de entrega a los campos vacíos.</p></div><button type="button" className="secondary-dark-button" onClick={copySavedProfile}>Usar mis datos guardados</button></div>}
           <fieldset className="checkout-billing-choice"><legend>Tipo de factura</legend>
             <label><input type="radio" name="billing" checked={billingKind === "cf"} onChange={() => setBillingKind("cf")} /> Consumidor final (CF)</label>
             <label><input type="radio" name="billing" checked={billingKind === "nit"} onChange={() => setBillingKind("nit")} /> Con NIT</label>

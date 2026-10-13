@@ -12,6 +12,10 @@ Esta guía usa únicamente el proyecto Supabase **DEV**. Los artículos, zonas, 
 
 Sigue [Acceso administrativo en Supabase DEV](dev-admin-access.md) para crear el **primer** administrador sin publicar su contraseña. Entra por `/cuenta/ingresar` y abre `/admin/catalogo`. Las demás rutas de trabajo son `/admin/inventario`, `/admin/capacitaciones`, `/admin/consultas`, `/admin/cotizaciones`, `/admin/financiamiento`, `/admin/ventas`, `/admin/entregas`, `/admin/resenas` y `/admin/usuarios`. No hay una página `/admin` genérica.
 
+También puedes crear tu cuenta mediante **Continuar con Google** en ingreso o registro. El alta recibe `customer`; Google no concede administrador. [Guía de Google DEV, pruebas y marca pendiente](dev-google-auth.md). El flujo permite `localhost:3000` y `localhost:3001`; sigue el puerto mostrado al iniciar Next.
+
+En `/cuenta` puedes editar nombre/teléfono/dirección y cargar una foto privada. [Prueba del perfil y reutilización en compras](dev-customer-profile.md). La migración 021 y su [registro de futura promoción](migrations/021-customer-profile.md) están conservados en el proyecto; solo se aplicó a DEV.
+
 Para probar como comprador mientras Auth no tiene SMTP propio, crea manualmente otra cuenta de prueba en **Authentication → Users** del mismo proyecto DEV y confírmala administrativamente solo para esta prueba. Guarda la contraseña en tu gestor. Este mecanismo no valida el registro público, la confirmación enviada por correo ni la recuperación: esos recorridos siguen **NO EJECUTADOS** hasta configurar SMTP de Auth con dominio/Resend. Conserva habilitada la confirmación de correo.
 
 ## Recorrido recomendado

@@ -22,7 +22,7 @@ export async function GET() {
     if (!auth.user) return json({ error: "Inicia sesión para revisar la compra." }, 401);
 
     const { data: profile, error: profileError } = await client.from("profiles")
-      .select("active").eq("id", auth.user.id).maybeSingle();
+      .select("active,display_name,phone,address_line").eq("id", auth.user.id).maybeSingle();
     if (profileError) return json({ error: "No pudimos verificar tu cuenta." }, 503);
     if (profile?.active !== true) return json({ error: "Esta cuenta no puede comprar." }, 403);
 
@@ -40,6 +40,7 @@ export async function GET() {
     }
     return json({
       environment: getActiveEnvironment().appEnvironment,
+      profile: { displayName: profile.display_name ?? "", phone: profile.phone ?? "", addressLine: profile.address_line ?? "", email: auth.user.email ?? "" },
       services: services.data ?? [],
       zones: zones.data ?? [],
       rates: rates.data ?? [],

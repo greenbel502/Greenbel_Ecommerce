@@ -1,6 +1,7 @@
 import type { Product } from "@/domain/entities/product";
 import type { ProductFilters } from "@/domain/repositories/productRepository";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
+import { PublicDataUnavailableError } from "@/lib/server/public-data-result";
 import type { SupabaseProductDataSource } from "./supabaseProductRepository";
 
 type CatalogRow = {
@@ -51,14 +52,14 @@ export const supabaseCatalogDataSource: SupabaseProductDataSource = {
   async listProducts(filters) {
     const client = createSupabasePublicClient();
     const { data, error } = await client.from("catalog_products").select("*").order("created_at", { ascending: false });
-    if (error) throw new Error("El catálogo público no está disponible.");
+    if (error) throw new PublicDataUnavailableError("El catálogo público no está disponible.");
     return filterProducts(await hydrateProducts(client, (data ?? []) as CatalogRow[]), filters);
   },
 
   async findProductBySlug(slug) {
     const client = createSupabasePublicClient();
     const { data, error } = await client.from("catalog_products").select("*").eq("slug", slug).maybeSingle();
-    if (error) throw new Error("La ficha del producto no está disponible.");
+    if (error) throw new PublicDataUnavailableError("La ficha del producto no está disponible.");
     if (!data) return null;
     return (await hydrateProducts(client, [data as CatalogRow]))[0] ?? null;
   }
@@ -73,7 +74,7 @@ async function hydrateProducts(client: ReturnType<typeof createSupabasePublicCli
     client.from("product_images").select("id,product_id,alt_text,is_primary,sort_order").in("product_id", ids).order("sort_order"),
     client.from("product_availability").select("product_id,verified,available").in("product_id", ids)
   ]);
-  if (specResult.error || inclusionResult.error || imageResult.error || availabilityResult.error) throw new Error("Los detalles del catálogo no están disponibles.");
+  if (specResult.error || inclusionResult.error || imageResult.error || availabilityResult.error) throw new PublicDataUnavailableError("Los detalles del catálogo no están disponibles.");
   const specs = (specResult.data ?? []) as SpecRow[];
   const inclusions = (inclusionResult.data ?? []) as InclusionRow[];
   const images = (imageResult.data ?? []) as ImageRow[];

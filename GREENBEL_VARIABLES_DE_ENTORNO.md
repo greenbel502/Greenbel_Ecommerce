@@ -117,3 +117,11 @@ El paquete documental describía un `.env.example` con los nombres del archivo c
 ## Selector opcional del catálogo durante la transición DEV
 
 `GREENBEL_CATALOG_SOURCE` es una variable **nueva y opcional**, ajena al `.env` original. En DEV, si `DEV_SUPABASE_URL` y `DEV_SUPABASE_PUBLISHABLE_KEY` están configuradas, la ausencia de esta variable usa Supabase por defecto. `mock` conserva los datos ficticios claramente identificados para trabajo aislado; `supabase` fuerza la lectura del catálogo publicado con RLS. Un error de consulta se muestra como error y no cambia silenciosamente a fixtures. En PROD se usa Supabase y `mock` se rechaza. No hace falta definir esta variable para iniciar funciones independientes en DEV.
+
+## Google OAuth autorizado · 13/10/2026
+
+Google complementa Auth correo/contraseña. Las credenciales del proveedor se configuran en **Supabase DEV → Authentication → Providers → Google**; no se añaden al frontend ni se requiere un client secret Google en el `.env` de Next. Se usan las mismas variables DEV de Supabase y `DEV_APP_URL`.
+
+El retorno de Next es `/auth/callback`. En Supabase DEV se añadieron y releyeron los retornos exactos `http://localhost:3000/auth/callback` y `http://localhost:3001/auth/callback`, también sus variantes con `?next=%2Fcheckout`. El servidor conserva el puerto de origen local; otros puertos/hosts requieren una configuración DEV explícita antes de probarlos. El callback configurado para el cliente OAuth de **Google Cloud** es el endpoint `/auth/v1/callback` del proyecto Supabase, distinto del retorno Next.
+
+La confirmación por correo de Supabase continúa habilitada. Google no activa los tres correos de negocio y no requiere Resend. [Sesiones, permisos, pruebas y nombre GreenBel en consentimiento](docs/dev-google-auth.md).

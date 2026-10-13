@@ -4,12 +4,16 @@ import { ChevronRight } from "lucide-react";
 import { getProducts } from "@/application/use-cases/getProducts";
 import { ProductCatalog } from "@/presentation/components/product-catalog";
 import { AnimatedTitle, Reveal } from "@/presentation/components/motion-primitives";
+import { readPublicData } from "@/lib/server/public-data-result";
+import { PageStatus } from "@/presentation/components/page-status";
 
 export const metadata: Metadata = { title: "Productos", description: "Catálogo de equipos de aspersión, bombeo, repuestos e implementos GreenBel." };
 export const dynamic = "force-dynamic";
 
 export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ categoria?: string; busqueda?: string }> }) {
-  const products = await getProducts();
+  const result = await readPublicData(() => getProducts());
+  if (result.status === "unavailable") return <PageStatus kind="unavailable" />;
+  const products = result.data;
   const hasMockProducts = products.some((product) => product.isMockPrice);
   const query = await searchParams;
   const categoryMap = { aspersion: "Equipos de aspersión", bombeo: "Equipos de bombeo", repuestos: "Repuestos", implementos: "Implementos" } as const;

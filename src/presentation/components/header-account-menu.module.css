@@ -1,0 +1,28 @@
+.root { position: relative; flex-shrink: 0; }
+.trigger { display: flex; align-items: center; gap: 10px; min-height: 54px; max-width: 270px; padding: 5px 7px; border: 1px solid transparent; border-radius: 12px; background: transparent; text-align: left; color: var(--green-950); }
+.trigger:hover, .trigger[aria-expanded="true"] { background: #fff; border-color: #e0e7d8; }
+.identity { display: grid; gap: 1px; min-width: 0; }
+.identity strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .84rem; font-weight: 750; }
+.identity small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #6a7665; font-size: .7rem; line-height: 1.6; }
+.chevron, .chevronOpen { flex-shrink: 0; color: #768370; transition: transform .16s ease; }
+.chevronOpen { transform: rotate(180deg); }
+.dropdown { position: absolute; z-index: 60; top: calc(100% + 12px); right: 0; width: min(300px, calc(100vw - 32px)); padding: 8px; border: 1px solid #dfe7d8; border-radius: 14px; background: #fff; color: var(--green-950); box-shadow: 0 14px 45px #13351f24; }
+.summary { display: grid; gap: 4px; padding: 12px 12px 16px; margin-bottom: 5px; border-bottom: 1px solid #edf0e8; overflow-wrap: anywhere; }
+.summary strong { font-size: .85rem; font-weight: 700; }
+.summary span { color: #6a7665; font-size: .74rem; line-height: 1.6; }
+.dropdown nav { display: grid; }
+.dropdown nav a, .logout button { display: flex; align-items: center; gap: 11px; width: 100%; min-height: 44px; padding: 11px 12px; border: 0; border-radius: 8px; background: transparent; font-size: .78rem; font-weight: 600; text-align: left; }
+.dropdown nav a:hover, .logout button:hover { background: #f2f6ed; }
+.dropdown svg { flex-shrink: 0; color: #637a56; }
+.logout { padding-top: 6px; margin-top: 5px; border-top: 1px solid #edf0e8; }
+.logout button { color: #746d61; }
+.error { margin: 6px 4px 4px; padding: 10px; color: #87352c; background: #fff1ee; border-radius: 7px; font-size: .73rem; line-height: 1.5; }
+@media (min-width: 901px) and (max-width: 1250px) { .identity { max-width: 145px; } .trigger { gap: 8px; max-width: 225px; } }
+@media (min-width: 901px) and (max-width: 1080px) { .identity { max-width: 112px; } .identity strong { font-size: .77rem; } .identity small { font-size: .63rem; } }
+@media (max-width: 600px) {
+  .trigger { min-height: 40px; max-width: 42px; padding: 0; }
+  .trigger > span:first-child { width: 38px !important; height: 38px !important; }
+  .identity, .chevron, .chevronOpen { display: none; }
+  .dropdown { position: fixed; top: 73px; right: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .chevron, .chevronOpen { transition: none; } }

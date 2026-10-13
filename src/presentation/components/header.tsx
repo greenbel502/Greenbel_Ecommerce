@@ -8,6 +8,7 @@ import { ChevronRight, GraduationCap, HandCoins, Home, Menu, MessageCircle, Sear
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { BrandLogo } from "./brand-logo";
+import { HeaderAccountMenu } from "./header-account-menu";
 import { useCart } from "@/presentation/providers/cart-provider";
 
 const GlobalSearch = dynamic(
@@ -75,8 +76,8 @@ export function Header() {
         </div>
         <div className="nav-actions">
           <button className="icon-button" aria-label="Buscar productos" title="Buscar" onClick={() => setSearchOpen(true)}><Search size={19} /></button>
-          <Link href="/cuenta" className="icon-button account-button" aria-label="Ir a mi cuenta o ingresar" title="Mi cuenta" aria-current={pathname === "/cuenta" ? "page" : undefined}><UserRound size={19} /></Link>
           <Link href="/carrito" className="icon-button cart-button" aria-label={`Ir al carrito, ${itemCount} productos`} title="Carrito"><ShoppingBag size={19} />{itemCount > 0 && <span>{itemCount}</span>}</Link>
+          <HeaderAccountMenu onOpen={() => { setMobileOpen(false); setSearchOpen(false); }} />
           <button className={mobileOpen ? "icon-button mobile-menu active" : "icon-button mobile-menu"} aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"} aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => setMobileOpen((value) => !value)}>
             <motion.span animate={{ rotate: mobileOpen ? 90 : 0 }} transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}>
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}

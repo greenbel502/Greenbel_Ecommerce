@@ -8,11 +8,15 @@ import { TestimonialCard } from "@/presentation/components/testimonial-card";
 import { BrandsCarousel } from "@/presentation/components/brands-carousel";
 import { mockTestimonials } from "@/infrastructure/mock/testimonials";
 import { resolveAppEnvironment } from "@/lib/server/environment-policy";
+import { readPublicData } from "@/lib/server/public-data-result";
+import { PageStatus } from "@/presentation/components/page-status";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const featuredProducts = await getFeaturedProducts();
+  const result = await readPublicData(getFeaturedProducts);
+  if (result.status === "unavailable") return <PageStatus kind="unavailable" />;
+  const featuredProducts = result.data;
   const hasMockProducts = featuredProducts.some((product) => product.isMockPrice);
   const showMockEditorial = resolveAppEnvironment(process.env) === "DEV";
   return <>

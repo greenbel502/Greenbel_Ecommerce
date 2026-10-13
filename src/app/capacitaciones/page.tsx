@@ -4,6 +4,8 @@ import { ArrowRight, GraduationCap } from "lucide-react";
 import { getPublicTrainings } from "@/application/use-cases/getTrainings";
 import { AnimatedTitle, Reveal } from "@/presentation/components/motion-primitives";
 import styles from "./training.module.css";
+import { readPublicData } from "@/lib/server/public-data-result";
+import { PageStatus } from "@/presentation/components/page-status";
 
 export const metadata: Metadata = {
   title: "Capacitaciones",
@@ -13,7 +15,9 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function TrainingPage() {
-  const trainings = await getPublicTrainings();
+  const result = await readPublicData(getPublicTrainings);
+  if (result.status === "unavailable") return <PageStatus kind="unavailable" />;
+  const trainings = result.data;
   if (trainings.length > 0) {
     return (
       <section className="section" aria-labelledby="training-title">
