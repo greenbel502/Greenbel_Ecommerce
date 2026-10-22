@@ -1,0 +1,21 @@
+{
+  "snapshot_date": "2026-10-22",
+  "phase": "After ordinary cleanup; before approved protected-history purge",
+  "current": false,
+  "superseded_by": "final-dev-counts.json",
+  "brands": 12,
+  "orders": 35,
+  "contacts": 0,
+  "products": 140,
+  "profiles": 48,
+  "trainings": 0,
+  "auth_users": 48,
+  "categories": 32,
+  "audit_events": 66,
+  "migration023": 1,
+  "admin_preserved": 1,
+  "kind_constraint": "CHECK ((kind = ANY (ARRAY['equipment'::text, 'part'::text, 'accessory'::text, 'agricultural'::text])))",
+  "public_fixtures": 0,
+  "public_products": 115,
+  "fixture_products_archived": 24
+}

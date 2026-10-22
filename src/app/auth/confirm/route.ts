@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
       : await supabase.auth.verifyOtp({ token_hash: tokenHash!, type: type as "email" | "recovery" });
     if (!result.error && result.data.session && result.data.user) {
       const recovery = type === "recovery" || (code && request.nextUrl.searchParams.get("flow") === "recovery");
-      response.headers.set("Location", recovery ? "/cuenta/restablecer"
+      response.headers.set("Location", recovery ? "/cuenta#seguridad"
         : request.nextUrl.searchParams.get("next") === "/checkout" ? "/checkout" : "/cuenta");
     }
   } catch {

@@ -9,7 +9,7 @@ type CatalogRow = {
   sku: string;
   slug: string;
   name: string;
-  kind: "equipment" | "part" | "accessory";
+  kind: "equipment" | "part" | "accessory" | "agricultural";
   model: string | null;
   category_name: string;
   brand_name: string | null;

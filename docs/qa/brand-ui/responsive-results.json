@@ -1,0 +1,1576 @@
+{
+  "method": "Read-only browser DOM measurements. Width is innerWidth, not the viewport tool setting.",
+  "results": [
+    {
+      "heading": "Potencia y respaldopara cada trabajo en el campo.",
+      "overflowControls": [],
+      "path": "/",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 1
+    },
+    {
+      "heading": "Equipos para trabajarcon confianza.",
+      "overflowControls": [],
+      "path": "/productos",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 2
+    },
+    {
+      "heading": "PRUEBA DEV carrera checkout cfd4c4ca TERMS",
+      "overflowControls": [],
+      "path": "/productos/prueba-dev-carrera-checkout-cfd4c4ca-terms",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 3
+    },
+    {
+      "heading": "Carrito de compras",
+      "overflowControls": [],
+      "path": "/carrito",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 4
+    },
+    {
+      "heading": "Revisar compra",
+      "overflowControls": [],
+      "path": "/checkout",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 5
+    },
+    {
+      "heading": "Capacitaciones",
+      "overflowControls": [],
+      "path": "/capacitaciones",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 6
+    },
+    {
+      "heading": "Financiamiento paraimpulsar tu trabajo.",
+      "overflowControls": [],
+      "path": "/financiamiento",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 7
+    },
+    {
+      "heading": "Más que equipos,soluciones para el campo.",
+      "overflowControls": [],
+      "path": "/nosotros",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 8
+    },
+    {
+      "heading": "Prepara tu consultasobre equipos y repuestos.",
+      "overflowControls": [],
+      "path": "/contacto",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 9
+    },
+    {
+      "heading": "Equipa tu campo.Compra más fácil.",
+      "overflowControls": [],
+      "path": "/cuenta/ingresar",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 10
+    },
+    {
+      "heading": "Crea tu cuenta.",
+      "overflowControls": [],
+      "path": "/cuenta/registro",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 11
+    },
+    {
+      "heading": "Recupera tu acceso.",
+      "overflowControls": [],
+      "path": "/cuenta/recuperar",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 12
+    },
+    {
+      "heading": "Cuenta del usuario autenticado",
+      "overflowControls": [],
+      "path": "/cuenta",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 13
+    },
+    {
+      "heading": "Mis pedidos.",
+      "overflowControls": [],
+      "path": "/cuenta/pedidos",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 14
+    },
+    {
+      "heading": "Política de privacidad",
+      "overflowControls": [],
+      "path": "/legal/privacidad",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 15
+    },
+    {
+      "heading": "Términos y condiciones",
+      "overflowControls": [],
+      "path": "/legal/terminos",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 16
+    },
+    {
+      "heading": "Garantías, cambios y devoluciones",
+      "overflowControls": [],
+      "path": "/legal/garantias",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 17
+    },
+    {
+      "heading": "No encontramos esta página",
+      "overflowControls": [],
+      "path": "/pagina-inexistente-ui",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 18
+    },
+    {
+      "heading": "Administración GreenBel",
+      "overflowControls": [],
+      "path": "/admin",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 19
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 390,
+      "tableScroll": [
+        {
+          "client": 336,
+          "scroll": 680
+        }
+      ],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 20
+    },
+    {
+      "heading": "Inventario compartido",
+      "overflowControls": [],
+      "path": "/admin/inventario",
+      "scrollWidth": 390,
+      "tableScroll": [
+        {
+          "client": 333,
+          "scroll": 640
+        },
+        {
+          "client": 333,
+          "scroll": 640
+        }
+      ],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 21
+    },
+    {
+      "heading": "Ventas y posventa",
+      "overflowControls": [],
+      "path": "/admin/ventas",
+      "scrollWidth": 390,
+      "tableScroll": [
+        {
+          "client": 365,
+          "scroll": 927
+        }
+      ],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 22
+    },
+    {
+      "heading": "Envíos externos",
+      "overflowControls": [],
+      "path": "/admin/envios",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 23
+    },
+    {
+      "heading": "Cotizaciones registradas",
+      "overflowControls": [],
+      "path": "/admin/cotizaciones",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 24
+    },
+    {
+      "heading": "Capacitaciones",
+      "overflowControls": [],
+      "path": "/admin/capacitaciones",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 25
+    },
+    {
+      "heading": "Moderar reseñas",
+      "overflowControls": [],
+      "path": "/admin/resenas",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 26
+    },
+    {
+      "heading": "Consultas registradas",
+      "overflowControls": [],
+      "path": "/admin/consultas",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 27
+    },
+    {
+      "heading": "Borradores de financiamiento",
+      "overflowControls": [],
+      "path": "/admin/financiamiento",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 28
+    },
+    {
+      "heading": "Entregas, zonas y medios",
+      "overflowControls": [],
+      "path": "/admin/entregas",
+      "scrollWidth": 390,
+      "tableScroll": [],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 29
+    },
+    {
+      "heading": "Usuarios",
+      "overflowControls": [],
+      "path": "/admin/usuarios",
+      "scrollWidth": 390,
+      "tableScroll": [
+        {
+          "client": 365,
+          "scroll": 952
+        }
+      ],
+      "width": 390,
+      "status": "PASS",
+      "sequence": 30
+    },
+    {
+      "heading": "Potencia y respaldopara cada trabajo en el campo.",
+      "overflowControls": [],
+      "path": "/",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 31
+    },
+    {
+      "heading": "Equipos para trabajarcon confianza.",
+      "overflowControls": [],
+      "path": "/productos",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 32
+    },
+    {
+      "heading": "PRUEBA DEV carrera checkout cfd4c4ca TERMS",
+      "overflowControls": [],
+      "path": "/productos/prueba-dev-carrera-checkout-cfd4c4ca-terms",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 33
+    },
+    {
+      "heading": "Carrito de compras",
+      "overflowControls": [],
+      "path": "/carrito",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 34
+    },
+    {
+      "heading": "Revisar compra",
+      "overflowControls": [],
+      "path": "/checkout",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 35
+    },
+    {
+      "heading": "Capacitaciones",
+      "overflowControls": [],
+      "path": "/capacitaciones",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 36
+    },
+    {
+      "heading": "Financiamiento paraimpulsar tu trabajo.",
+      "overflowControls": [],
+      "path": "/financiamiento",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 37
+    },
+    {
+      "heading": "Más que equipos,soluciones para el campo.",
+      "overflowControls": [],
+      "path": "/nosotros",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 38
+    },
+    {
+      "heading": "Prepara tu consultasobre equipos y repuestos.",
+      "overflowControls": [],
+      "path": "/contacto",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 39
+    },
+    {
+      "heading": "Equipa tu campo.Compra más fácil.",
+      "overflowControls": [],
+      "path": "/cuenta/ingresar",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 40
+    },
+    {
+      "heading": "Crea tu cuenta.",
+      "overflowControls": [],
+      "path": "/cuenta/registro",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 41
+    },
+    {
+      "heading": "Recupera tu acceso.",
+      "overflowControls": [],
+      "path": "/cuenta/recuperar",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 42
+    },
+    {
+      "heading": "Cuenta del usuario autenticado",
+      "overflowControls": [],
+      "path": "/cuenta",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 43
+    },
+    {
+      "heading": "Mis pedidos.",
+      "overflowControls": [],
+      "path": "/cuenta/pedidos",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 44
+    },
+    {
+      "heading": "Política de privacidad",
+      "overflowControls": [],
+      "path": "/legal/privacidad",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 45
+    },
+    {
+      "heading": "Términos y condiciones",
+      "overflowControls": [],
+      "path": "/legal/terminos",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 46
+    },
+    {
+      "heading": "Garantías, cambios y devoluciones",
+      "overflowControls": [],
+      "path": "/legal/garantias",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 47
+    },
+    {
+      "heading": "No encontramos esta página",
+      "overflowControls": [],
+      "path": "/pagina-inexistente-ui",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 48
+    },
+    {
+      "heading": "Administración GreenBel",
+      "overflowControls": [],
+      "path": "/admin",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 49
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 820,
+      "tableScroll": [
+        {
+          "client": 485,
+          "scroll": 680
+        }
+      ],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 50
+    },
+    {
+      "heading": "Inventario compartido",
+      "overflowControls": [],
+      "path": "/admin/inventario",
+      "scrollWidth": 820,
+      "tableScroll": [
+        {
+          "client": 476,
+          "scroll": 640
+        },
+        {
+          "client": 476,
+          "scroll": 640
+        }
+      ],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 51
+    },
+    {
+      "heading": "Ventas y posventa",
+      "overflowControls": [],
+      "path": "/admin/ventas",
+      "scrollWidth": 820,
+      "tableScroll": [
+        {
+          "client": 530,
+          "scroll": 927
+        }
+      ],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 52
+    },
+    {
+      "heading": "Envíos externos",
+      "overflowControls": [],
+      "path": "/admin/envios",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 53
+    },
+    {
+      "heading": "Cotizaciones registradas",
+      "overflowControls": [],
+      "path": "/admin/cotizaciones",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 54
+    },
+    {
+      "heading": "Capacitaciones",
+      "overflowControls": [],
+      "path": "/admin/capacitaciones",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 55
+    },
+    {
+      "heading": "Moderar reseñas",
+      "overflowControls": [],
+      "path": "/admin/resenas",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 56
+    },
+    {
+      "heading": "Consultas registradas",
+      "overflowControls": [],
+      "path": "/admin/consultas",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 57
+    },
+    {
+      "heading": "Borradores de financiamiento",
+      "overflowControls": [],
+      "path": "/admin/financiamiento",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 58
+    },
+    {
+      "heading": "Entregas, zonas y medios",
+      "overflowControls": [],
+      "path": "/admin/entregas",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 59
+    },
+    {
+      "heading": "Usuarios",
+      "overflowControls": [],
+      "path": "/admin/usuarios",
+      "scrollWidth": 820,
+      "tableScroll": [
+        {
+          "client": 530,
+          "scroll": 952
+        }
+      ],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 60
+    },
+    {
+      "heading": "Potencia y respaldopara cada trabajo en el campo.",
+      "overflowControls": [],
+      "path": "/",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 61
+    },
+    {
+      "heading": "Equipos para trabajarcon confianza.",
+      "overflowControls": [],
+      "path": "/productos",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 62
+    },
+    {
+      "heading": "PRUEBA DEV carrera checkout cfd4c4ca TERMS",
+      "overflowControls": [],
+      "path": "/productos/prueba-dev-carrera-checkout-cfd4c4ca-terms",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 63
+    },
+    {
+      "heading": "Carrito de compras",
+      "overflowControls": [],
+      "path": "/carrito",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 64
+    },
+    {
+      "heading": "Revisar compra",
+      "overflowControls": [],
+      "path": "/checkout",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 65
+    },
+    {
+      "heading": "Capacitaciones",
+      "overflowControls": [],
+      "path": "/capacitaciones",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 66
+    },
+    {
+      "heading": "Financiamiento paraimpulsar tu trabajo.",
+      "overflowControls": [],
+      "path": "/financiamiento",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 67
+    },
+    {
+      "heading": "Más que equipos,soluciones para el campo.",
+      "overflowControls": [],
+      "path": "/nosotros",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 68
+    },
+    {
+      "heading": "Prepara tu consultasobre equipos y repuestos.",
+      "overflowControls": [],
+      "path": "/contacto",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 69
+    },
+    {
+      "heading": "Equipa tu campo.Compra más fácil.",
+      "overflowControls": [],
+      "path": "/cuenta/ingresar",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 70
+    },
+    {
+      "heading": "Crea tu cuenta.",
+      "overflowControls": [],
+      "path": "/cuenta/registro",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 71
+    },
+    {
+      "heading": "Recupera tu acceso.",
+      "overflowControls": [],
+      "path": "/cuenta/recuperar",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 72
+    },
+    {
+      "heading": "Cuenta del usuario autenticado",
+      "overflowControls": [],
+      "path": "/cuenta",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 73
+    },
+    {
+      "heading": "Mis pedidos.",
+      "overflowControls": [],
+      "path": "/cuenta/pedidos",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 74
+    },
+    {
+      "heading": "Política de privacidad",
+      "overflowControls": [],
+      "path": "/legal/privacidad",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 75
+    },
+    {
+      "heading": "Términos y condiciones",
+      "overflowControls": [],
+      "path": "/legal/terminos",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 76
+    },
+    {
+      "heading": "Garantías, cambios y devoluciones",
+      "overflowControls": [],
+      "path": "/legal/garantias",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 77
+    },
+    {
+      "heading": "No encontramos esta página",
+      "overflowControls": [],
+      "path": "/pagina-inexistente-ui",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 78
+    },
+    {
+      "heading": "Administración GreenBel",
+      "overflowControls": [],
+      "path": "/admin",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 79
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 1440,
+      "tableScroll": [
+        {
+          "client": 1074,
+          "scroll": 1074
+        }
+      ],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 80
+    },
+    {
+      "heading": "Inventario compartido",
+      "overflowControls": [],
+      "path": "/admin/inventario",
+      "scrollWidth": 1440,
+      "tableScroll": [
+        {
+          "client": 606,
+          "scroll": 640
+        },
+        {
+          "client": 1065,
+          "scroll": 1065
+        }
+      ],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 81
+    },
+    {
+      "heading": "Ventas y posventa",
+      "overflowControls": [],
+      "path": "/admin/ventas",
+      "scrollWidth": 1440,
+      "tableScroll": [
+        {
+          "client": 1119,
+          "scroll": 1119
+        }
+      ],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 82
+    },
+    {
+      "heading": "Envíos externos",
+      "overflowControls": [],
+      "path": "/admin/envios",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 83
+    },
+    {
+      "heading": "Cotizaciones registradas",
+      "overflowControls": [],
+      "path": "/admin/cotizaciones",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 84
+    },
+    {
+      "heading": "Capacitaciones",
+      "overflowControls": [],
+      "path": "/admin/capacitaciones",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 85
+    },
+    {
+      "heading": "Moderar reseñas",
+      "overflowControls": [],
+      "path": "/admin/resenas",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 86
+    },
+    {
+      "heading": "Consultas registradas",
+      "overflowControls": [],
+      "path": "/admin/consultas",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 87
+    },
+    {
+      "heading": "Borradores de financiamiento",
+      "overflowControls": [],
+      "path": "/admin/financiamiento",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 88
+    },
+    {
+      "heading": "Entregas, zonas y medios",
+      "overflowControls": [],
+      "path": "/admin/entregas",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 89
+    },
+    {
+      "heading": "Usuarios",
+      "overflowControls": [],
+      "path": "/admin/usuarios",
+      "scrollWidth": 1440,
+      "tableScroll": [
+        {
+          "client": 1119,
+          "scroll": 1119
+        }
+      ],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 90
+    },
+    {
+      "heading": "Potencia y respaldopara cada trabajo en el campo.",
+      "overflowControls": [],
+      "path": "/",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "status": "PASS",
+      "sequence": 91
+    },
+    {
+      "heading": "Equipos para trabajarcon confianza.",
+      "overflowControls": [],
+      "path": "/productos",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "status": "PASS",
+      "sequence": 92
+    },
+    {
+      "heading": "PRUEBA DEV carrera checkout cfd4c4ca TERMS",
+      "overflowControls": [],
+      "path": "/productos/prueba-dev-carrera-checkout-cfd4c4ca-terms",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "status": "PASS",
+      "sequence": 93
+    },
+    {
+      "heading": "Carrito de compras",
+      "overflowControls": [],
+      "path": "/carrito",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "status": "PASS",
+      "sequence": 94
+    },
+    {
+      "heading": "Revisar compra",
+      "overflowControls": [],
+      "path": "/checkout",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "status": "PASS",
+      "sequence": 95
+    },
+    {
+      "heading": "Equipa tu campo.Compra más fácil.",
+      "overflowControls": [],
+      "path": "/cuenta/ingresar",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "status": "PASS",
+      "sequence": 96
+    },
+    {
+      "heading": "Cuenta del usuario autenticado",
+      "overflowControls": [],
+      "path": "/cuenta",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "status": "PASS",
+      "sequence": 97
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 320,
+      "tableScroll": [
+        {
+          "client": 266,
+          "scroll": 680
+        }
+      ],
+      "width": 320,
+      "status": "PASS",
+      "sequence": 98
+    },
+    {
+      "heading": "Usuarios",
+      "overflowControls": [],
+      "path": "/admin/usuarios",
+      "scrollWidth": 320,
+      "tableScroll": [
+        {
+          "client": 295,
+          "scroll": 952
+        }
+      ],
+      "width": 320,
+      "status": "PASS",
+      "sequence": 99
+    },
+    {
+      "heading": "Entregas, zonas y medios",
+      "overflowControls": [],
+      "path": "/admin/entregas",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "status": "PASS",
+      "sequence": 100
+    },
+    {
+      "heading": "Potencia y respaldopara cada trabajo en el campo.",
+      "overflowControls": [],
+      "path": "/",
+      "scrollWidth": 640,
+      "tableScroll": [],
+      "width": 640,
+      "status": "PASS",
+      "sequence": 101
+    },
+    {
+      "heading": "Equipos para trabajarcon confianza.",
+      "overflowControls": [],
+      "path": "/productos",
+      "scrollWidth": 640,
+      "tableScroll": [],
+      "width": 640,
+      "status": "PASS",
+      "sequence": 102
+    },
+    {
+      "heading": "PRUEBA DEV carrera checkout cfd4c4ca TERMS",
+      "overflowControls": [],
+      "path": "/productos/prueba-dev-carrera-checkout-cfd4c4ca-terms",
+      "scrollWidth": 640,
+      "tableScroll": [],
+      "width": 640,
+      "status": "PASS",
+      "sequence": 103
+    },
+    {
+      "heading": "Carrito de compras",
+      "overflowControls": [],
+      "path": "/carrito",
+      "scrollWidth": 640,
+      "tableScroll": [],
+      "width": 640,
+      "status": "PASS",
+      "sequence": 104
+    },
+    {
+      "heading": "Revisar compra",
+      "overflowControls": [],
+      "path": "/checkout",
+      "scrollWidth": 640,
+      "tableScroll": [],
+      "width": 640,
+      "status": "PASS",
+      "sequence": 105
+    },
+    {
+      "heading": "Equipa tu campo.Compra más fácil.",
+      "overflowControls": [],
+      "path": "/cuenta/ingresar",
+      "scrollWidth": 640,
+      "tableScroll": [],
+      "width": 640,
+      "status": "PASS",
+      "sequence": 106
+    },
+    {
+      "heading": "Cuenta del usuario autenticado",
+      "overflowControls": [],
+      "path": "/cuenta",
+      "scrollWidth": 640,
+      "tableScroll": [],
+      "width": 640,
+      "status": "PASS",
+      "sequence": 107
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 640,
+      "tableScroll": [
+        {
+          "client": 562,
+          "scroll": 680
+        }
+      ],
+      "width": 640,
+      "status": "PASS",
+      "sequence": 108
+    },
+    {
+      "heading": "Usuarios",
+      "overflowControls": [],
+      "path": "/admin/usuarios",
+      "scrollWidth": 640,
+      "tableScroll": [
+        {
+          "client": 607,
+          "scroll": 952
+        }
+      ],
+      "width": 640,
+      "status": "PASS",
+      "sequence": 109
+    },
+    {
+      "heading": "Entregas, zonas y medios",
+      "overflowControls": [],
+      "path": "/admin/entregas",
+      "scrollWidth": 640,
+      "tableScroll": [],
+      "width": 640,
+      "status": "PASS",
+      "sequence": 110
+    },
+    {
+      "heading": "Potencia y respaldopara cada trabajo en el campo.",
+      "overflowControls": [],
+      "path": "/",
+      "scrollWidth": 767,
+      "tableScroll": [],
+      "width": 767,
+      "status": "PASS",
+      "sequence": 111
+    },
+    {
+      "heading": "Equipos para trabajarcon confianza.",
+      "overflowControls": [],
+      "path": "/productos",
+      "scrollWidth": 767,
+      "tableScroll": [],
+      "width": 767,
+      "status": "PASS",
+      "sequence": 112
+    },
+    {
+      "heading": "PRUEBA DEV carrera checkout cfd4c4ca TERMS",
+      "overflowControls": [],
+      "path": "/productos/prueba-dev-carrera-checkout-cfd4c4ca-terms",
+      "scrollWidth": 767,
+      "tableScroll": [],
+      "width": 767,
+      "status": "PASS",
+      "sequence": 113
+    },
+    {
+      "heading": "Carrito de compras",
+      "overflowControls": [],
+      "path": "/carrito",
+      "scrollWidth": 767,
+      "tableScroll": [],
+      "width": 767,
+      "status": "PASS",
+      "sequence": 114
+    },
+    {
+      "heading": "Revisar compra",
+      "overflowControls": [],
+      "path": "/checkout",
+      "scrollWidth": 767,
+      "tableScroll": [],
+      "width": 767,
+      "status": "PASS",
+      "sequence": 115
+    },
+    {
+      "heading": "Equipa tu campo.Compra más fácil.",
+      "overflowControls": [],
+      "path": "/cuenta/ingresar",
+      "scrollWidth": 767,
+      "tableScroll": [],
+      "width": 767,
+      "status": "PASS",
+      "sequence": 116
+    },
+    {
+      "heading": "Cuenta del usuario autenticado",
+      "overflowControls": [],
+      "path": "/cuenta",
+      "scrollWidth": 767,
+      "tableScroll": [],
+      "width": 767,
+      "status": "PASS",
+      "sequence": 117
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 767,
+      "tableScroll": [
+        {
+          "client": 689,
+          "scroll": 689
+        }
+      ],
+      "width": 767,
+      "status": "PASS",
+      "sequence": 118
+    },
+    {
+      "heading": "Usuarios",
+      "overflowControls": [],
+      "path": "/admin/usuarios",
+      "scrollWidth": 767,
+      "tableScroll": [
+        {
+          "client": 734,
+          "scroll": 952
+        }
+      ],
+      "width": 767,
+      "status": "PASS",
+      "sequence": 119
+    },
+    {
+      "heading": "Entregas, zonas y medios",
+      "overflowControls": [],
+      "path": "/admin/entregas",
+      "scrollWidth": 767,
+      "tableScroll": [],
+      "width": 767,
+      "status": "PASS",
+      "sequence": 120
+    },
+    {
+      "heading": "Potencia y respaldopara cada trabajo en el campo.",
+      "overflowControls": [],
+      "path": "/",
+      "scrollWidth": 1024,
+      "tableScroll": [],
+      "width": 1024,
+      "status": "PASS",
+      "sequence": 121
+    },
+    {
+      "heading": "Equipos para trabajarcon confianza.",
+      "overflowControls": [],
+      "path": "/productos",
+      "scrollWidth": 1024,
+      "tableScroll": [],
+      "width": 1024,
+      "status": "PASS",
+      "sequence": 122
+    },
+    {
+      "heading": "PRUEBA DEV carrera checkout cfd4c4ca TERMS",
+      "overflowControls": [],
+      "path": "/productos/prueba-dev-carrera-checkout-cfd4c4ca-terms",
+      "scrollWidth": 1024,
+      "tableScroll": [],
+      "width": 1024,
+      "status": "PASS",
+      "sequence": 123
+    },
+    {
+      "heading": "Carrito de compras",
+      "overflowControls": [],
+      "path": "/carrito",
+      "scrollWidth": 1024,
+      "tableScroll": [],
+      "width": 1024,
+      "status": "PASS",
+      "sequence": 124
+    },
+    {
+      "heading": "Revisar compra",
+      "overflowControls": [],
+      "path": "/checkout",
+      "scrollWidth": 1024,
+      "tableScroll": [],
+      "width": 1024,
+      "status": "PASS",
+      "sequence": 125
+    },
+    {
+      "heading": "Equipa tu campo.Compra más fácil.",
+      "overflowControls": [],
+      "path": "/cuenta/ingresar",
+      "scrollWidth": 1024,
+      "tableScroll": [],
+      "width": 1024,
+      "status": "PASS",
+      "sequence": 126
+    },
+    {
+      "heading": "Cuenta del usuario autenticado",
+      "overflowControls": [],
+      "path": "/cuenta",
+      "scrollWidth": 1024,
+      "tableScroll": [],
+      "width": 1024,
+      "status": "PASS",
+      "sequence": 127
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 1024,
+      "tableScroll": [
+        {
+          "client": 678,
+          "scroll": 680
+        }
+      ],
+      "width": 1024,
+      "status": "PASS",
+      "sequence": 128
+    },
+    {
+      "heading": "Usuarios",
+      "overflowControls": [],
+      "path": "/admin/usuarios",
+      "scrollWidth": 1024,
+      "tableScroll": [
+        {
+          "client": 723,
+          "scroll": 952
+        }
+      ],
+      "width": 1024,
+      "status": "PASS",
+      "sequence": 129
+    },
+    {
+      "heading": "Entregas, zonas y medios",
+      "overflowControls": [],
+      "path": "/admin/entregas",
+      "scrollWidth": 1024,
+      "tableScroll": [],
+      "width": 1024,
+      "status": "PASS",
+      "sequence": 130
+    },
+    {
+      "heading": "GB-f25cb49badd545b5b9080f9f8236fc68",
+      "overflowControls": [
+        "H1:"
+      ],
+      "path": "/admin/ventas/f25cb49b-add5-45b5-b908-0f9f8236fc68",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "status": "FAIL_CORREGIDO",
+      "sequence": 131
+    },
+    {
+      "heading": "GB-f25cb49badd545b5b9080f9f8236fc68",
+      "overflowControls": [],
+      "path": "/admin/ventas/f25cb49b-add5-45b5-b908-0f9f8236fc68",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "status": "PASS",
+      "sequence": 132
+    },
+    {
+      "heading": "GB-f25cb49badd545b5b9080f9f8236fc68",
+      "overflowControls": [],
+      "path": "/admin/ventas/f25cb49b-add5-45b5-b908-0f9f8236fc68",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "status": "PASS",
+      "sequence": 133
+    },
+    {
+      "heading": "GB-f25cb49badd545b5b9080f9f8236fc68",
+      "overflowControls": [],
+      "path": "/admin/ventas/f25cb49b-add5-45b5-b908-0f9f8236fc68",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "recheck": "long-reference-wrap",
+      "status": "PASS",
+      "sequence": 134
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "view": "brands",
+      "status": "PASS",
+      "sequence": 135
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 320,
+      "tableScroll": [],
+      "width": 320,
+      "view": "categories",
+      "status": "PASS",
+      "sequence": 136
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 320,
+      "tableScroll": [
+        {
+          "client": 266,
+          "scroll": 680
+        }
+      ],
+      "width": 320,
+      "view": "offers",
+      "status": "PASS",
+      "sequence": 137
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "view": "brands",
+      "status": "PASS",
+      "sequence": 138
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 820,
+      "tableScroll": [],
+      "width": 820,
+      "view": "categories",
+      "status": "PASS",
+      "sequence": 139
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 820,
+      "tableScroll": [
+        {
+          "client": 485,
+          "scroll": 680
+        }
+      ],
+      "width": 820,
+      "view": "offers",
+      "status": "PASS",
+      "sequence": 140
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "view": "brands",
+      "status": "PASS",
+      "sequence": 141
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 1440,
+      "tableScroll": [],
+      "width": 1440,
+      "view": "categories",
+      "status": "PASS",
+      "sequence": 142
+    },
+    {
+      "heading": "Catálogo GreenBel",
+      "overflowControls": [],
+      "path": "/admin/catalogo",
+      "scrollWidth": 1440,
+      "tableScroll": [
+        {
+          "client": 1074,
+          "scroll": 1074
+        }
+      ],
+      "width": 1440,
+      "view": "offers",
+      "status": "PASS",
+      "sequence": 143
+    }
+  ],
+  "correctedFailure": "Long order reference at 320 px; corrected with CSS overflow-wrap and rechecked successfully.",
+  "excluded": "Native 200% browser zoom; published training detail and customer order detail without available data."
+}

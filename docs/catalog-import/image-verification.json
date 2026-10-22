@@ -1,0 +1,392 @@
+{
+  "mode": "--verify",
+  "time": "2026-10-22T17:23:53.706Z",
+  "verified": 55,
+  "results": [
+    {
+      "sku": "AK-26GX",
+      "image_id": "c8fd445e-3eac-4a9e-8b6b-f02119f5606c",
+      "width": 389,
+      "height": 650,
+      "status": "PASS"
+    },
+    {
+      "sku": "AK-26TB",
+      "image_id": "f5c97663-b4fe-4548-8c5c-ca277e6c71ca",
+      "width": 512,
+      "height": 512,
+      "status": "PASS"
+    },
+    {
+      "sku": "AKM2",
+      "image_id": "c5fe5937-8285-4e9b-8001-18d8e4c9fc58",
+      "width": 1080,
+      "height": 1080,
+      "status": "PASS"
+    },
+    {
+      "sku": "AT26",
+      "image_id": "d1e63cf3-9f92-48b5-886e-0c32f9bada94",
+      "width": 689,
+      "height": 752,
+      "status": "PASS"
+    },
+    {
+      "sku": "AT31",
+      "image_id": "9f27d145-2ff7-49f4-8b98-ccadaaf25c5d",
+      "width": 800,
+      "height": 800,
+      "status": "PASS"
+    },
+    {
+      "sku": "BK501-1.5C",
+      "image_id": "2b8ca822-1b79-4759-8c12-792121066882",
+      "width": 1080,
+      "height": 1080,
+      "status": "PASS"
+    },
+    {
+      "sku": "BK621-1.5C",
+      "image_id": "bd482fa8-a486-4167-8be0-1216dee38cb5",
+      "width": 1080,
+      "height": 1080,
+      "status": "PASS"
+    },
+    {
+      "sku": "BP2510V2",
+      "image_id": "6e8a28c7-3250-4643-8769-462c6be6f511",
+      "width": 800,
+      "height": 800,
+      "status": "PASS"
+    },
+    {
+      "sku": "BP720C",
+      "image_id": "c466733c-ad0b-48c1-88f7-57822753a921",
+      "width": 800,
+      "height": 800,
+      "status": "PASS"
+    },
+    {
+      "sku": "BT5.520",
+      "image_id": "8c4a03a0-276a-467f-84fc-8a4e9109b471",
+      "width": 1000,
+      "height": 1000,
+      "status": "PASS"
+    },
+    {
+      "sku": "BT6.530",
+      "image_id": "7e622d55-5263-419f-8e67-ca512775cfba",
+      "width": 366,
+      "height": 290,
+      "status": "PASS"
+    },
+    {
+      "sku": "DKY43K",
+      "image_id": "df5b612c-a42b-4824-84e0-5cce323a3f1f",
+      "width": 800,
+      "height": 800,
+      "status": "PASS"
+    },
+    {
+      "sku": "DKY52K",
+      "image_id": "d614ee9f-9238-4696-86b0-c860dd64f614",
+      "width": 800,
+      "height": 800,
+      "status": "PASS"
+    },
+    {
+      "sku": "DT43K",
+      "image_id": "40dfd574-551c-4216-834a-6827860dcdc0",
+      "width": 1000,
+      "height": 1000,
+      "status": "PASS"
+    },
+    {
+      "sku": "DT52K",
+      "image_id": "28ec45d1-7914-41c0-8f28-b98146c37058",
+      "width": 800,
+      "height": 800,
+      "status": "PASS"
+    },
+    {
+      "sku": "KAWA",
+      "image_id": "01430cff-4d87-416d-892a-7b33ac1920d3",
+      "width": 800,
+      "height": 800,
+      "status": "PASS"
+    },
+    {
+      "sku": "MAKO25",
+      "image_id": "4ec208d7-578f-497c-878d-d371c45f30c6",
+      "width": 800,
+      "height": 800,
+      "status": "PASS"
+    },
+    {
+      "sku": "MAKO52",
+      "image_id": "e7868393-4282-48ed-88b6-0af3d88355e1",
+      "width": 1500,
+      "height": 1500,
+      "status": "PASS"
+    },
+    {
+      "sku": "MAKO58",
+      "image_id": "a992fa07-d88b-43b2-8dc4-e84a396f398a",
+      "width": 800,
+      "height": 800,
+      "status": "PASS"
+    },
+    {
+      "sku": "MAKO65",
+      "image_id": "ad8066fe-423a-4449-851a-fce781f37f4a",
+      "width": 600,
+      "height": 600,
+      "status": "PASS"
+    },
+    {
+      "sku": "MAKO72",
+      "image_id": "6a6095ef-f282-462b-8e50-37561f2ec509",
+      "width": 600,
+      "height": 600,
+      "status": "PASS"
+    },
+    {
+      "sku": "MDK-56",
+      "image_id": "79097157-2b84-455c-8f10-14da556f450b",
+      "width": 1000,
+      "height": 1000,
+      "status": "PASS"
+    },
+    {
+      "sku": "MKM33",
+      "image_id": "2e6684a4-8419-4cb9-84a8-128cf80f685e",
+      "width": 999,
+      "height": 861,
+      "status": "PASS"
+    },
+    {
+      "sku": "MTKP68",
+      "image_id": "0cfd0b57-73fd-4594-8809-10a5a4cb36ad",
+      "width": 1000,
+      "height": 1000,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1043",
+      "image_id": "69f124d9-0c53-4dd6-8ccd-0a5daf30fd08",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1030",
+      "image_id": "c67d8c8d-f8a4-4f08-8cc2-f402821030ae",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1046",
+      "image_id": "35825843-9785-4d68-8cc9-d65aa50791b4",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1038",
+      "image_id": "d15060a7-92a5-4b20-89b7-7ccd291d3a6c",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1059",
+      "image_id": "fd2cf5df-8491-4a31-8c34-3e1a87f3ed1c",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1047",
+      "image_id": "2f86ace9-4e4b-4c99-8129-7037c56ca6a8",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1039",
+      "image_id": "a55707f0-625d-4167-8559-fce5e202928a",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1065",
+      "image_id": "e3f2a07e-65c2-4021-8db0-b898df0a65c1",
+      "width": 900,
+      "height": 998,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1041",
+      "image_id": "43cac810-1de2-4912-8c53-068cec085806",
+      "width": 900,
+      "height": 998,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1042",
+      "image_id": "929e9050-4bbc-4b2d-8229-d6f3a92e049a",
+      "width": 900,
+      "height": 998,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1055",
+      "image_id": "5fb0e595-d861-4a45-81ed-8073ad4197f3",
+      "width": 900,
+      "height": 998,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1052",
+      "image_id": "a2145acc-59f9-4c3a-852f-4f5dfa5caf76",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1019",
+      "image_id": "82ea43e1-7816-4516-8490-f529796c9660",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1013",
+      "image_id": "a80905a7-2e2d-4e9c-8cc1-206aad60f439",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1005",
+      "image_id": "5475c389-01fa-4a89-880c-7c8e8d29f6cf",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1053",
+      "image_id": "99284153-84d0-4090-8fb5-26f9fe3c2b81",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1011",
+      "image_id": "bd8d3d84-97ca-44ba-87e5-35bf5be49ff0",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1006",
+      "image_id": "a22add54-b4a5-42b5-8854-7819f4826f16",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1050",
+      "image_id": "040653bb-10e3-45e6-82e2-1809e7d372c5",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1034",
+      "image_id": "ad3731a9-dc36-4fb5-814c-12a87e99ccd2",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1022",
+      "image_id": "8decfba4-f301-4ab7-844f-71aeb38588ac",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1018",
+      "image_id": "2084e5f8-b33a-429c-867c-9bb7d8014c50",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1027",
+      "image_id": "05ee1877-dff2-4531-8b15-e7b4e6ba61e4",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1026",
+      "image_id": "87051adc-80fd-44dc-88cc-239695ce3630",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1025",
+      "image_id": "7eb28c3b-a3fe-40b9-89fe-639b4d938aa1",
+      "width": 1024,
+      "height": 1024,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1002",
+      "image_id": "ff2dc4b9-7bff-458d-86bc-f7bacb4c6f87",
+      "width": 1024,
+      "height": 1024,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1023",
+      "image_id": "061c66f1-0a2b-405b-8abc-dcb63073bd34",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1016",
+      "image_id": "2014bed2-0234-47ad-8b23-7b8b1bfce39f",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1004",
+      "image_id": "7d9dedb7-c5f6-4494-8f5d-1adefd093490",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1012",
+      "image_id": "28985381-6fce-4890-88bb-91d9c85b88cd",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    },
+    {
+      "sku": "FUT1008",
+      "image_id": "f027859e-b609-43b2-8837-f8d31f161973",
+      "width": 700,
+      "height": 776,
+      "status": "PASS"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ export default async function SignUpPage({ searchParams }: { searchParams: Promi
     <AuthShell
       eyebrow="Cuenta GreenBel"
       title="Crea tu cuenta."
-      description="Regístrate con correo y contraseña. Supabase Auth puede requerir la confirmación del correo antes de permitir el ingreso."
+      description="Regístrate con tu correo y una contraseña para facilitar tus próximas compras. Confirma tu correo antes de ingresar."
     >
       <SignUpForm returnTo={params.next === "/checkout" ? "/checkout" : undefined} />
     </AuthShell>

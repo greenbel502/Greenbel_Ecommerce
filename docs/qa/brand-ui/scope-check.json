@@ -1,0 +1,31 @@
+{
+  "baselineScope": "Snapshot taken before this UI adaptation, including prior uncommitted work",
+  "protectedFiles": 181,
+  "protectedUnchanged": true,
+  "changedExistingFiles": [
+    "src/app/icon.svg",
+    "src/app/layout.tsx",
+    "src/app/globals.css",
+    "src/presentation/components/product-catalog.tsx",
+    "src/presentation/components/brand-logo.tsx",
+    "src/presentation/components/header-account-menu.module.css",
+    "src/presentation/components/customer-avatar.module.css",
+    "src/app/admin/inbox.module.css",
+    "src/app/admin/admin.css",
+    "src/app/cuenta/auth.module.css",
+    "src/app/cuenta/profile.module.css",
+    "src/app/capacitaciones/training.module.css",
+    "src/app/cuenta/pedidos/orders.module.css",
+    "src/app/admin/ventas/sales.module.css",
+    "src/app/admin/usuarios/page.tsx",
+    "src/app/admin/cotizaciones/quotes-admin.module.css",
+    "src/app/admin/catalogo/catalog.module.css",
+    "src/app/admin/capacitaciones/training-admin.module.css",
+    "src/app/admin/inventario/inventory.module.css",
+    "src/app/admin/resenas/reviews-admin.module.css",
+    "src/app/admin/entregas/delivery-admin.module.css"
+  ],
+  "unexpectedSourceChanges": [],
+  "newFontSha256": "e64bfcaf7d5071a48d3114cccc6ec7338038aaf59d52b76cd513fcd03702b153",
+  "criticalClientUnchanged": true
+}

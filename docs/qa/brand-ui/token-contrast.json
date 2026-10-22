@@ -1,0 +1,43 @@
+[
+  {
+    "foreground": "#1E3A1F",
+    "background": "#80BA01",
+    "ratio": 5.32
+  },
+  {
+    "foreground": "#1E3A1F",
+    "background": "#E7E7CF",
+    "ratio": 9.96
+  },
+  {
+    "foreground": "#3A4813",
+    "background": "#FFFFFF",
+    "ratio": 9.92
+  },
+  {
+    "foreground": "#595959",
+    "background": "#FFFFFF",
+    "ratio": 7.0
+  },
+  {
+    "foreground": "#595959",
+    "background": "#E7E7CF",
+    "ratio": 5.58
+  },
+  {
+    "foreground": "#E7E7CF",
+    "background": "#1E3A1F",
+    "ratio": 9.96
+  },
+  {
+    "foreground": "#9B2F25",
+    "background": "#FFF3F1",
+    "ratio": 6.84
+  },
+  {
+    "foreground": "brand-dark 60% + white 40%",
+    "background": "#FFFFFF",
+    "ratio": 3.72,
+    "purpose": "Control border"
+  }
+]

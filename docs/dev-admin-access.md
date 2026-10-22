@@ -62,3 +62,14 @@ Verifica en el mismo DEV que `user_roles.role = 'admin'` y `profiles.active = tr
 Ejecuta `npm run dev`, abre `/cuenta/ingresar` y entra con la cuenta creada. El catálogo se conecta a Supabase DEV por defecto si están configuradas `DEV_SUPABASE_URL` y `DEV_SUPABASE_PUBLISHABLE_KEY`. Abre `/admin/catalogo`, `/admin/ventas`, `/admin/entregas` y `/admin/usuarios`. Desde `/admin/usuarios`, un administrador activo puede asignar roles posteriores o suspender operaciones; no puede quitarse su propio acceso.
 
 Abre una ventana privada sin sesión para comprobar que las páginas administrativas no revelen datos. Una cuenta `customer` no debe acceder al panel. Las operaciones monetarias usan exclusivamente datos **PRUEBA DEV** hasta que se aprueben valores reales.
+
+## Asignación puntual autorizada · 18/10/2026
+
+Por solicitud explícita del usuario se habilitó como `admin` su cuenta existente en DEV, después de explicar los roles. Ya existía otro administrador: no se ejecutó ni se relajó el bootstrap anterior. Se realizó una asignación administrativa puntual y atómica, con el bloqueo de administración y un evento `dev_admin_grant` que identifica la autorización y su origen externo a una sesión de la aplicación. La lectura posterior confirmó el rol, el perfil activo, la confirmación de correo y la identidad Google conservados, sin cambios en los roles o estados de otras cuentas.
+
+No requiere migración ni nuevas credenciales. Con la sesión habitual, recarga la página y abre perfil → **Panel administrativo**, o entra en `/admin/catalogo`. Para las siguientes asignaciones usa `/admin/usuarios`. La comprobación de persistencia y auditoría se ejecutó en Supabase DEV; la navegación con la sesión personal del usuario queda a su prueba. Los correos de negocio siguen pausados y PROD no se modificó. No se registran aquí identificadores personales ni credenciales.
+
+
+## Entrada actual del panel · 18/10/2026
+
+Con el servidor de `Greenbel_Ecommerce` en el puerto 3000, abre **http://localhost:3000/admin**. El menú del perfil y Mi cuenta enlazan al inicio del panel. Administradores y operadores reciben únicamente los módulos de su rol; cada página/acción valida los permisos en servidor. La tabla de usuarios requiere 022, ya aplicada en DEV. La búsqueda incluye correo sin descargar todas las cuentas. Las asignaciones posteriores se gestionan con confirmación desde Usuarios, conservando el bootstrap anterior exclusivamente para un primer administrador.

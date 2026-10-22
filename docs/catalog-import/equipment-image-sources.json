@@ -1,0 +1,242 @@
+[
+  {
+    "sku": "AK-26GX",
+    "status": "downloaded",
+    "filename": "ak-26gx.png",
+    "source_page": "repository:public/images/products/ak-26gx.png",
+    "image_url": null,
+    "title": "ASPERSOR MOTORIZADO 26CC HONDA GX25",
+    "bytes": 298015,
+    "sha256": "b1691d2075a39446687dba3c190919b8d6db861d705a3aab2cc152a637deae77"
+  },
+  {
+    "sku": "AK-26TB",
+    "status": "downloaded",
+    "filename": "ak-26tb.png",
+    "source_page": "repository:public/images/products/ak-26tb.png",
+    "image_url": null,
+    "title": "ASPERSOR KAWASHIMA MOTOR MITSUBISHI",
+    "bytes": 153876,
+    "sha256": "db2117ff484f9cd849d271489cd654f62b38e9631459185c9ddd5eed0df5a479"
+  },
+  {
+    "sku": "AKM2",
+    "status": "downloaded",
+    "source_page": "https://procam-shop.mx/aspersoras-manuales/aspersora-manual-agricola-akm2-kawashima-15l/",
+    "title": "Aspersora Manual Agrícola AKM2 Kawashima 15L - ProCam",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/AKM2.jpg",
+    "filename": "AKM2.jpg",
+    "bytes": 56128,
+    "sha256": "134f8bf2591c4ddf382f33d033db1e9e33a5913a27e0545a46215da16969f295"
+  },
+  {
+    "sku": "AT26",
+    "status": "downloaded",
+    "source_page": "https://procam-shop.mx/aspersoras-motor-a-gasolina/aspersora-takashi-at26/",
+    "title": "Aspersora Agrícola Takashi AT26 25L - ProCam",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/TAKASHI-AT26-Aspersora-25l-26cc.jpg",
+    "filename": "AT26.jpg",
+    "bytes": 26393,
+    "sha256": "3a202e0f948a0590935c850ac789640c574ce8f9a13dd6f06af7968ef855e4ad"
+  },
+  {
+    "sku": "AT31",
+    "status": "downloaded",
+    "source_page": "https://procam-shop.mx/aspersoras-motor-a-gasolina/aspersora-takashi-at31/",
+    "title": "Aspersora Agrícola Motorizada AT31 Takashi 25L - ProCam",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/Aspersora-Takashi-AT31-1.jpg",
+    "filename": "AT31.jpg",
+    "bytes": 47054,
+    "sha256": "12acb791defa6bc945607464489f1d604b9a9b87bd60f5a3e32fc129dbc8f9fc"
+  },
+  {
+    "sku": "BK501-1.5C",
+    "status": "downloaded",
+    "filename": "BK501-1-5C.jpg",
+    "source_page": "https://procam-shop.mx/agricultura/motobomba-centrifuga-kawashima-bk501-1-5c/",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/BK501-1.5C.jpg",
+    "title": "Motobomba Centrifuga BK501-1.5C Kawashima 1.5&quot; 1.5hp - ProCam",
+    "bytes": 97259,
+    "sha256": "e236ab06eaa620b7263b09ecbacada0ee6d37a85f275ac56c66b35a3c4d11de3"
+  },
+  {
+    "sku": "BK621-1.5C",
+    "status": "downloaded",
+    "filename": "BK621-1-5C.jpg",
+    "source_page": "https://procam-shop.mx/agricultura/motobomba-kawashima-bk621-1-5c/",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/BK621-1.5C-Motobomba-62-cc-2-tiempos-centrifuga-1-1.jpg",
+    "title": "Motobomba Centrífuga BK621-1.5C Kawashima 1-1.5&quot; - ProCam",
+    "bytes": 90844,
+    "sha256": "afa915586724d237b328cf938943314c8d493ea78a8926d880cbb1068ed18aac"
+  },
+  {
+    "sku": "BP2510V2",
+    "status": "downloaded",
+    "source_page": "https://procam-shop.mx/agricultura/motobomba-centrifuga-kawashima-bp2510v2/",
+    "title": "Motobomba Autocebante BP2510V2 Kawashima 1&quot; 26 cc - ProCam",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/BP2510V2-Motobomba-26-cc-2-tiempos-autocebante-1-pulg.jpg",
+    "filename": "BP2510V2.jpg",
+    "bytes": 60418,
+    "sha256": "931e92c17bc8522f8e20ad8c327ab5e3fc0050b6e7c79413b684bff8b66ecb74"
+  },
+  {
+    "sku": "BP720C",
+    "status": "downloaded",
+    "filename": "BP720C.jpg",
+    "source_page": "https://procam-shop.mx/motobombas/motobomba-centrifuga-parazzini-bp720c/",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/Motobomba-BP720C.jpg",
+    "title": "Motobomba Centrifuga Parazzini BP720C - 2&quot; - ProCam",
+    "bytes": 65338,
+    "sha256": "2ee012b0cf8eaded5cf808b571e6d1a5dd6d734a3b37b76262fb48979c649728"
+  },
+  {
+    "sku": "BT5.520",
+    "status": "downloaded",
+    "filename": "BT5-520.jpg",
+    "source_page": "https://procam-shop.mx/agricultura/motobomba-autocebante-bt5-520-takashi-2-5-5-hp/",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/Motobomba-BT5.520.jpg",
+    "title": "Motobomba Autocebante BT5.520 Takashi 2&quot; 5.5 hp - ProCam",
+    "bytes": 81834,
+    "sha256": "5df81368f6cc41efdb2d200b9b9654a8ceb006ff79c058b7a3c3a863ee63fc1d"
+  },
+  {
+    "sku": "BT6.530",
+    "status": "downloaded",
+    "filename": "bt6-530.png",
+    "source_page": "repository:public/images/products/bt6-530.png",
+    "image_url": null,
+    "title": "MOTOBOMBA DE RIEGO TAKASHI 3\" 6.5 HP",
+    "bytes": 131884,
+    "sha256": "df64d247927324dcd5d434321a9ee607bcc56880f1db120943fb4e433f1f4ecf"
+  },
+  {
+    "sku": "DKY43K",
+    "status": "downloaded",
+    "source_page": "https://portal.agrobolder.com/en/shop/dky43k-desbrozador-recto-43-cc-6068",
+    "title": "Desbrozador recto 43 cc; SKU DKY43K",
+    "image_url": "https://portal.agrobolder.com/web/image/product.template/6068/image_1920?unique=71b02f2",
+    "filename": "DKY43K.png",
+    "bytes": 87794,
+    "sha256": "e3cd22ae4d3de186bd04b8594a255973bf1c61fe3efbf1f3f20713413690eb48"
+  },
+  {
+    "sku": "DKY52K",
+    "status": "downloaded",
+    "filename": "DKY52K.png",
+    "source_page": "https://marcasmarvelsa.com/kawashima/",
+    "image_url": "https://marcasmarvelsa.com/wp-content/uploads/2025/12/DKY52K-2.png",
+    "title": "Kawashima · DKY52K",
+    "bytes": 508444,
+    "sha256": "e6b509c9d1f6b83683d3fc0509eeedaa8e6b0c7b0a8c3d4d937ed6814f6dfdb8"
+  },
+  {
+    "sku": "DT43K",
+    "status": "downloaded",
+    "filename": "DT43K.jpg",
+    "source_page": "https://procam-shop.mx/desbrozadoras/desbrozadora-takashi-dt43k/",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/Desbrozadora-DT43K.jpg",
+    "title": "Desbrozadora Takashi DT43K - ProCam",
+    "bytes": 56866,
+    "sha256": "427b13c597d8e4cdcbeeecf20c5a6f5eac40b0fba10e8ae729ef2b1c19b63cd0"
+  },
+  {
+    "sku": "DT52K",
+    "status": "downloaded",
+    "source_page": "https://procam-shop.mx/desbrozadoras/desbrozadora-takashi-dt52k/",
+    "title": "Desbrozadora Takashi DT52K 52cc - ProCam",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/Desbrozador-recto-DT52K.jpg",
+    "filename": "DT52K.jpg",
+    "bytes": 61309,
+    "sha256": "010b98e88e1a3b61e96f60e0a7b22fe1bccaf5d38837c126b15e7f2de6aea451"
+  },
+  {
+    "sku": "KAWA",
+    "status": "downloaded",
+    "filename": "kawa.png",
+    "source_page": "repository:public/images/products/kawa.png",
+    "image_url": null,
+    "title": "ASPERSOR MANUAL 15L KAWASHIMA",
+    "bytes": 270500,
+    "sha256": "f7418d0e8834a1c0421324f0a24aa4910e37d2091d23201f021a7e6ed3be55ce"
+  },
+  {
+    "sku": "MAKO25",
+    "status": "downloaded",
+    "filename": "MAKO25.png",
+    "source_page": "https://marcasmarvelsa.com/kawashima/",
+    "image_url": "https://marcasmarvelsa.com/wp-content/uploads/2026/01/MAKO25.png",
+    "title": "Kawashima · MAKO25",
+    "bytes": 286217,
+    "sha256": "c28249f7f0dd26f04d10535fd6b04c216c5650ef57e8a6bceee5ca11ef537c74"
+  },
+  {
+    "sku": "MAKO52",
+    "status": "downloaded",
+    "filename": "MAKO52.jpg",
+    "source_page": "https://procam-shop.mx/forestal/motosierra-profesional-kawashima-mako52-16/",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2026/07/MAKO52-1-1.jpg",
+    "title": "Motosierra profesional 52 cc con 2 barras y cadenas de 16 pulg (MAKO52) - ProCam",
+    "bytes": 127438,
+    "sha256": "edb6fe1827eebbe7c854e9d8b41ed57fda90ae244740d7c323d8608ce09cd97c"
+  },
+  {
+    "sku": "MAKO58",
+    "status": "downloaded",
+    "filename": "MAKO58.png",
+    "source_page": "https://marcasmarvelsa.com/kawashima/",
+    "image_url": "https://marcasmarvelsa.com/wp-content/uploads/2026/01/MAKO58.png",
+    "title": "Kawashima · MAKO58",
+    "bytes": 294902,
+    "sha256": "05c8320ba742cdc6e8c8d80b7bb858007fdaba662809016f2c333712ef11bd13"
+  },
+  {
+    "sku": "MAKO65",
+    "status": "downloaded",
+    "filename": "MAKO65.jpg",
+    "source_page": "https://procam-shop.mx/forestal/motosierra-profesional-kawashima-mako65-20/",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2026/07/MAKO65-1-1.jpg",
+    "title": "Motosierra profesional 65 cc con 2 barras y cadenas de 20 pulg (MAKO65) - ProCam",
+    "bytes": 21840,
+    "sha256": "47bf9c60a24402a849d3cd3777bd3d495b8561cc0b34f426d572c84cc266fbda"
+  },
+  {
+    "sku": "MAKO72",
+    "status": "downloaded",
+    "filename": "MAKO72.jpg",
+    "source_page": "https://procam-shop.mx/forestal/motosierra-profesional-kawashima-mako72-24/",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2024/01/Motosierra-profesional-MAKO72.jpg",
+    "title": "Motosierra Profesional Kawashima MAKO72 24&quot; - ProCam",
+    "bytes": 20055,
+    "sha256": "4167f46f1da0382c901696afe40ca80308b50638a5e0de1ccb05fc75db13f1d1"
+  },
+  {
+    "sku": "MDK-56",
+    "status": "downloaded",
+    "source_page": "https://procam-shop.mx/aspersoras-motor-a-gasolina/aspersora-kawashima-mdk-56/",
+    "title": "Aspersora Agrícola Kawashima MDK-56 Líquidos y Polvos 14L - ProCam",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/Aspersora-MDK-56.jpg",
+    "filename": "MDK-56.jpg",
+    "bytes": 98217,
+    "sha256": "b8ff8b6211e7010159ccef154efa472b89850ca51ddc9ad7650c9dbd4065c7a3"
+  },
+  {
+    "sku": "MKM33",
+    "status": "downloaded",
+    "source_page": "https://procam-shop.mx/multifuncionales/desbrozadora-multifuncional-kawashima-mkm33-2t-33cc/",
+    "title": "Desbrozadora Multifuncional Kawashima MKM33 2T 33CC - ProCam",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/Multifuncional-MKM33.jpg",
+    "filename": "MKM33.jpg",
+    "bytes": 48972,
+    "sha256": "8511b371ffe35d9ae692449d377eb1d902914730f4ad8e76822de32ffc89cb02"
+  },
+  {
+    "sku": "MTKP68",
+    "status": "downloaded",
+    "source_page": "https://procam-shop.mx/hoyadoras/hoyadora-kawashima-mtkp68-2t-68cc/",
+    "title": "Hoyadora Kawashima MTKP68 2T 68CC - ProCam",
+    "image_url": "https://procam-shop.mx/wp-content/uploads/2023/07/Ahoyadora-MTKP68.jpg",
+    "filename": "MTKP68.jpg",
+    "bytes": 79834,
+    "sha256": "059e25ef6d5e6e9a982559bd5369e3167f346215335cb023ffcecd4e289eb188"
+  }
+]

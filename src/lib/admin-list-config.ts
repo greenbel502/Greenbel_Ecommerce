@@ -1,0 +1,192 @@
+import type { ListConfig } from "./admin-list";
+export const publicationFilters = {
+  draft: "Borrador",
+  published: "Publicado",
+  archived: "Archivado",
+};
+export const activeFilters = { true: "Activo", false: "Inactivo" };
+export const adminLists: Record<string, ListConfig> = {
+  contacts: {
+    search: ["name", "email", "phone", "message"],
+    sorts: { created_at: "Fecha", name: "Nombre" },
+    filterColumn: "notification_status",
+    filters: { not_sent: "Sin notificación" },
+  },
+  financing: {
+    search: ["applicant_name", "email", "phone"],
+    sorts: { created_at: "Fecha", applicant_name: "Solicitante" },
+    filterColumn: "stage",
+    filters: { draft: "Borrador" },
+  },
+  quotes: {
+    search: ["reference", "customer_name", "customer_email"],
+    sorts: {
+      created_at: "Fecha",
+      reference: "Referencia",
+      customer_name: "Cliente",
+      customer_total: "Total",
+    },
+    filterColumn: "stage",
+    filters: { draft: "Borrador", issued: "Emitida", superseded: "Sustituida" },
+  },
+  orders: {
+    search: ["reference"],
+    sorts: {
+      created_at: "Fecha",
+      reference: "Referencia",
+      customer_total: "Total",
+    },
+    filterColumn: "stage",
+    filters: {
+      draft: "Borrador",
+      pending_shipping: "Envío por cotizar",
+      confirmed: "Confirmado",
+      cancelled: "Cancelado",
+      completed: "Completado",
+    },
+  },
+  cases: {
+    search: ["reason"],
+    sorts: { created_at: "Fecha", kind: "Tipo" },
+    filterColumn: "kind",
+    filters: {
+      cancellation: "Cancelación",
+      return: "Devolución",
+      warranty: "Garantía",
+    },
+  },
+  shipments: {
+    notNull: ["carrier_snapshot"],
+    search: ["carrier_snapshot", "tracking_number"],
+    sorts: {
+      created_at: "Fecha",
+      carrier_snapshot: "Transportadora",
+      status: "Estado",
+    },
+    filterColumn: "status",
+    filters: {
+      preparing: "Preparando",
+      dispatched: "Despachado",
+      delivered: "Entregado",
+      returned: "Devuelto",
+    },
+  },
+  products: {
+    search: ["name", "sku", "model"],
+    sorts: {
+      name: "Nombre",
+      sku: "SKU",
+      regular_price: "Precio",
+      created_at: "Fecha",
+    },
+    defaultSort: "name",
+    filterColumn: "publication_status",
+    filters: publicationFilters,
+  },
+  brands: {
+    search: ["name", "slug"],
+    sorts: { name: "Nombre", created_at: "Fecha" },
+    defaultSort: "name",
+    filterColumn: "active",
+    filters: activeFilters,
+  },
+  categories: {
+    search: ["name", "slug"],
+    sorts: { name: "Nombre", created_at: "Fecha" },
+    defaultSort: "name",
+    filterColumn: "active",
+    filters: activeFilters,
+  },
+  offers: {
+    search: ["name", "sku"],
+    searchTable: "products",
+    sorts: { starts_at: "Inicio", ends_at: "Fin", value: "Valor" },
+    defaultSort: "starts_at",
+    filterColumn: "enabled",
+    filters: activeFilters,
+  },
+  trainings: {
+    search: ["title", "description"],
+    sorts: { created_at: "Fecha", title: "Título" },
+    filterColumn: "publication_status",
+    filters: publicationFilters,
+  },
+  reviews: {
+    search: ["comment"],
+    sorts: { created_at: "Fecha", rating: "Calificación" },
+    filterColumn: "moderation_status",
+    filters: { pending: "Pendiente", visible: "Publicada", hidden: "Oculta" },
+  },
+  stock: {
+    search: ["name", "sku"],
+    sorts: { name: "Nombre", sku: "SKU" },
+    defaultSort: "name",
+  },
+  movements: {
+    search: ["reason", "reference"],
+    sorts: { created_at: "Fecha", quantity_delta: "Cantidad" },
+    filterColumn: "kind",
+    filters: {
+      stock_entry: "Entrada",
+      adjustment: "Ajuste",
+      physical_sale: "Venta física",
+      online_payment: "Pago web",
+      cod_dispatch: "Despacho contra entrega",
+      pickup_handover: "Retiro",
+    },
+  },
+  services: {
+    search: ["name", "carrier_name"],
+    sorts: { name: "Nombre", created_at: "Fecha" },
+    defaultSort: "name",
+    filterColumn: "active",
+    filters: activeFilters,
+  },
+  zones: {
+    search: ["name", "code", "department", "municipality"],
+    sorts: { name: "Nombre", code: "Código", created_at: "Fecha" },
+    defaultSort: "name",
+    filterColumn: "active",
+    filters: activeFilters,
+  },
+  rates: {
+    search: [],
+    sorts: { created_at: "Fecha", shipping_fee: "Tarifa" },
+    filterColumn: "active",
+    filters: activeFilters,
+  },
+  options: {
+    search: [],
+    sorts: { created_at: "Fecha", method: "Medio" },
+    filterColumn: "active",
+    filters: activeFilters,
+  },
+  payments: {
+    search: [],
+    sorts: { created_at: "Fecha", amount: "Importe" },
+    filterColumn: "status",
+    filters: {
+      test_created: "Pendiente",
+      test_succeeded: "Prueba aprobada",
+      test_failed: "Prueba rechazada",
+      test_cancelled: "Cancelado",
+      test_review_required: "En revisión",
+    },
+  },
+  users: {
+    filterLabel: "Rol",
+    search: ["name", "email", "phone"],
+    sorts: {
+      created_at: "Fecha de registro",
+      display_name: "Nombre",
+      email: "Correo",
+      role: "Rol",
+    },
+    filterColumn: "role",
+    filters: {
+      customer: "Cliente",
+      operator: "Operador",
+      admin: "Administrador",
+    },
+  },
+};

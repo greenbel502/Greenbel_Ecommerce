@@ -9,7 +9,7 @@ export default function RecoverPasswordPage() {
     <AuthShell
       eyebrow="Cuenta GreenBel"
       title="Recupera tu acceso."
-      description="Si existe una cuenta para este correo, Supabase Auth puede emitir un enlace de recuperación según la configuración del proyecto."
+      description="Solicita un enlace para configurar una nueva contraseña y volver a comprar con tu cuenta."
     >
       <RecoverPasswordForm />
     </AuthShell>

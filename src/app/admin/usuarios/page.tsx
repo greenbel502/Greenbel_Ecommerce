@@ -1,120 +1,184 @@
-import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { StaffAuthorizationError, requireStaffActor } from "@/lib/server/staff-authorization";
-import { createSupabaseAdminClient } from "@/lib/supabase/admin";
-import { SalesNavigation } from "@/app/admin/ventas/components";
-import styles from "@/app/admin/ventas/sales.module.css";
-import { saveUserAccess } from "./actions";
-
+import { StaffAuthorizationError } from "@/lib/server/staff-authorization";
+import type { Metadata } from "next";
+import { requireStaffActor } from "@/lib/server/staff-authorization";
+import { createSupabaseReadClient } from "@/lib/supabase/server";
+import { listState, type AdminParams } from "@/lib/admin-list";
+import { adminLists } from "@/lib/admin-list-config";
+import {
+  ListTools,
+  ListPager,
+  ListEmpty,
+  SortHeading,
+} from "../_components/list-controls";
+import { UserActions, type AccessRow } from "./user-actions";
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Acceso de usuarios", robots: { index: false, follow: false } };
-const PAGE_SIZE = 30;
-type Role = "customer" | "operator" | "admin";
-type AccessRow = { id: string; email: string | null; displayName: string; role: Role; active: boolean };
-
-const messages: Record<string, string> = {
-  saved: "Acceso actualizado y auditado.", unchanged: "No había cambios que guardar.",
-  stale: "Otra operación cambió este acceso. Revisa los valores actuales antes de volver a guardar.",
-  forbidden: "No se autorizó el cambio. Debes ser administrador activo y conservar tu propio acceso.",
-  invalid: "Revisa el rol y el estado seleccionados.", failed: "No se pudo actualizar el acceso; inténtalo de nuevo."
+export const metadata: Metadata = {
+  title: "Usuarios",
+  robots: { index: false, follow: false },
 };
-
-function pageNumber(input: string | undefined): number {
-  const number = Number(input);
-  return Number.isInteger(number) && number >= 1 && number <= 10000 ? number : 1;
-}
-
-export default async function UsersAdminPage({ searchParams }: {
-  searchParams: Promise<{ page?: string; result?: string }>;
+export default async function UsersAdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<AdminParams>;
 }) {
+  let actor;
   try {
-    await requireStaffActor(["admin"]);
+    actor = await requireStaffActor(["admin"]);
   } catch (error) {
-    if (error instanceof StaffAuthorizationError && error.reason === "unauthenticated") redirect("/cuenta/ingresar");
-    if (error instanceof StaffAuthorizationError && error.reason === "forbidden") notFound();
-    return <main className={styles.shell}><p className={styles.alert} role="alert">No se pudo verificar el acceso.</p></main>;
+    if (
+      error instanceof StaffAuthorizationError &&
+      error.reason === "unauthenticated"
+    )
+      redirect("/cuenta/ingresar");
+    if (
+      error instanceof StaffAuthorizationError &&
+      error.reason === "forbidden"
+    )
+      notFound();
+    throw error;
   }
-
   const params = await searchParams;
-  const page = pageNumber(params.page);
-  let rows: AccessRow[] = [];
-  let totalUsers = 0;
-  try {
-    const admin = createSupabaseAdminClient();
-    const usersResult = await admin.auth.admin.listUsers({ page, perPage: PAGE_SIZE });
-    if (usersResult.error) throw usersResult.error;
-    const users = usersResult.data.users;
-    totalUsers = usersResult.data.total;
-    const ids = users.map((user) => user.id);
-    if (ids.length) {
-      const [profiles, roles] = await Promise.all([
-        admin.from("profiles").select("id,display_name,active").in("id", ids),
-        admin.from("user_roles").select("user_id,role").in("user_id", ids)
-      ]);
-      if (profiles.error || roles.error) throw new Error("User access unavailable");
-      const profileById = new Map((profiles.data ?? []).map((row) => [row.id, row]));
-      const roleById = new Map((roles.data ?? []).map((row) => [row.user_id, row.role]));
-      rows = users.map((user) => {
-        const profile = profileById.get(user.id);
-        const role = roleById.get(user.id);
-        if (!profile || (role !== "customer" && role !== "operator" && role !== "admin")) {
-          throw new Error("Auth user missing profile or role");
-        }
-        return { id: user.id, email: user.email ?? null,
-          displayName: profile.display_name, role, active: profile.active };
-      });
-    }
-  } catch {
-    return <main className={styles.shell}>
-      <h1>Acceso de usuarios</h1>
-      <p className={styles.alert} role="alert">No se pudo consultar Auth y los roles de GreenBel. Revisa la conexión DEV.</p>
-      <Link href="/admin/ventas" className="inline-link">Volver a ventas</Link>
-    </main>;
-  }
-  const lastPage = Math.max(1, Math.ceil(totalUsers / PAGE_SIZE));
-  if (page > lastPage) redirect(`/admin/usuarios?page=${lastPage}`);
-  const resultMessage = params.result && Object.prototype.hasOwnProperty.call(messages, params.result)
-    ? messages[params.result] : null;
+  const state = listState(params, "", adminLists.users);
+  const active =
+    typeof params.active === "string" &&
+    ["true", "false"].includes(params.active)
+      ? params.active
+      : "";
+  const client = await createSupabaseReadClient();
+  const result = await client.rpc("admin_list_users", {
+    p_search: state.q,
+    p_role: state.filter,
+    p_active: active ? active === "true" : null,
+    p_sort: state.sort,
+    p_direction: state.direction,
+    p_page: state.page,
+    p_size: state.size,
+  });
+  if (result.error || !result.data || !Array.isArray(result.data.rows))
+    return (
+      <div>
+        <h1>Usuarios</h1>
+        <div className="admin-empty" role="alert">
+          <h2>No se pudo cargar la información</h2>
+          <p>Inténtalo de nuevo en unos momentos.</p>
+          <a href="/admin/usuarios">Reintentar</a>
+        </div>
+      </div>
+    );
+  state.total = result.data.total;
+  state.page = result.data.page;
+  const rows = result.data.rows as AccessRow[];
+  return (
+    <>
+      <span className="eyebrow">Configuración</span>
+      <h1>Usuarios</h1>
+      <p>Consulta las cuentas y administra los permisos de tu equipo.</p>
+      <ListTools
+        state={state}
+        config={adminLists.users}
+        path="/admin/usuarios"
+        label="usuarios"
+        extraFields={[
+          {
+            key: "active",
+            label: "Acceso",
+            value: active,
+            options: { true: "Activo", false: "Suspendido" },
+          },
+        ]}
+      />
 
-  return <main className={styles.shell}>
-    <header className={styles.hero}><div>
-      <span className="eyebrow">Panel administrativo</span><h1>Acceso de usuarios</h1>
-      <p>Asigna el rol de GreenBel y habilita o suspende sus operaciones. Supabase Auth conserva las credenciales y la confirmación de correo.</p>
-    </div></header>
-    <SalesNavigation role="admin" />
-    <p className={styles.notice}>Los cambios se registran en auditoría. Suspender operaciones no elimina la cuenta de Auth ni borra pedidos. No puedes retirar tu propio acceso de administrador.</p>
-    {resultMessage && <p className={params.result === "saved" || params.result === "unchanged" ? styles.notice : styles.alert}
-      role={params.result === "saved" || params.result === "unchanged" ? "status" : "alert"}>{resultMessage}</p>}
-    <section className={styles.section} aria-labelledby="users-heading">
-      <div className={styles.sectionHeading}><h2 id="users-heading">Cuentas Auth</h2><span>{totalUsers} cuentas · Página {page} de {lastPage}</span></div>
-      {rows.length === 0 ? <div className={styles.empty}><p>Sin cuentas en esta página.</p></div> :
-        <div className={styles.cards}>{rows.map((user) => <article className={styles.card} key={user.id}>
-          <div className={styles.cardTop}><div><h3>{user.displayName || "Nombre pendiente"}</h3>
-            <small>{user.email ?? "Sin correo visible"} · {user.id}</small></div>
-            <span className={styles.role}>{user.active ? "Activo" : "Suspendido"}</span>
-          </div>
-          <form action={saveUserAccess} className={styles.caseForm}>
-            <input type="hidden" name="userId" value={user.id} />
-            <input type="hidden" name="expectedRole" value={user.role} />
-            <input type="hidden" name="expectedActive" value={String(user.active)} />
-            <input type="hidden" name="page" value={page} />
-            <label htmlFor={`role-${user.id}`}>Rol</label>
-            <select id={`role-${user.id}`} name="role" defaultValue={user.role}>
-              <option value="customer">Cliente</option><option value="operator">Operador</option><option value="admin">Administrador</option>
-            </select>
-            <label htmlFor={`active-${user.id}`}>Acceso a operaciones</label>
-            <select id={`active-${user.id}`} name="active" defaultValue={String(user.active)}>
-              <option value="true">Activo</option><option value="false">Suspendido</option>
-            </select>
-            <button type="submit" className="primary-button">Guardar acceso</button>
-          </form>
-        </article>)}</div>}
-      <nav className={styles.pager} aria-label="Páginas de usuarios">
-        {page > 1 ? <Link href={`/admin/usuarios?page=${page - 1}`}>Anterior</Link> : <span />}
-        <span>Página {page}</span>
-        {page < lastPage ? <Link href={`/admin/usuarios?page=${page + 1}`}>Siguiente</Link> : <span />}
-      </nav>
-    </section>
-  </main>;
+      <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "16px 0" }}>
+        Los cambios quedan registrados. Suspender una cuenta conserva sus
+        pedidos. Tu acceso de administrador está protegido.
+      </p>
+      {rows.length === 0 ? (
+        <ListEmpty
+          state={{ ...state, filter: state.filter || active }}
+          path="/admin/usuarios"
+          noun="usuarios"
+        />
+      ) : (
+        <div
+          className="admin-table-wrap"
+          tabIndex={0}
+          role="region"
+          aria-label="Tabla de registros, desplazamiento horizontal"
+        >
+          <table>
+            <caption className="sr-only">
+              Cuentas y permisos de GreenBel
+            </caption>
+            <thead>
+              <tr>
+                <SortHeading
+                  state={state}
+                  path="/admin/usuarios"
+                  column="display_name"
+                  label="Nombre"
+                />
+                <SortHeading
+                  state={state}
+                  path="/admin/usuarios"
+                  column="email"
+                  label="Correo"
+                />
+                <SortHeading
+                  state={state}
+                  path="/admin/usuarios"
+                  column="role"
+                  label="Rol"
+                />
+                <th scope="col">Estado</th>
+                <SortHeading
+                  state={state}
+                  path="/admin/usuarios"
+                  column="created_at"
+                  label="Registro"
+                />
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((user) => (
+                <tr key={user.id}>
+                  <td>
+                    <strong>
+                      {user.display_name || "Sin nombre registrado"}
+                    </strong>
+                    {user.id === actor.userId && <small>Tu cuenta</small>}
+                  </td>
+                  <td>{user.email || "Sin correo"}</td>
+                  <td>
+                    {
+                      {
+                        customer: "Cliente",
+                        operator: "Operador",
+                        admin: "Administrador",
+                      }[user.role]
+                    }
+                  </td>
+                  <td>
+                    <span className={`admin-tag${user.active ? "" : " muted"}`}>
+                      {user.active ? "Activo" : "Suspendido"}
+                    </span>
+                  </td>
+                  <td>
+                    {new Date(user.created_at).toLocaleDateString("es-GT", {
+                      timeZone: "America/Guatemala",
+                    })}
+                  </td>
+                  <td>
+                    <UserActions user={user} own={actor.userId === user.id} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      <ListPager state={state} path="/admin/usuarios" label="usuarios" />
+    </>
+  );
 }

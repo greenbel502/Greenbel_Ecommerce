@@ -3,23 +3,23 @@
 .hero h1 { margin: 9px 0; font-size: clamp(2.3rem, 5vw, 4rem); line-height: 1.05; }
 .hero p { max-width: 700px; color: var(--neutral-700); line-height: 1.55; }
 .notice, .success, .error { margin: 0 0 18px; padding: 14px 17px; border-radius: var(--radius); font-size: .84rem; line-height: 1.55; }
-.notice, .success { border: 1px solid #cdd9c5; background: #f2f7e9; }
-.error { border: 1px solid #f0c5bb; background: #fff0ed; color: #8a2d27; }
+.notice, .success { border: 1px solid var(--border-subtle); background: var(--surface-tint); }
+.error { border: 1px solid var(--border-subtle); background: var(--surface-tint); color: var(--feedback-error); }
 .sectionNav { display: flex; flex-wrap: wrap; gap: 9px; margin: 24px 0; }
 .sectionNav a { display: inline-flex; padding: 9px 13px; border: 1px solid var(--neutral-200); border-radius: 999px; background: var(--white); color: var(--green-950); font-size: .78rem; font-weight: 800; text-decoration: none; }
 .section { margin: 32px 0 50px; scroll-margin-top: 30px; }
 .section h2 { margin: 0 0 8px; font-size: 1.7rem; }
 .section h2 span { color: var(--neutral-500); font-size: .9rem; }
 .section > p { margin: 0 0 18px; max-width: 850px; color: var(--neutral-700); font-size: .86rem; line-height: 1.6; }
-.create, .card { padding: 18px 20px; border: 1px solid var(--neutral-200); border-radius: var(--radius); background: var(--white); box-shadow: 0 12px 34px rgba(12,47,28,.04); }
+.create, .card { padding: 18px 20px; border: 1px solid var(--neutral-200); border-radius: var(--radius); background: var(--white); box-shadow: 0 12px 34px var(--brand-dark-a04); }
 .create { margin-bottom: 15px; }
 .list { display: grid; gap: 13px; }
 .cardHead { display: flex; align-items: start; justify-content: space-between; gap: 14px; }
 .cardHead h3 { margin: 0; font-size: 1.02rem; }
 .cardHead p, .card > p { margin: 5px 0 0; color: var(--neutral-700); font-size: .83rem; line-height: 1.5; overflow-wrap: anywhere; }
 .active, .inactive { flex: 0 0 auto; border-radius: 999px; padding: 5px 9px; font-size: .7rem; font-weight: 800; }
-.active { background: #e1f0dc; color: var(--green-900); }
-.inactive { background: #f1f0ea; color: var(--neutral-700); }
+.active { background: var(--surface-tint); color: var(--green-900); }
+.inactive { background: var(--surface-tint); color: var(--neutral-700); }
 .section summary { width: fit-content; cursor: pointer; font-size: .83rem; font-weight: 800; }
 .card > details { margin-top: 15px; }
 .form { display: grid; gap: 17px; margin-top: 18px; }

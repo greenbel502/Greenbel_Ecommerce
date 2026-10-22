@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createSupabaseReadClient } from "@/lib/supabase/server";
 import { AuthShell } from "../auth-shell";
-import { ResetPasswordForm } from "../auth-forms";
 import styles from "../auth.module.css";
 
 export const dynamic = "force-dynamic";
@@ -21,13 +20,14 @@ export default async function ResetPasswordPage() {
   }
 
   if (available && !authenticated) redirect("/cuenta/recuperar");
+  if (available && authenticated) redirect("/cuenta#seguridad");
   return (
     <AuthShell
       eyebrow="Cuenta GreenBel"
       title="Actualiza tu contraseña."
-      description="La nueva contraseña quedará asociada a tu cuenta de Supabase Auth."
+      description="Configura tu contraseña de GreenBel para ingresar con tu correo electrónico."
     >
-      {available ? <ResetPasswordForm /> : <p className={`${styles.feedback} ${styles.error}`} role="alert">La verificación de la sesión no está disponible en este momento. Inténtalo más tarde.</p>}
+      <p className={`${styles.feedback} ${styles.error}`} role="alert">No pudimos comprobar tu sesión. Inténtalo más tarde.</p>
     </AuthShell>
   );
 }

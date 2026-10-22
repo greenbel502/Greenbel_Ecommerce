@@ -1,48 +1,146 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { shouldUseSupabaseCatalog } from "@/lib/server/catalog-source";
-import { StaffAuthorizationError, requireStaffActor } from "@/lib/server/staff-authorization";
+import {
+  requireStaffActor,
+  StaffAuthorizationError,
+} from "@/lib/server/staff-authorization";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
-import { TrainingAdmin, type TrainingCategoryLink, type TrainingCategoryOption, type TrainingProductLink, type TrainingProductOption, type TrainingRow } from "./training-admin";
-import styles from "./training-admin.module.css";
-
+import { shouldUseSupabaseCatalog } from "@/lib/server/catalog-source";
+import { listState, type AdminParams } from "@/lib/admin-list";
+import { adminLists } from "@/lib/admin-list-config";
+import { queryAdminList } from "@/lib/server/admin-list-query";
+import { ListTools, ListPager, ListEmpty } from "../_components/list-controls";
+import {
+  TrainingAdmin,
+  type TrainingRow,
+  type TrainingProductOption,
+  type TrainingCategoryOption,
+  type TrainingProductLink,
+  type TrainingCategoryLink,
+} from "./training-admin";
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Administrar capacitaciones", robots: { index: false, follow: false } };
-
-export default async function TrainingAdminPage() {
+export const metadata: Metadata = {
+  title: "Capacitaciones",
+  robots: { index: false, follow: false },
+};
+export default async function TrainingAdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<AdminParams>;
+}) {
   try {
     await requireStaffActor(["admin"]);
-  } catch (error) {
-    if (error instanceof StaffAuthorizationError && error.reason === "unauthenticated") redirect("/cuenta/ingresar");
-    if (error instanceof StaffAuthorizationError && error.reason === "forbidden") notFound();
-    return <div className={styles.shell}><p role="alert">No se pudo verificar el acceso a capacitaciones. Inténtalo más tarde.</p></div>;
+  } catch (e) {
+    if (e instanceof StaffAuthorizationError && e.reason === "unauthenticated")
+      redirect("/cuenta/ingresar");
+    if (e instanceof StaffAuthorizationError && e.reason === "forbidden")
+      notFound();
+    throw e;
   }
-
-  try {
-    const admin = createSupabaseAdminClient();
-    const [trainings, products, categories, productLinks, categoryLinks] = await Promise.all([
-      admin.from("trainings").select("id,title,slug,description,video_url,cover_path,publication_status,created_at")
-        .order("created_at", { ascending: false }).limit(1000),
-      admin.from("catalog_products").select("id,name,sku").order("name").limit(1000),
-      admin.from("categories").select("id,name").eq("active", true).order("name").limit(1000),
-      admin.from("training_products").select("training_id,product_id").limit(1000),
-      admin.from("training_categories").select("training_id,category_id").limit(1000)
+  const params = await searchParams,
+    state = listState(params, "", adminLists.trainings),
+    admin = createSupabaseAdminClient();
+  const columns =
+    "id,title,slug,description,video_url,cover_path,publication_status,created_at";
+  const result = await queryAdminList<TrainingRow>(
+    admin,
+    "trainings",
+    columns,
+    state,
+    adminLists.trainings,
+  );
+  const listRows = [...result.data];
+  const selectedId =
+    typeof params.edit === "string" && /^[a-f0-9-]{36}$/i.test(params.edit)
+      ? params.edit
+      : "";
+  if (selectedId && !result.data.some((r) => r.id === selectedId)) {
+    const row = await admin
+      .from("trainings")
+      .select(columns)
+      .eq("id", selectedId)
+      .maybeSingle();
+    if (row.error) throw Error("Training unavailable");
+    if (!row.data) notFound();
+    result.data.push(row.data as TrainingRow);
+  }
+  let products: TrainingProductOption[] = [],
+    categories: TrainingCategoryOption[] = [],
+    productLinks: TrainingProductLink[] = [],
+    categoryLinks: TrainingCategoryLink[] = [];
+  if (selectedId) {
+    const [pr, cr] = await Promise.all([
+      admin
+        .from("training_products")
+        .select("training_id,product_id")
+        .eq("training_id", selectedId),
+      admin
+        .from("training_categories")
+        .select("training_id,category_id")
+        .eq("training_id", selectedId),
     ]);
-    if (trainings.error || products.error || categories.error || productLinks.error || categoryLinks.error) {
-      throw new Error("Training relations unavailable");
-    }
-    return <TrainingAdmin
-      trainings={(trainings.data ?? []) as TrainingRow[]}
-      products={(products.data ?? []) as TrainingProductOption[]}
-      categories={(categories.data ?? []) as TrainingCategoryOption[]}
-      productLinks={(productLinks.data ?? []) as TrainingProductLink[]}
-      categoryLinks={(categoryLinks.data ?? []) as TrainingCategoryLink[]}
-      publicCatalogConnected={shouldUseSupabaseCatalog()}
-      limitedRecords={(trainings.data?.length ?? 0) >= 1000 || (products.data?.length ?? 0) >= 1000
-        || (categories.data?.length ?? 0) >= 1000 || (productLinks.data?.length ?? 0) >= 1000
-        || (categoryLinks.data?.length ?? 0) >= 1000}
-    />;
-  } catch {
-    return <div className={styles.shell}><p role="alert">El modelo de capacitaciones todavía no está disponible en este entorno. No se muestran formularios hasta aplicar la migración aprobada en DEV.</p></div>;
+    if (pr.error || cr.error) throw Error("Training links unavailable");
+    productLinks = pr.data;
+    categoryLinks = cr.data;
+    const [p, c] = await Promise.all([
+      productLinks.length
+        ? admin
+            .from("products")
+            .select("id,name,sku")
+            .in(
+              "id",
+              productLinks.map((r) => r.product_id),
+            )
+        : Promise.resolve({ data: [], error: null }),
+      categoryLinks.length
+        ? admin
+            .from("categories")
+            .select("id,name")
+            .in(
+              "id",
+              categoryLinks.map((r) => r.category_id),
+            )
+        : Promise.resolve({ data: [], error: null }),
+    ]);
+    if (p.error || c.error) throw Error("Training links unavailable");
+    products = p.data ?? [];
+    categories = c.data ?? [];
   }
+  return (
+    <TrainingAdmin
+      trainings={result.data}
+      listRows={listRows}
+      selectedId={selectedId}
+      products={products}
+      categories={categories}
+      productLinks={productLinks}
+      categoryLinks={categoryLinks}
+      publicCatalogConnected={shouldUseSupabaseCatalog()}
+      limitedRecords={false}
+      controls={
+        <ListTools
+          state={state}
+          config={adminLists.trainings}
+          path="/admin/capacitaciones"
+          label="capacitaciones"
+        />
+      }
+      pager={
+        <>
+          <ListPager
+            state={state}
+            path="/admin/capacitaciones"
+            label="capacitaciones"
+          />
+          {!listRows.length && (
+            <ListEmpty
+              state={state}
+              path="/admin/capacitaciones"
+              noun="capacitaciones"
+            />
+          )}
+        </>
+      }
+    />
+  );
 }

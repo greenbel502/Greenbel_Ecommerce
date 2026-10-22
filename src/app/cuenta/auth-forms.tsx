@@ -13,6 +13,7 @@ import {
   type AuthActionState
 } from "./actions";
 import styles from "./auth.module.css";
+import { PasswordFields } from "./password-fields";
 
 const initialState: AuthActionState = { status: "idle", message: "" };
 
@@ -70,7 +71,7 @@ export function SignInForm({ invalidLink = false, googleError, returnTo }: { inv
       <span className={styles.loginWelcome}>BIENVENIDO DE NUEVO</span>
       <h2>Ingresa a tu cuenta</h2>
       <p className={styles.loginDescription}>Tus equipos y tus próximas compras te esperan.</p>
-      {invalidLink && <p className={`${styles.feedback} ${styles.error}`} role="alert">El enlace de Auth es inválido o venció. Solicita uno nuevo o inicia sesión.</p>}
+      {invalidLink && <p className={`${styles.feedback} ${styles.error}`} role="alert">El enlace es inválido o venció. Solicita uno nuevo o inicia sesión.</p>}
       {googleError && <p className={`${styles.feedback} ${styles.error}`} role="alert">{googleError === "account"
         ? "No se pudo habilitar el acceso a tu cuenta. Contacta a GreenBel para revisar su estado."
         : "No se completó el acceso con Google. Inténtalo de nuevo desde este navegador."}</p>}
@@ -103,8 +104,7 @@ export function SignUpForm({ returnTo }: { returnTo?: "/checkout" }) {
       <form className={styles.form} action={formAction}>
         {returnTo && <input type="hidden" name="returnTo" value={returnTo} />}
         <label>Correo electrónico<input name="email" type="email" autoComplete="email" required maxLength={254} /></label>
-        <label>Contraseña<input name="password" type="password" autoComplete="new-password" minLength={8} maxLength={128} required /></label>
-        <label>Confirmar contraseña<input name="passwordConfirmation" type="password" autoComplete="new-password" minLength={8} maxLength={128} required /></label>
+        <PasswordFields firstLabel="Contraseña" result={state} />
         <Feedback state={state} />
         <SubmitButton>Crear cuenta</SubmitButton>
       </form>
@@ -122,7 +122,7 @@ export function RecoverPasswordForm() {
       <form className={styles.form} action={formAction}>
         <label>Correo electrónico<input name="email" type="email" autoComplete="email" required maxLength={254} /></label>
         <Feedback state={state} />
-        <SubmitButton>Solicitar enlace de Auth</SubmitButton>
+        <SubmitButton>Solicitar enlace de recuperación</SubmitButton>
       </form>
       <div className={styles.links}><Link href="/cuenta/ingresar">Volver a ingresar</Link></div>
     </>
@@ -133,12 +133,10 @@ export function ResetPasswordForm() {
   const [state, formAction] = useActionState(updatePasswordAction, initialState);
   return (
     <>
-      <h2>Nueva contraseña</h2>
-      <form className={styles.form} action={formAction}>
-        <label>Nueva contraseña<input name="password" type="password" autoComplete="new-password" minLength={8} maxLength={128} required /></label>
-        <label>Confirmar contraseña<input name="passwordConfirmation" type="password" autoComplete="new-password" minLength={8} maxLength={128} required /></label>
+      <form className={styles.form} action={formAction} aria-label="Guardar contraseña de mi cuenta">
+        <PasswordFields firstLabel="Nueva contraseña" result={state} />
         <Feedback state={state} />
-        <SubmitButton>Actualizar contraseña</SubmitButton>
+        <SubmitButton>Guardar contraseña</SubmitButton>
       </form>
     </>
   );

@@ -6,7 +6,7 @@ import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const expected = process.argv[2];
-assert.ok(process.argv.length === 3 && /^20260929\d{6}_[a-z0-9_]+\.sql$/.test(expected ?? ""),
+assert.ok(process.argv.length === 3 && /^20\d{12}_[a-z0-9_]+\.sql$/.test(expected ?? ""),
   "Specify one reviewed migration filename");
 const ref = process.env.SUPABASE_DEV_PROJECT_REF?.trim();
 const url = process.env.DEV_SUPABASE_URL?.trim();

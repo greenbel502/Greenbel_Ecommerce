@@ -1,0 +1,211 @@
+{
+  "motion": {
+    "afterReveal": [
+      {
+        "cardTransform": "none",
+        "iconTransform": "none",
+        "opacity": "1",
+        "title": "Experiencia"
+      },
+      {
+        "cardTransform": "none",
+        "iconTransform": "none",
+        "opacity": "1",
+        "title": "Cercanía"
+      },
+      {
+        "cardTransform": "matrix(1, 0, 0, 1, 0, -4)",
+        "iconTransform": "matrix(0.992546, -0.121869, 0.121869, 0.992546, 0, 0)",
+        "opacity": "1",
+        "title": "Respaldo"
+      },
+      {
+        "cardTransform": "none",
+        "iconTransform": "none",
+        "opacity": "1",
+        "title": "Repuestos"
+      },
+      {
+        "cardTransform": "none",
+        "iconTransform": "none",
+        "opacity": "1",
+        "title": "Servicio"
+      },
+      {
+        "cardTransform": "none",
+        "iconTransform": "none",
+        "opacity": "1",
+        "title": "Cobertura"
+      }
+    ],
+    "reduced": {
+      "brandAnimation": "1e-05s",
+      "cards": [
+        {
+          "opacity": "0",
+          "title": "Experiencia",
+          "transform": "matrix(1, 0, 0, 1, 0, 14)",
+          "transition": "1e-05s"
+        },
+        {
+          "opacity": "0",
+          "title": "Cercanía",
+          "transform": "matrix(1, 0, 0, 1, 0, 14)",
+          "transition": "1e-05s"
+        },
+        {
+          "opacity": "0",
+          "title": "Respaldo",
+          "transform": "matrix(1, 0, 0, 1, 0, 14)",
+          "transition": "1e-05s"
+        },
+        {
+          "opacity": "0",
+          "title": "Repuestos",
+          "transform": "matrix(1, 0, 0, 1, 0, 14)",
+          "transition": "1e-05s"
+        },
+        {
+          "opacity": "0",
+          "title": "Servicio",
+          "transform": "matrix(1, 0, 0, 1, 0, 14)",
+          "transition": "1e-05s"
+        },
+        {
+          "opacity": "0",
+          "title": "Cobertura",
+          "transform": "matrix(1, 0, 0, 1, 0, 14)",
+          "transition": "1e-05s"
+        }
+      ]
+    },
+    "reducedAfterFix": {
+      "brandAnimation": "1e-05s",
+      "brandOpacity": "1",
+      "cards": [
+        {
+          "opacity": "1",
+          "transform": "none",
+          "transition": "1e-05s"
+        },
+        {
+          "opacity": "1",
+          "transform": "none",
+          "transition": "1e-05s"
+        },
+        {
+          "opacity": "1",
+          "transform": "none",
+          "transition": "1e-05s"
+        },
+        {
+          "opacity": "1",
+          "transform": "none",
+          "transition": "1e-05s"
+        },
+        {
+          "opacity": "1",
+          "transform": "none",
+          "transition": "1e-05s"
+        },
+        {
+          "opacity": "1",
+          "transform": "none",
+          "transition": "1e-05s"
+        }
+      ],
+      "titleOpacities": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ]
+    },
+    "tabletPhotosAfterFix": {
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true,
+          "src": "/images/about/campo-riego-ilustrativo.webp"
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true,
+          "src": "/images/about/asesoria-campo-greenbel.jpeg"
+        }
+      ],
+      "width": 820
+    },
+    "finalReduced": {
+      "brandOpacity": "1",
+      "cards": [
+        {
+          "opacity": "1",
+          "transform": "none"
+        },
+        {
+          "opacity": "1",
+          "transform": "none"
+        },
+        {
+          "opacity": "1",
+          "transform": "none"
+        },
+        {
+          "opacity": "1",
+          "transform": "none"
+        },
+        {
+          "opacity": "1",
+          "transform": "none"
+        },
+        {
+          "opacity": "1",
+          "transform": "none"
+        }
+      ],
+      "reduced": true,
+      "titles": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "transition": "1e-05s",
+      "width": 1440
+    }
+  },
+  "brands": {
+    "sameAsHome": true,
+    "about": {
+      "cardWidth": "230px",
+      "duration": "30s",
+      "heading": "Marcas de demostración DEVConoce el catálogo.Los nombres y logotipos de este mockup están pendientes de validación comercial.",
+      "logos": [
+        "Logo de Kawashima",
+        "Logo de Parazzini",
+        "Logo de Takashi",
+        "Logo de Bertolini"
+      ]
+    },
+    "home": {
+      "cardWidth": "230px",
+      "duration": "30s",
+      "heading": "Marcas de demostración DEVConoce el catálogo.Los nombres y logotipos de este mockup están pendientes de validación comercial.",
+      "logos": [
+        "Logo de Kawashima",
+        "Logo de Parazzini",
+        "Logo de Takashi",
+        "Logo de Bertolini"
+      ]
+    }
+  }
+}

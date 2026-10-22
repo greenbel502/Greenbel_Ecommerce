@@ -1,0 +1,3168 @@
+{
+  "source_filename": "PRECIOS PUBLICO UVG (1).xlsx",
+  "source_sha256": "456834c0b12cd7d7055cc5e792b42ecd2774816b1e17411e6403fb34881ca71e",
+  "currency": "GTQ",
+  "tax_included": true,
+  "rounding_rule": "ROUND_HALF_UP to 0.01; approved for DEV on 2026-10-22",
+  "duplicates_merged": [
+    {
+      "sku": "SY1052",
+      "sheet": "PRODUCTO AGRICOLA",
+      "row": 46
+    }
+  ],
+  "products": [
+    {
+      "sku": "UPL1001",
+      "name": "ALGA 600 250 GR",
+      "brand": "UPL",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "upl-upl1001",
+      "model": null,
+      "source_public_price": "95.75",
+      "regular_price": "95.75",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "40X250 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ALGA 600"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 3
+        }
+      ]
+    },
+    {
+      "sku": "SY1100",
+      "name": "AMISTAR XTRA 12 X 1 LTS",
+      "brand": "Syngenta",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1100",
+      "model": null,
+      "source_public_price": "610",
+      "regular_price": "610.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "INCIPIO 20 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 4
+        }
+      ]
+    },
+    {
+      "sku": "SY1095",
+      "name": "MERTECT 50 SC 4x5 L 212",
+      "brand": "Syngenta",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1095",
+      "model": null,
+      "source_public_price": "3500",
+      "regular_price": "3500.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "MERTECT 50 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 5
+        }
+      ]
+    },
+    {
+      "sku": "SY1089",
+      "name": "VANIVA 45 SC 100 CC",
+      "brand": "Syngenta",
+      "category": "HERBICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1089",
+      "model": null,
+      "source_public_price": "665",
+      "regular_price": "665.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "48X100 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "VANIVA 45 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 6
+        }
+      ]
+    },
+    {
+      "sku": "UPL1028",
+      "name": "PROAN-K 1 L",
+      "brand": "UPL",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "upl-upl1028",
+      "model": null,
+      "source_public_price": "152.93490199999999",
+      "regular_price": "152.93",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "PROAM-K"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 7
+        }
+      ]
+    },
+    {
+      "sku": "UPL1027",
+      "name": "AVARTOS 38 WG 1 KG",
+      "brand": "UPL",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1027",
+      "model": null,
+      "source_public_price": "1010.6352941333333",
+      "regular_price": "1010.64",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "10X1 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "AVARTOS 38 WG"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 8
+        }
+      ]
+    },
+    {
+      "sku": "UPL1026",
+      "name": "AVARTOS 38 WG 200 GR",
+      "brand": "UPL",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1026",
+      "model": null,
+      "source_public_price": "215.83058826666669",
+      "regular_price": "215.83",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20X200 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "AVARTOS 38 WG"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 9
+        }
+      ]
+    },
+    {
+      "sku": "UPL1025",
+      "name": "COGUAR 28 SC 1 L",
+      "brand": "UPL",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1025",
+      "model": null,
+      "source_public_price": "428.23529413333335",
+      "regular_price": "428.24",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "COGUAR"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 10
+        }
+      ]
+    },
+    {
+      "sku": "UPL1024",
+      "name": "DIPHAR 25 SC 500 CC",
+      "brand": "UPL",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1024",
+      "model": null,
+      "source_public_price": "293.25333333333333",
+      "regular_price": "293.25",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20X500 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DIPHAR 25 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 11
+        }
+      ]
+    },
+    {
+      "sku": "UPL1023",
+      "name": "DIPHAR 25 SC 1 L",
+      "brand": "UPL",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1023",
+      "model": null,
+      "source_public_price": "549.8541176",
+      "regular_price": "549.85",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DIPHAR 25 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 12
+        }
+      ]
+    },
+    {
+      "sku": "UPL1022",
+      "name": "EVITO 48 SC 1 L",
+      "brand": "UPL",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1022",
+      "model": null,
+      "source_public_price": "1798.5882353333334",
+      "regular_price": "1798.59",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "EVITO 48 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 13
+        }
+      ]
+    },
+    {
+      "sku": "UPL1021",
+      "name": "BUSTER 72 WG 30X500 GR",
+      "brand": "UPL",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1021",
+      "model": null,
+      "source_public_price": "180",
+      "regular_price": "180.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "30X500 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BUSTER 72 WG"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 14
+        }
+      ]
+    },
+    {
+      "sku": "UPL1020",
+      "name": "GLORY 75 WG 40X500 GR",
+      "brand": "UPL",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1020",
+      "model": null,
+      "source_public_price": "145.09490200000002",
+      "regular_price": "145.09",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "40X500 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "GLORY 75 WG"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 15
+        }
+      ]
+    },
+    {
+      "sku": "UPL1019",
+      "name": "AZUPLUS 20X1 KG",
+      "brand": "UPL",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1019",
+      "model": null,
+      "source_public_price": "37.42117653333333",
+      "regular_price": "37.42",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20X1 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "AZUPLUS"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 16
+        }
+      ]
+    },
+    {
+      "sku": "UPL1017",
+      "name": "MANCOZEB 80 WP 800 GR",
+      "brand": "UPL",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1017",
+      "model": null,
+      "source_public_price": "69.333333333333329",
+      "regular_price": "69.33",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20X800 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "MANCOZEB 80 WP"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 17
+        }
+      ]
+    },
+    {
+      "sku": "UPL1016",
+      "name": "FLEXION 25 SL 1 L",
+      "brand": "UPL",
+      "category": "HERBICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1016",
+      "model": null,
+      "source_public_price": "235.52941173333332",
+      "regular_price": "235.53",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "FLEXION 25 SL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 18
+        }
+      ]
+    },
+    {
+      "sku": "UPL1015",
+      "name": "BIOKIL PLUS 41 SL 3.5 L",
+      "brand": "UPL",
+      "category": "HERBICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1015",
+      "model": null,
+      "source_public_price": "251.80235293333331",
+      "regular_price": "251.80",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X3.5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BIOKIL PLUS"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 19
+        }
+      ]
+    },
+    {
+      "sku": "UPL1014",
+      "name": "BIOKIL PLUS 41 SL 12X1 L",
+      "brand": "UPL",
+      "category": "HERBICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1014",
+      "model": null,
+      "source_public_price": "77.082352933333325",
+      "regular_price": "77.08",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BIOKIL PLUS"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 20
+        }
+      ]
+    },
+    {
+      "sku": "UPL1013",
+      "name": "AKISON 40 SC 12X1 L",
+      "brand": "UPL",
+      "category": "HERBICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1013",
+      "model": null,
+      "source_public_price": "111.34117653333334",
+      "regular_price": "111.34",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "AKISON 40 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 21
+        }
+      ]
+    },
+    {
+      "sku": "UPL1012",
+      "name": "CYPERMETHIN 25 EC 12X1 L",
+      "brand": "UPL",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1012",
+      "model": null,
+      "source_public_price": "101.06352946666668",
+      "regular_price": "101.06",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "CYPERMETHIN 25 EC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 22
+        }
+      ]
+    },
+    {
+      "sku": "UPL1011",
+      "name": "CYPERMETHIN 25 EC 20X500 CC",
+      "brand": "UPL",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1011",
+      "model": null,
+      "source_public_price": "53.96",
+      "regular_price": "53.96",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20X500 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "CYPERMETHIN 25 EC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 23
+        }
+      ]
+    },
+    {
+      "sku": "UPL1010",
+      "name": "CYPERMETHIN 25 EC 40X250 CC",
+      "brand": "UPL",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1010",
+      "model": null,
+      "source_public_price": "28.905882399999999",
+      "regular_price": "28.91",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "40X250 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "CYPERMETHIN 25 EC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 24
+        }
+      ]
+    },
+    {
+      "sku": "UPL1009",
+      "name": "ABA FENIX 32.8 SC 120X100 CC",
+      "brand": "UPL",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1009",
+      "model": null,
+      "source_public_price": "83.934117599999993",
+      "regular_price": "83.93",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "120X100 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ABA FENIX 32.8 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 25
+        }
+      ]
+    },
+    {
+      "sku": "UPL1008",
+      "name": "ABA FENIX 32.8 SC 10X1 L",
+      "brand": "UPL",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1008",
+      "model": null,
+      "source_public_price": "685.17647053333337",
+      "regular_price": "685.18",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "10X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ABA FENIX 32.8 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 26
+        }
+      ]
+    },
+    {
+      "sku": "UPL1007",
+      "name": "DOBLE DUQUE 5 EC 12X1 L",
+      "brand": "UPL",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1007",
+      "model": null,
+      "source_public_price": "231.24705879999999",
+      "regular_price": "231.25",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DOBLE DUQUE 5 EC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 27
+        }
+      ]
+    },
+    {
+      "sku": "UPL1006",
+      "name": "DOBLE DUQUE 5 EC 96X125 CC",
+      "brand": "UPL",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1006",
+      "model": null,
+      "source_public_price": "38.541176533333335",
+      "regular_price": "38.54",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "96X125 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DOBLE DUQUE 5 EC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 28
+        }
+      ]
+    },
+    {
+      "sku": "UPL1005",
+      "name": "BAMAKO 75 100 GR",
+      "brand": "UPL",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1005",
+      "model": null,
+      "source_public_price": "147.05819613333333",
+      "regular_price": "147.06",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "48X100 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BAMAKO"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 29
+        }
+      ]
+    },
+    {
+      "sku": "UPL1004",
+      "name": "JAQUE MATE 20 SL 12X1 L",
+      "brand": "UPL",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1004",
+      "model": null,
+      "source_public_price": "744",
+      "regular_price": "744.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "JAQUE MATE 20 SL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 30
+        }
+      ]
+    },
+    {
+      "sku": "UPL1003",
+      "name": "BENT 21.82 SL 12X1 L",
+      "brand": "UPL",
+      "category": "HERBICIDA",
+      "kind": "agricultural",
+      "slug": "upl-upl1003",
+      "model": null,
+      "source_public_price": "529",
+      "regular_price": "529.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BENT 21.82 SL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 31
+        }
+      ]
+    },
+    {
+      "sku": "UPL1002",
+      "name": "ALGASOIL 20 KG",
+      "brand": "UPL",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "upl-upl1002",
+      "model": null,
+      "source_public_price": "460",
+      "regular_price": "460.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "1X20 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ALGASOIL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 32
+        }
+      ]
+    },
+    {
+      "sku": "SY1068",
+      "name": "VANIVA 45 SC 400 CC",
+      "brand": "Syngenta",
+      "category": "HERBICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1068",
+      "model": null,
+      "source_public_price": "2202.8200000000002",
+      "regular_price": "2202.82",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20X400 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "VANIVA 45 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 33
+        }
+      ]
+    },
+    {
+      "sku": "SY1069",
+      "name": "MINECTO STAR 60 WG 20X400 GR",
+      "brand": "Syngenta",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1069",
+      "model": null,
+      "source_public_price": "1150",
+      "regular_price": "1150.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20X400 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "MINECTO STAR"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 34
+        }
+      ]
+    },
+    {
+      "sku": "SY1067",
+      "name": "ELATUS 45WG 12X1 KG",
+      "brand": "Syngenta",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1067",
+      "model": null,
+      "source_public_price": "1150.5899999999999",
+      "regular_price": "1150.59",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ELATUS 45 WG"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 35
+        }
+      ]
+    },
+    {
+      "sku": "SY1052",
+      "name": "DARTAÑAN 19.35 SC 12X1 L",
+      "brand": "Syngenta",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1052",
+      "model": null,
+      "source_public_price": "225",
+      "regular_price": "225.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DARTAÑAN 19.35 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 36
+        },
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 46
+        }
+      ]
+    },
+    {
+      "sku": "SY1063",
+      "name": "INCIPIO 20 SC 24X500 CC",
+      "brand": "Syngenta",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1063",
+      "model": null,
+      "source_public_price": "1550",
+      "regular_price": "1550.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "24X500 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "INCIPIO 20 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 37
+        }
+      ]
+    },
+    {
+      "sku": "SY1061",
+      "name": "INCIPIO 20 SC 48X100 CC",
+      "brand": "Syngenta",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1061",
+      "model": null,
+      "source_public_price": "325",
+      "regular_price": "325.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "48X100 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "INCIPIO 20 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 38
+        }
+      ]
+    },
+    {
+      "sku": "SY1060",
+      "name": "ECLEON 25 SL 250 CC",
+      "brand": "Syngenta",
+      "category": "HERBICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1060",
+      "model": null,
+      "source_public_price": "115.29",
+      "regular_price": "115.29",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20x250 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ECLEON 25 SL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 39
+        }
+      ]
+    },
+    {
+      "sku": "SY1019",
+      "name": "PREGLONE 20 SL 5 L",
+      "brand": "Syngenta",
+      "category": "HERBICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1019",
+      "model": null,
+      "source_public_price": "644",
+      "regular_price": "644.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "PREGLONE"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 40
+        }
+      ]
+    },
+    {
+      "sku": "SY1051",
+      "name": "FORTENZA MAXX 12X1 L",
+      "brand": "Syngenta",
+      "category": "TRATADOR DE SEMILLAS",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1051",
+      "model": null,
+      "source_public_price": "1336.47",
+      "regular_price": "1336.47",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "FORTENZA MAXX"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 41
+        }
+      ]
+    },
+    {
+      "sku": "SY1057",
+      "name": "FORTENZA MAXX 100 CC",
+      "brand": "Syngenta",
+      "category": "TRATADOR DE SEMILLAS",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1057",
+      "model": null,
+      "source_public_price": "140",
+      "regular_price": "140.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "48X100 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "FORTENZA MAXX"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 42
+        }
+      ]
+    },
+    {
+      "sku": "SY1059",
+      "name": "RIDOMIL GOLD PLUS 42.5 WP 1 KG",
+      "brand": "Syngenta",
+      "category": "HERBICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1059",
+      "model": null,
+      "source_public_price": "250",
+      "regular_price": "250.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "RIDOMIL GOLD PLUS 42.5 WP"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 43
+        }
+      ]
+    },
+    {
+      "sku": "SY1058",
+      "name": "CARIAL FLEX 33 WG 200 GR",
+      "brand": "Syngenta",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1058",
+      "model": null,
+      "source_public_price": "165",
+      "regular_price": "165.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20x250 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "CARIAL FLEX 33 WG"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 44
+        }
+      ]
+    },
+    {
+      "sku": "SY1055",
+      "name": "DARTAÑAN 19.35 SC 2X10 L",
+      "brand": "Syngenta",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1055",
+      "model": null,
+      "source_public_price": "2423.5300000000002",
+      "regular_price": "2423.53",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "2X10 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DARTAÑAN 19.35 SC"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 45
+        }
+      ]
+    },
+    {
+      "sku": "SY1049",
+      "name": "DENIM FIT 45 WG 50 GR",
+      "brand": "Syngenta",
+      "category": "INSECTICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1049",
+      "model": null,
+      "source_public_price": "115.25",
+      "regular_price": "115.25",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "40X50 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DENIM FIT 45 WG"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 47
+        }
+      ]
+    },
+    {
+      "sku": "SY1037",
+      "name": "CARIAL FLEX 33 WG 10X1 KG",
+      "brand": "Syngenta",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1037",
+      "model": null,
+      "source_public_price": "730",
+      "regular_price": "730.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "10X1 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "CARIAL FLEX 33 WG"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 48
+        }
+      ]
+    },
+    {
+      "sku": "SY1044",
+      "name": "ELUMIS 105 OD 1 L",
+      "brand": "Syngenta",
+      "category": "HERBICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1044",
+      "model": null,
+      "source_public_price": "290.60000000000002",
+      "regular_price": "290.60",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ELUMIS 105 OD"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 49
+        }
+      ]
+    },
+    {
+      "sku": "SY1008",
+      "name": "AMISTAR XTRA 5 L",
+      "brand": "Syngenta",
+      "category": "FUNGICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1008",
+      "model": null,
+      "source_public_price": "5009",
+      "regular_price": "5009.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "AMISTAR XTRA"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 50
+        }
+      ]
+    },
+    {
+      "sku": "SY1007",
+      "name": "CRUISER 35 FS 1 L",
+      "brand": "Syngenta",
+      "category": "TRATADOR DE SEMILLAS",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1007",
+      "model": null,
+      "source_public_price": "2104",
+      "regular_price": "2104.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "CRUISER 35 FS"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 51
+        }
+      ]
+    },
+    {
+      "sku": "RADIX03",
+      "name": "RADIX 35 ST 8.6 GR - 2UN",
+      "brand": "Interie",
+      "category": "ENRAIZADOR",
+      "kind": "agricultural",
+      "slug": "interie-radix03",
+      "model": null,
+      "source_public_price": "127",
+      "regular_price": "127.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "2X8.6 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "RADIX TABLETA"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 52
+        }
+      ]
+    },
+    {
+      "sku": "SY1090",
+      "name": "KLERAT PELLETS 1X30X12 UN (20 GR)",
+      "brand": "Syngenta",
+      "category": "RODENTICIDA",
+      "kind": "agricultural",
+      "slug": "syngenta-sy1090",
+      "model": null,
+      "source_public_price": "7",
+      "regular_price": "7.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "1X30X12 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "KLERAT PELLETS"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 53
+        }
+      ]
+    },
+    {
+      "sku": "RADIX97",
+      "name": "ACIDO INDOL 3 BUTIRICO TECNICO 500 GR",
+      "brand": "Interie",
+      "category": "ENRAIZADOR",
+      "kind": "agricultural",
+      "slug": "interie-radix97",
+      "model": null,
+      "source_public_price": "2333.5",
+      "regular_price": "2333.50",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "9X500 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "RADIX POLVO"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 54
+        }
+      ]
+    },
+    {
+      "sku": "RADIX18",
+      "name": "RADIX 35 ST 51.5 GR - 1UN",
+      "brand": "Interie",
+      "category": "ENRAIZADOR",
+      "kind": "agricultural",
+      "slug": "interie-radix18",
+      "model": null,
+      "source_public_price": "467",
+      "regular_price": "467.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "1X51.5 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "RADIX TABLETA"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 55
+        }
+      ]
+    },
+    {
+      "sku": "FUT1043",
+      "name": "DEFENDER COMPLEX 1 L",
+      "brand": "Futureco",
+      "category": "FOLIAR",
+      "kind": "agricultural",
+      "slug": "futureco-fut1043",
+      "model": null,
+      "source_public_price": "131",
+      "regular_price": "131.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DEFENDER COMPLEX"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 56
+        }
+      ]
+    },
+    {
+      "sku": "FUT1046",
+      "name": "DEFENDER ACTIVE ZN 200 GR",
+      "brand": "Futureco",
+      "category": "FOLIAR",
+      "kind": "agricultural",
+      "slug": "futureco-fut1046",
+      "model": null,
+      "source_public_price": "113.4",
+      "regular_price": "113.40",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20X200 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DEFENDER ACTIVE ZN"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 57
+        }
+      ]
+    },
+    {
+      "sku": "FUT1038",
+      "name": "DEFENDER ACTIVE ZN 1 KG",
+      "brand": "Futureco",
+      "category": "FOLIAR",
+      "kind": "agricultural",
+      "slug": "futureco-fut1038",
+      "model": null,
+      "source_public_price": "487",
+      "regular_price": "487.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "10X1 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DEFENDER ACTIVE ZN"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 58
+        }
+      ]
+    },
+    {
+      "sku": "FUT1047",
+      "name": "DEFENDER ACTIVE MG 200 GR",
+      "brand": "Futureco",
+      "category": "FOLIAR",
+      "kind": "agricultural",
+      "slug": "futureco-fut1047",
+      "model": null,
+      "source_public_price": "113.4",
+      "regular_price": "113.40",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20X200 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DEFENDER ACTIVE MG"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 59
+        }
+      ]
+    },
+    {
+      "sku": "FUT1065",
+      "name": "BOTAMISOL 80 PRO 100 GR",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1065",
+      "model": null,
+      "source_public_price": "65.3",
+      "regular_price": "65.30",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "25X100 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BOTAMISOL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 60
+        }
+      ]
+    },
+    {
+      "sku": "FUT1041",
+      "name": "BOTAMISOL 80 PRO 20X500 GR",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1041",
+      "model": null,
+      "source_public_price": "293.5",
+      "regular_price": "293.50",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20X500 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BOTAMISOL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 61
+        }
+      ]
+    },
+    {
+      "sku": "FUT1055",
+      "name": "FITOMAAT WG 4X2.5 KG",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1055",
+      "model": null,
+      "source_public_price": "1682.5",
+      "regular_price": "1682.50",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X2.5 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "FITOMAAT WG"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 62
+        }
+      ]
+    },
+    {
+      "sku": "FUT1059",
+      "name": "DEFENDER ACTIVE ZN 3 KG",
+      "brand": "Futureco",
+      "category": "FOLIAR",
+      "kind": "agricultural",
+      "slug": "futureco-fut1059",
+      "model": null,
+      "source_public_price": "1300.01",
+      "regular_price": "1300.01",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X3 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DEFENDER ACTIVE ZN"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 63
+        }
+      ]
+    },
+    {
+      "sku": "FUT1052",
+      "name": "ECORMON ORGANICO 1 L",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1052",
+      "model": null,
+      "source_public_price": "332",
+      "regular_price": "332.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ECORMON"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 64
+        }
+      ]
+    },
+    {
+      "sku": "FUT1053",
+      "name": "CITOGROWER 5 L",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1053",
+      "model": null,
+      "source_public_price": "3600",
+      "regular_price": "3600.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "CITOGROWER"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 65
+        }
+      ]
+    },
+    {
+      "sku": "FUT1050",
+      "name": "MASBRIX 12X1L",
+      "brand": "Futureco",
+      "category": "MASBRIX",
+      "kind": "agricultural",
+      "slug": "futureco-fut1050",
+      "model": null,
+      "source_public_price": "580",
+      "regular_price": "580.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "MASBRIX"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 66
+        }
+      ]
+    },
+    {
+      "sku": "FUT1042",
+      "name": "BOTAMISOL 80 PRO 4X2.5 KG",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1042",
+      "model": null,
+      "source_public_price": "1332.5",
+      "regular_price": "1332.50",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X2.5 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BOTAMISOL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 67
+        }
+      ]
+    },
+    {
+      "sku": "FUT1040",
+      "name": "FOSFIMAX 59-30 - 250 CC",
+      "brand": "Futureco",
+      "category": "PREVENTIVO",
+      "kind": "agricultural",
+      "slug": "futureco-fut1040",
+      "model": null,
+      "source_public_price": "63.25",
+      "regular_price": "63.25",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20x250 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "FOSFIMAX"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 68
+        }
+      ]
+    },
+    {
+      "sku": "FUT1039",
+      "name": "DEFENDER ACTIVE MG 1 KG",
+      "brand": "Futureco",
+      "category": "FOLIAR",
+      "kind": "agricultural",
+      "slug": "futureco-fut1039",
+      "model": null,
+      "source_public_price": "487",
+      "regular_price": "487.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "10X1 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DEFENDER ACTIVE MG"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 69
+        }
+      ]
+    },
+    {
+      "sku": "FUT1036",
+      "name": "BOTAMISOL 200 GR",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1036",
+      "model": null,
+      "source_public_price": "69.400000000000006",
+      "regular_price": "69.40",
+      "currency": "GTQ",
+      "requires_rounding": true,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20X200 GR"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BOTAMISOL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 70
+        }
+      ]
+    },
+    {
+      "sku": "FUT1034",
+      "name": "BESTCURE 43 SL 250 CC",
+      "brand": "Futureco",
+      "category": "BOTANICOS",
+      "kind": "agricultural",
+      "slug": "futureco-fut1034",
+      "model": null,
+      "source_public_price": "223.25",
+      "regular_price": "223.25",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20x250 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BESTCURE 43 SL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 71
+        }
+      ]
+    },
+    {
+      "sku": "FUT1030",
+      "name": "DEFENDER COMPLEX 5 L",
+      "brand": "Futureco",
+      "category": "FOLIAR",
+      "kind": "agricultural",
+      "slug": "futureco-fut1030",
+      "model": null,
+      "source_public_price": "615",
+      "regular_price": "615.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DEFENDER COMPLEX"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 72
+        }
+      ]
+    },
+    {
+      "sku": "FUT1027",
+      "name": "DEFENDER K 5 L",
+      "brand": "Futureco",
+      "category": "FOLIAR",
+      "kind": "agricultural",
+      "slug": "futureco-fut1027",
+      "model": null,
+      "source_public_price": "700",
+      "regular_price": "700.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DEFENDER K"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 73
+        }
+      ]
+    },
+    {
+      "sku": "FUT1026",
+      "name": "DEFENDER K 1 L",
+      "brand": "Futureco",
+      "category": "FOLIAR",
+      "kind": "agricultural",
+      "slug": "futureco-fut1026",
+      "model": null,
+      "source_public_price": "153",
+      "regular_price": "153.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DEFENDER K"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 74
+        }
+      ]
+    },
+    {
+      "sku": "FUT1025",
+      "name": "FRUTALIV 5 L",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1025",
+      "model": null,
+      "source_public_price": "1135",
+      "regular_price": "1135.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "FRUTALIV"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 75
+        }
+      ]
+    },
+    {
+      "sku": "FUT1023",
+      "name": "BIORADICANTE 250 CC",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1023",
+      "model": null,
+      "source_public_price": "83.25",
+      "regular_price": "83.25",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20x250 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BIORADICANTE"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 76
+        }
+      ]
+    },
+    {
+      "sku": "FUT1022",
+      "name": "BESTCURE 43 SL 5 L",
+      "brand": "Futureco",
+      "category": "BOTANICOS",
+      "kind": "agricultural",
+      "slug": "futureco-fut1022",
+      "model": null,
+      "source_public_price": "3335",
+      "regular_price": "3335.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BESTCURE 43 SL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 77
+        }
+      ]
+    },
+    {
+      "sku": "FUT1019",
+      "name": "ECORMON 5 L",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1019",
+      "model": null,
+      "source_public_price": "1735",
+      "regular_price": "1735.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ECORMON"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 78
+        }
+      ]
+    },
+    {
+      "sku": "FUT1018",
+      "name": "BESTCURE 43 SL 1 L",
+      "brand": "Futureco",
+      "category": "BOTANICOS",
+      "kind": "agricultural",
+      "slug": "futureco-fut1018",
+      "model": null,
+      "source_public_price": "700",
+      "regular_price": "700.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BESTCURE 43 SL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 79
+        }
+      ]
+    },
+    {
+      "sku": "FUT1016",
+      "name": "BIORADICANTE 5 L",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1016",
+      "model": null,
+      "source_public_price": "1235",
+      "regular_price": "1235.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BIORADICANTE"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 80
+        }
+      ]
+    },
+    {
+      "sku": "FUT1015",
+      "name": "ALFOSITOL 5 L",
+      "brand": "Futureco",
+      "category": "PREVENTIVO",
+      "kind": "agricultural",
+      "slug": "futureco-fut1015",
+      "model": null,
+      "source_public_price": "1300",
+      "regular_price": "1300.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ALFOSITOL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 81
+        }
+      ]
+    },
+    {
+      "sku": "FUT1014",
+      "name": "FOSFIMAX 59-30 5 L",
+      "brand": "Futureco",
+      "category": "PREVENTIVO",
+      "kind": "agricultural",
+      "slug": "futureco-fut1014",
+      "model": null,
+      "source_public_price": "900",
+      "regular_price": "900.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "FOSFIMAX"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 82
+        }
+      ]
+    },
+    {
+      "sku": "FUT1013",
+      "name": "ECORMON 250 CC",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1013",
+      "model": null,
+      "source_public_price": "116.75",
+      "regular_price": "116.75",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20x250 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ECORMON"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 83
+        }
+      ]
+    },
+    {
+      "sku": "FUT1012",
+      "name": "DEFENDER CA 5 L",
+      "brand": "Futureco",
+      "category": "FOLIAR",
+      "kind": "agricultural",
+      "slug": "futureco-fut1012",
+      "model": null,
+      "source_public_price": "575",
+      "regular_price": "575.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DEFENDER CALCIO"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 84
+        }
+      ]
+    },
+    {
+      "sku": "FUT1011",
+      "name": "CITOGROWER 250 CC",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1011",
+      "model": null,
+      "source_public_price": "190",
+      "regular_price": "190.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20x250 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "CITOGROWER"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 85
+        }
+      ]
+    },
+    {
+      "sku": "FUT1010",
+      "name": "ALFOSITOL 20X250 CC",
+      "brand": "Futureco",
+      "category": "PREVENTIVO",
+      "kind": "agricultural",
+      "slug": "futureco-fut1010",
+      "model": null,
+      "source_public_price": "100",
+      "regular_price": "100.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "20x250 CC"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ALFOSITOL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 86
+        }
+      ]
+    },
+    {
+      "sku": "FUT1009",
+      "name": "BOTAMISOL 5 KG",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1009",
+      "model": null,
+      "source_public_price": "1335",
+      "regular_price": "1335.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "4X5 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BOTAMISOL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 87
+        }
+      ]
+    },
+    {
+      "sku": "FUT1008",
+      "name": "DEFENDER CA 1 L",
+      "brand": "Futureco",
+      "category": "FOLIAR",
+      "kind": "agricultural",
+      "slug": "futureco-fut1008",
+      "model": null,
+      "source_public_price": "123",
+      "regular_price": "123.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "DEFENDER CALCIO"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 88
+        }
+      ]
+    },
+    {
+      "sku": "FUT1007",
+      "name": "FOSFIMAX 59-30 1 L",
+      "brand": "Futureco",
+      "category": "PREVENTIVO",
+      "kind": "agricultural",
+      "slug": "futureco-fut1007",
+      "model": null,
+      "source_public_price": "200",
+      "regular_price": "200.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "FOSFIMAX"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 89
+        }
+      ]
+    },
+    {
+      "sku": "FUT1006",
+      "name": "CITOGROWER 1 L",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1006",
+      "model": null,
+      "source_public_price": "733",
+      "regular_price": "733.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "CITOGROWER"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 90
+        }
+      ]
+    },
+    {
+      "sku": "FUT1005",
+      "name": "ECORMON 1 L",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1005",
+      "model": null,
+      "source_public_price": "393",
+      "regular_price": "393.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ECORMON"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 91
+        }
+      ]
+    },
+    {
+      "sku": "FUT1004",
+      "name": "BIORADICANTE 1 L",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1004",
+      "model": null,
+      "source_public_price": "260",
+      "regular_price": "260.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BIORADICANTE"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 92
+        }
+      ]
+    },
+    {
+      "sku": "FUT1003",
+      "name": "BOTAMISOL 1 KG",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1003",
+      "model": null,
+      "source_public_price": "287",
+      "regular_price": "287.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "10X1 KG"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "BOTAMISOL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 93
+        }
+      ]
+    },
+    {
+      "sku": "FUT1002",
+      "name": "FRUTALIV 1 L",
+      "brand": "Futureco",
+      "category": "BIOESTIMULANTE",
+      "kind": "agricultural",
+      "slug": "futureco-fut1002",
+      "model": null,
+      "source_public_price": "233",
+      "regular_price": "233.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "FRUTALIV"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 94
+        }
+      ]
+    },
+    {
+      "sku": "FUT1001",
+      "name": "ALFOSITOL 1 L",
+      "brand": "Futureco",
+      "category": "PREVENTIVO",
+      "kind": "agricultural",
+      "slug": "futureco-fut1001",
+      "model": null,
+      "source_public_price": "300",
+      "regular_price": "300.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [
+        {
+          "label": "Presentación de caja",
+          "value": "12X1 LT"
+        },
+        {
+          "label": "Familia de producto",
+          "value": "ALFOSITOL"
+        }
+      ],
+      "source_rows": [
+        {
+          "sheet": "PRODUCTO AGRICOLA",
+          "row": 95
+        }
+      ]
+    },
+    {
+      "sku": "MDK-56",
+      "name": "FUMIGADORA KAWASHIMA DE POLVO Y LIQUIDO",
+      "brand": "KAWASHIMA",
+      "category": "ASPERSIÓN",
+      "kind": "equipment",
+      "slug": "kawashima-mdk-56",
+      "model": "MDK-56",
+      "source_public_price": "4500",
+      "regular_price": "4500.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 3
+        }
+      ]
+    },
+    {
+      "sku": "KAWA",
+      "name": "ASPERSOR MANUAL 15L KAWASHIMA",
+      "brand": "KAWASHIMA",
+      "category": "ASPERSIÓN",
+      "kind": "equipment",
+      "slug": "kawashima-kawa",
+      "model": "KAWA",
+      "source_public_price": "450",
+      "regular_price": "450.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 4
+        }
+      ]
+    },
+    {
+      "sku": "AKM2",
+      "name": "ASPERSOR MANUAL 15L MOD.AKM2 KAWASHIMA",
+      "brand": "KAWASHIMA",
+      "category": "ASPERSIÓN",
+      "kind": "equipment",
+      "slug": "kawashima-akm2",
+      "model": "AKM2",
+      "source_public_price": "325",
+      "regular_price": "325.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 5
+        }
+      ]
+    },
+    {
+      "sku": "AK-26GX",
+      "name": "ASPERSOR MOTORIZADO 26CC HONDA GX25",
+      "brand": "KAWASHIMA PRO",
+      "category": "ASPERSIÓN",
+      "kind": "equipment",
+      "slug": "kawashima-pro-ak-26gx",
+      "model": "AK-26GX",
+      "source_public_price": "5707",
+      "regular_price": "5707.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 6
+        }
+      ]
+    },
+    {
+      "sku": "AK-26TB",
+      "name": "ASPERSOR KAWASHIMA MOTOR MITSUBISHI",
+      "brand": "KAWASHIMA PRO",
+      "category": "ASPERSIÓN",
+      "kind": "equipment",
+      "slug": "kawashima-pro-ak-26tb",
+      "model": "AK-26TB",
+      "source_public_price": "5350",
+      "regular_price": "5350.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 7
+        }
+      ]
+    },
+    {
+      "sku": "AT26",
+      "name": "ASPERSOR TAKASHI 25 L 26CC ANT KS25BP-",
+      "brand": "TAKASHI",
+      "category": "ASPERSIÓN",
+      "kind": "equipment",
+      "slug": "takashi-at26",
+      "model": "AT26",
+      "source_public_price": "1700",
+      "regular_price": "1700.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 8
+        }
+      ]
+    },
+    {
+      "sku": "AT31",
+      "name": "ASPERSOR MOTORIZADO 31 CC",
+      "brand": "TAKASHI",
+      "category": "ASPERSIÓN",
+      "kind": "equipment",
+      "slug": "takashi-at31",
+      "model": "AT31",
+      "source_public_price": "2100",
+      "regular_price": "2100.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 9
+        }
+      ]
+    },
+    {
+      "sku": "MKM33",
+      "name": "DESBROZADOR MULTIFUNCIONAL KAWASHIMA MONTANA MKM33",
+      "brand": "KAWASHIMA",
+      "category": "DESBROZADORA",
+      "kind": "equipment",
+      "slug": "kawashima-mkm33",
+      "model": "MKM33",
+      "source_public_price": "3800",
+      "regular_price": "3800.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 10
+        }
+      ]
+    },
+    {
+      "sku": "DKY52K",
+      "name": "DESBROZADOR KAWASHIMA 52 CC 2TDKY52KDKY52K",
+      "brand": "KAWASHIMA",
+      "category": "DESBROZADORA",
+      "kind": "equipment",
+      "slug": "kawashima-dky52k",
+      "model": "DKY52K",
+      "source_public_price": "2650",
+      "regular_price": "2650.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 11
+        }
+      ]
+    },
+    {
+      "sku": "DKY43K",
+      "name": "DESBROZADOR KAWASHIMA 43 CC 2T",
+      "brand": "KAWASHIMA",
+      "category": "DESBROZADORA",
+      "kind": "equipment",
+      "slug": "kawashima-dky43k",
+      "model": "DKY43K",
+      "source_public_price": "2200",
+      "regular_price": "2200.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 12
+        }
+      ]
+    },
+    {
+      "sku": "DT43K",
+      "name": "DESBROZADOR 43 CC RECTO CON CUERNOS",
+      "brand": "TAKASHI",
+      "category": "DESBROZADORA",
+      "kind": "equipment",
+      "slug": "takashi-dt43k",
+      "model": "DT43K",
+      "source_public_price": "1600",
+      "regular_price": "1600.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 13
+        }
+      ]
+    },
+    {
+      "sku": "DT52K",
+      "name": "DESBROZADOR 52 CC RECTO CON CUERNOS",
+      "brand": "TAKASHI",
+      "category": "DESBROZADORA",
+      "kind": "equipment",
+      "slug": "takashi-dt52k",
+      "model": "DT52K",
+      "source_public_price": "2000",
+      "regular_price": "2000.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 14
+        }
+      ]
+    },
+    {
+      "sku": "MTKP68",
+      "name": "MOTOTALADRO KAWASHIMA PRO 68 CC",
+      "brand": "KAWASHIMA PRO",
+      "category": "MOTOTALADRO",
+      "kind": "equipment",
+      "slug": "kawashima-pro-mtkp68",
+      "model": "MTKP68",
+      "source_public_price": "5100",
+      "regular_price": "5100.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 15
+        }
+      ]
+    },
+    {
+      "sku": "BP2510V2",
+      "name": "MOTOBOMBA 26 CC 2 TIEMPOS 1X1 PULG",
+      "brand": "KAWASHIMA",
+      "category": "MOTOBOMBA",
+      "kind": "equipment",
+      "slug": "kawashima-bp2510v2",
+      "model": "BP2510V2",
+      "source_public_price": "1814",
+      "regular_price": "1814.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 16
+        }
+      ]
+    },
+    {
+      "sku": "BK501-1.5C",
+      "name": "MOTOBOMBA CENTRIFUGA 50 CC 1 - 1.5 PULG 4 TIEMPOS",
+      "brand": "KAWASHIMA",
+      "category": "MOTOBOMBA",
+      "kind": "equipment",
+      "slug": "kawashima-bk501-1-5c",
+      "model": "BK501-1.5C",
+      "source_public_price": "3000",
+      "regular_price": "3000.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 17
+        }
+      ]
+    },
+    {
+      "sku": "BK621-1.5C",
+      "name": "MOTOBOMBA CENTRIFUGA 1 - 1.5 PULG. 62 CC",
+      "brand": "KAWASHIMA",
+      "category": "MOTOBOMBA",
+      "kind": "equipment",
+      "slug": "kawashima-bk621-1-5c",
+      "model": "BK621-1.5C",
+      "source_public_price": "2250",
+      "regular_price": "2250.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 18
+        }
+      ]
+    },
+    {
+      "sku": "BP720C",
+      "name": "MOTOBOMBA 7 HP 4 TIEMPOS OHV 2PL CENTRIFUGA",
+      "brand": "PARAZZINI",
+      "category": "MOTOBOMBA",
+      "kind": "equipment",
+      "slug": "parazzini-bp720c",
+      "model": "BP720C",
+      "source_public_price": "4550",
+      "regular_price": "4550.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 19
+        }
+      ]
+    },
+    {
+      "sku": "BT5.520",
+      "name": "MOTOBOMBA TAKASHI 2\" 5.5 HP",
+      "brand": "TAKASHI",
+      "category": "MOTOBOMBA",
+      "kind": "equipment",
+      "slug": "takashi-bt5-520",
+      "model": "BT5.520",
+      "source_public_price": "2200",
+      "regular_price": "2200.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 20
+        }
+      ]
+    },
+    {
+      "sku": "BT6.530",
+      "name": "MOTOBOMBA DE RIEGO TAKASHI 3\" 6.5 HP",
+      "brand": "TAKASHI",
+      "category": "MOTOBOMBA",
+      "kind": "equipment",
+      "slug": "takashi-bt6-530",
+      "model": "BT6.530",
+      "source_public_price": "2400",
+      "regular_price": "2400.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 21
+        }
+      ]
+    },
+    {
+      "sku": "MAKO25",
+      "name": "MOTOSIERRA PROFESIONAL 25 CC CON 2 BARRAS Y CADENA 12 PULG",
+      "brand": "KAWASHIMA PRO",
+      "category": "MOTOSIERRA",
+      "kind": "equipment",
+      "slug": "kawashima-pro-mako25",
+      "model": "MAKO25",
+      "source_public_price": "1850",
+      "regular_price": "1850.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 22
+        }
+      ]
+    },
+    {
+      "sku": "MAKO52",
+      "name": "MOTOSIERRA PROFESIONAL 52 CC CON 2 BARRAS Y CADENA 16 PULG",
+      "brand": "KAWASHIMA PRO",
+      "category": "MOTOSIERRA",
+      "kind": "equipment",
+      "slug": "kawashima-pro-mako52",
+      "model": "MAKO52",
+      "source_public_price": "3000",
+      "regular_price": "3000.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 23
+        }
+      ]
+    },
+    {
+      "sku": "MAKO58",
+      "name": "MOTOSIERRA PROFESIONAL 58 CC CON 2 BARRAS Y CADENA 18 PULG",
+      "brand": "KAWASHIMA PRO",
+      "category": "MOTOSIERRA",
+      "kind": "equipment",
+      "slug": "kawashima-pro-mako58",
+      "model": "MAKO58",
+      "source_public_price": "3500",
+      "regular_price": "3500.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 24
+        }
+      ]
+    },
+    {
+      "sku": "MAKO65",
+      "name": "MOTOSIERRA PROFESIONAL 65 CC BARRA 20 PULG",
+      "brand": "KAWASHIMA PRO",
+      "category": "MOTOSIERRA",
+      "kind": "equipment",
+      "slug": "kawashima-pro-mako65",
+      "model": "MAKO65",
+      "source_public_price": "3900",
+      "regular_price": "3900.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 25
+        }
+      ]
+    },
+    {
+      "sku": "MAKO72",
+      "name": "MOTOSIERRA PROFESIONAL 72  CC CON 2 BARRAS Y CADENA 24 PULG",
+      "brand": "KAWASHIMA PRO",
+      "category": "MOTOSIERRA",
+      "kind": "equipment",
+      "slug": "kawashima-pro-mako72",
+      "model": "MAKO72",
+      "source_public_price": "7500",
+      "regular_price": "7500.00",
+      "currency": "GTQ",
+      "requires_rounding": false,
+      "specs": [],
+      "source_rows": [
+        {
+          "sheet": "EQUIPOS",
+          "row": 26
+        }
+      ]
+    }
+  ]
+}

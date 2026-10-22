@@ -10,7 +10,7 @@ export type Product = {
   name: string;
   category: string;
   brand: string;
-  kind?: "equipment" | "part" | "accessory";
+  kind?: "equipment" | "part" | "accessory" | "agricultural";
   engineBrand?: string;
   operation: string | null;
   price: number | null;

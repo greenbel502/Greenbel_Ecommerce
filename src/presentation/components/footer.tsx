@@ -1,8 +1,26 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Clock3, Mail, MapPin, MessageCircle } from "lucide-react";
 import { BrandLogo } from "./brand-logo";
 
 export function Footer() {
+  const pathname = usePathname();
+  const compact = ["/cuenta/ingresar", "/cuenta/registro", "/cuenta/recuperar", "/cuenta/restablecer"].includes(pathname);
+  if (compact) return (
+    <footer className="footer footer-compact">
+      <div className="footer-compact-inner">
+        <div className="footer-compact-brand">
+          <Link href="/" aria-label="GreenBel, volver al inicio"><BrandLogo variant="light" /></Link>
+          <span>© {new Date().getFullYear()} GreenBel. Ecommerce demostrativo.</span>
+        </div>
+        <nav aria-label="Información legal">
+          <Link href="/legal/privacidad">Privacidad</Link><Link href="/legal/terminos">Términos</Link><Link href="/legal/garantias">Garantías</Link>
+        </nav>
+      </div>
+    </footer>
+  );
   return (
     <footer className="footer">
       <div className="footer-grid">

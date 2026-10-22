@@ -1,0 +1,54 @@
+{
+  "time": "2026-10-22T17:11:56.179Z",
+  "checks": [
+    {
+      "name": "Anon reads 115 exact source products, prices and types",
+      "status": "PASS"
+    },
+    {
+      "name": "Anon returns error or zero rows for profiles",
+      "status": "PASS"
+    },
+    {
+      "name": "Anon returns error or zero rows for user_roles",
+      "status": "PASS"
+    },
+    {
+      "name": "Anon returns error or zero rows for inventory_balances",
+      "status": "PASS"
+    },
+    {
+      "name": "Anon returns error or zero rows for orders",
+      "status": "PASS"
+    },
+    {
+      "name": "Anon returns error or zero rows for payments",
+      "status": "PASS"
+    },
+    {
+      "name": "Anon returns error or zero rows for quotes",
+      "status": "PASS"
+    },
+    {
+      "name": "Fixture image is not publicly readable",
+      "status": "PASS"
+    },
+    {
+      "name": "HTTP serves exact reviewed image AKM2",
+      "status": "PASS"
+    },
+    {
+      "name": "HTTP serves exact reviewed image DKY43K",
+      "status": "PASS"
+    },
+    {
+      "name": "HTTP serves exact reviewed image FUT1043",
+      "status": "PASS"
+    },
+    {
+      "name": "HTTP denies archived fixture image",
+      "status": "PASS"
+    }
+  ],
+  "scope": "Empty operational tables cannot by themselves prove RLS isolation; profiles and roles have protected rows, and policy definitions were separately checked unchanged."
+}

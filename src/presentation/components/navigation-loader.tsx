@@ -104,11 +104,17 @@ export function NavigationLoader() {
       startLoading();
     }
 
+    function handlePopState() {
+      const nextRoute = `${window.location.pathname}?${new URLSearchParams(window.location.search).toString()}`;
+      // Opening an account section or traversing a fragment is not a page load.
+      if (nextRoute !== currentRouteRef.current) startLoading();
+    }
+
     document.addEventListener("click", handleDocumentClick, true);
-    window.addEventListener("popstate", startLoading);
+    window.addEventListener("popstate", handlePopState);
     return () => {
       document.removeEventListener("click", handleDocumentClick, true);
-      window.removeEventListener("popstate", startLoading);
+      window.removeEventListener("popstate", handlePopState);
     };
   }, [startLoading]);
 
@@ -117,5 +123,5 @@ export function NavigationLoader() {
     if (safetyTimerRef.current) window.clearTimeout(safetyTimerRef.current);
   }, []);
 
-  return overlayReady ? <NavigationLoadingOverlay visible={visible} /> : null;
+  return overlayReady && pathname !== "/admin" && !pathname.startsWith("/admin/") ? <NavigationLoadingOverlay visible={visible} /> : null;
 }

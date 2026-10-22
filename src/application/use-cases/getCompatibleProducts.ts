@@ -7,7 +7,7 @@ export async function getCompatibleProductIds(product: Product): Promise<{
   status: "ready" | "unavailable" | "mock";
   ids: string[];
 }> {
-  if (product.isMockPrice || !product.kind || product.kind === "accessory") {
+  if (product.isMockPrice || !product.kind || product.kind === "accessory" || product.kind === "agricultural") {
     return { status: "mock", ids: [] };
   }
   try {

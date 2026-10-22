@@ -1,0 +1,1719 @@
+{
+  "finalStatus": "PASS",
+  "checks": [
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": null,
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 1440,
+      "statements": [],
+      "valueColumns": "441.328px 441.338px 441.338px",
+      "valueCount": 6,
+      "width": 1440,
+      "status": "NO EJECUTADO",
+      "reason": "Selector directo no incluía el contenedor page-transition; medición repetida con secciones reales."
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": false
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "680px 680px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 1440,
+      "statements": [
+        {
+          "cardHeight": 185.99609375,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 1.259765625
+        },
+        {
+          "cardHeight": 186.005859375,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 1.259765625
+        }
+      ],
+      "valueColumns": "441.328px 441.338px 441.338px",
+      "valueCount": 6,
+      "width": 1440,
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "287.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 320,
+      "statements": [
+        {
+          "cardHeight": 213.203125,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 240.1953125,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "287.998px",
+      "valueCount": 6,
+      "width": 320,
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "357.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 390,
+      "statements": [
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "357.998px",
+      "valueCount": 6,
+      "width": 390,
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "607.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 640,
+      "statements": [
+        {
+          "cardHeight": 159.21875,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 159.21875,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "607.998px",
+      "valueCount": 6,
+      "width": 640,
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "727.5px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 767,
+      "statements": [
+        {
+          "cardHeight": 219.19921875,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 219.19921875,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "356.748px 356.758px",
+      "valueCount": 6,
+      "width": 767,
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "780px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": false
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": false
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 820,
+      "statements": [
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "382.998px 383.008px",
+      "valueCount": 6,
+      "width": 820,
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "491.875px 491.875px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 1024,
+      "statements": [
+        {
+          "cardHeight": 200.21484375,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 200.21484375,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "315.918px 315.918px 315.918px",
+      "valueCount": 6,
+      "width": 1024,
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "680px 680px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 1440,
+      "statements": [
+        {
+          "cardHeight": 185.99609375,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 1.259765625
+        },
+        {
+          "cardHeight": 186.005859375,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 1.259765625
+        }
+      ],
+      "valueColumns": "441.328px 441.338px 441.338px",
+      "valueCount": 6,
+      "width": 1440,
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "287.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 320,
+      "statements": [
+        {
+          "cardHeight": 213.203125,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 240.1953125,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "287.998px",
+      "valueCount": 6,
+      "width": 320,
+      "phase": "final-image-framing",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "357.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 390,
+      "statements": [
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "357.998px",
+      "valueCount": 6,
+      "width": 390,
+      "phase": "final-image-framing",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "607.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 640,
+      "statements": [
+        {
+          "cardHeight": 159.21875,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 159.21875,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "607.998px",
+      "valueCount": 6,
+      "width": 640,
+      "phase": "final-image-framing",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "727.5px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 767,
+      "statements": [
+        {
+          "cardHeight": 219.19921875,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 219.19921875,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "356.748px 356.758px",
+      "valueCount": 6,
+      "width": 767,
+      "phase": "final-image-framing",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "780px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": false
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": false
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 820,
+      "statements": [
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "382.998px 383.008px",
+      "valueCount": 6,
+      "width": 820,
+      "phase": "final-image-framing",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "491.875px 491.875px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 1024,
+      "statements": [
+        {
+          "cardHeight": 200.21484375,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 200.21484375,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "315.918px 315.918px 315.918px",
+      "valueCount": 6,
+      "width": 1024,
+      "phase": "final-image-framing",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "680px 680px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 1440,
+      "statements": [
+        {
+          "cardHeight": 207.48046875,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 1.259765625
+        },
+        {
+          "cardHeight": 207.48046875,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 1.259765625
+        }
+      ],
+      "valueColumns": "441.328px 441.338px 441.338px",
+      "valueCount": 6,
+      "width": 1440,
+      "phase": "final-image-framing",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": false
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "780px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": false
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": false
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 820,
+      "statements": [
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "382.998px 383.008px",
+      "valueCount": 6,
+      "width": 820,
+      "phase": "final-820-image-recheck",
+      "status": "FAIL",
+      "resolvedBy": "FINAL: ambas fotografías locales con carga directa y revisión a los siete anchos",
+      "open": false,
+      "note": "Lectura de carga fallida durante la iteración; el resultado histórico se conserva. El verificador inicial también exigía cargar la foto lazy fuera del viewport; la foto se comprobó después visible en tablet."
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": false
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "780px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": false
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": false
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 820,
+      "statements": [
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "382.998px 383.008px",
+      "valueCount": 6,
+      "width": 820,
+      "phase": "fresh-viewport-recheck",
+      "status": "FAIL",
+      "resolvedBy": "FINAL: ambas fotografías locales con carga directa y revisión a los siete anchos",
+      "open": false,
+      "note": "Lectura de carga fallida durante la iteración; el resultado histórico se conserva. El verificador inicial también exigía cargar la foto lazy fuera del viewport; la foto se comprobó después visible en tablet."
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": false
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "287.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 320,
+      "statements": [
+        {
+          "cardHeight": 213.203125,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 240.1953125,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "287.998px",
+      "valueCount": 6,
+      "width": 320,
+      "phase": "final-static-webp",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": false
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "357.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 390,
+      "statements": [
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "357.998px",
+      "valueCount": 6,
+      "width": 390,
+      "phase": "final-static-webp",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": false
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "607.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": false
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 640,
+      "statements": [
+        {
+          "cardHeight": 159.21875,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 159.21875,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "607.998px",
+      "valueCount": 6,
+      "width": 640,
+      "phase": "final-static-webp",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": false
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "727.5px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": false
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 767,
+      "statements": [
+        {
+          "cardHeight": 219.19921875,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 219.19921875,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "356.748px 356.758px",
+      "valueCount": 6,
+      "width": 767,
+      "phase": "final-static-webp",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": false
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "780px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": false
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 820,
+      "statements": [
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "382.998px 383.008px",
+      "valueCount": 6,
+      "width": 820,
+      "phase": "final-static-webp",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": false
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "491.875px 491.875px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": false
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 1024,
+      "statements": [
+        {
+          "cardHeight": 200.21484375,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 200.21484375,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "315.918px 315.918px 315.918px",
+      "valueCount": 6,
+      "width": 1024,
+      "phase": "final-static-webp",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": false
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": false
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "680px 680px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 1440,
+      "statements": [
+        {
+          "cardHeight": 207.48046875,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 1.259765625
+        },
+        {
+          "cardHeight": 207.48046875,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 1.259765625
+        }
+      ],
+      "valueColumns": "441.328px 441.338px 441.338px",
+      "valueCount": 6,
+      "width": 1440,
+      "phase": "final-static-webp",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "287.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 320,
+      "statements": [
+        {
+          "cardHeight": 213.203125,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 240.1953125,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "287.998px",
+      "valueCount": 6,
+      "width": 320,
+      "phase": "FINAL",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "357.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 390,
+      "statements": [
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "357.998px",
+      "valueCount": 6,
+      "width": 390,
+      "phase": "FINAL",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "607.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 640,
+      "statements": [
+        {
+          "cardHeight": 159.21875,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 159.21875,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "607.998px",
+      "valueCount": 6,
+      "width": 640,
+      "phase": "FINAL",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "735.498px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 767,
+      "statements": [
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "360.752px 360.752px",
+      "valueCount": 6,
+      "width": 767,
+      "phase": "FINAL",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "787.998px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 820,
+      "statements": [
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Misión",
+          "topOffset": 2.197265625
+        },
+        {
+          "cardHeight": 186.2109375,
+          "gap": 11.9921875,
+          "title": "Visión",
+          "topOffset": 2.197265625
+        }
+      ],
+      "valueColumns": "387.002px 387.002px",
+      "valueCount": 6,
+      "width": 820,
+      "phase": "FINAL",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "491.875px 491.875px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 1024,
+      "statements": [
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 192.20703125,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "318.584px 318.584px 318.594px",
+      "valueCount": 6,
+      "width": 1024,
+      "phase": "FINAL",
+      "status": "PASS"
+    },
+    {
+      "brandLogos": [
+        {
+          "alt": "Logo de Kawashima",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Parazzini",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Takashi",
+          "loaded": true
+        },
+        {
+          "alt": "Logo de Bertolini",
+          "loaded": true
+        }
+      ],
+      "cta": "/contacto",
+      "heroColumns": "680px 680px",
+      "images": [
+        {
+          "alt": "Imagen ilustrativa de una bomba de riego junto a un campo de cultivo entre montañas",
+          "loaded": true
+        },
+        {
+          "alt": "Asesoría técnica GreenBel en Guatemala",
+          "loaded": true
+        }
+      ],
+      "overflowing": [],
+      "path": "/nosotros",
+      "scrollWidth": 1440,
+      "statements": [
+        {
+          "cardHeight": 207.48046875,
+          "gap": 15.99609375,
+          "title": "Misión",
+          "topOffset": 5.1953125
+        },
+        {
+          "cardHeight": 207.48046875,
+          "gap": 15.99609375,
+          "title": "Visión",
+          "topOffset": 5.1953125
+        }
+      ],
+      "valueColumns": "444.004px 444.004px 444.004px",
+      "valueCount": 6,
+      "width": 1440,
+      "phase": "FINAL",
+      "status": "PASS"
+    }
+  ],
+  "remainingOpenFailures": []
+}

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "comparedExistingFiles": 367,
+  "unchangedExistingFiles": 365,
+  "changed": [
+    "src/app/globals.css",
+    "src/app/nosotros/page.tsx"
+  ],
+  "added": [
+    "public/images/about/campo-riego-ilustrativo.webp",
+    "src/app/nosotros/about.module.css"
+  ],
+  "businessBackendAuthMigrations": "Sin cambios",
+  "originalImagesAndHomeCarousel": "Sin cambios"
+}

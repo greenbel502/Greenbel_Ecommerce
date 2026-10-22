@@ -6,10 +6,10 @@ export function BrandLogo({ variant = "default" }: { variant?: "default" | "ligh
   return (
     <div className={isLight ? "brand-logo brand-logo-light" : "brand-logo"} aria-label="GreenBel">
       <Image
-        src={isLight ? "/images/logo-white.svg" : "/images/logo-optimized.webp"}
+        src={isLight ? "/images/brand/greenbel-horizontal-light.svg" : "/images/brand/greenbel-horizontal.svg"}
         alt=""
-        width={180}
-        height={64}
+        width={1095}
+        height={206}
         priority={!isLight}
         className="brand-image"
       />

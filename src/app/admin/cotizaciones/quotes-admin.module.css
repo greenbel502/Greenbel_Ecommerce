@@ -3,23 +3,23 @@
 .hero h1 { margin: 9px 0; font-size: clamp(2.3rem, 5vw, 4rem); line-height: 1.05; }
 .hero p { max-width: 710px; color: var(--neutral-700); line-height: 1.55; }
 .back, .pager a { display: inline-flex; align-items: center; padding: 9px 13px; border: 1px solid var(--neutral-200); border-radius: 999px; background: var(--white); color: var(--green-950); font-size: .78rem; font-weight: 800; text-decoration: none; }
-.notice { margin: 0 0 20px; padding: 14px 17px; border: 1px solid #cdd9c5; border-radius: var(--radius); background: #f2f7e9; font-size: .84rem; line-height: 1.55; }
-.error { margin: 28px 0; padding: 18px; border: 1px solid #f0c5bb; border-radius: var(--radius); background: #fff0ed; color: #8a2d27; }
+.notice { margin: 0 0 20px; padding: 14px 17px; border: 1px solid var(--border-subtle); border-radius: var(--radius); background: var(--surface-tint); font-size: .84rem; line-height: 1.55; }
+.error { margin: 28px 0; padding: 18px; border: 1px solid var(--border-subtle); border-radius: var(--radius); background: var(--surface-tint); color: var(--feedback-error); }
 .empty { padding: 26px; border: 1px solid var(--neutral-200); border-radius: var(--radius); background: var(--white); }
 .list { display: grid; gap: 14px; }
-.card { min-width: 0; border: 1px solid var(--neutral-200); border-radius: var(--radius); background: var(--white); box-shadow: 0 12px 34px rgba(12,47,28,.04); }
+.card { min-width: 0; border: 1px solid var(--neutral-200); border-radius: var(--radius); background: var(--white); box-shadow: 0 12px 34px var(--brand-dark-a04); }
 .card summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px; cursor: pointer; list-style-position: inside; }
 .card summary > span:first-child { display: grid; gap: 5px; }
 .card summary strong { font-size: 1.06rem; }
 .card summary small, .card summary time { color: var(--neutral-500); font-size: .75rem; }
 .summaryMeta { display: flex; align-items: center; gap: 10px; }
-.tag { padding: 6px 9px; border-radius: 999px; background: #edf3e7; color: var(--green-900); font-size: .73rem; font-weight: 800; white-space: nowrap; }
+.tag { padding: 6px 9px; border-radius: 999px; background: var(--surface-tint); color: var(--green-900); font-size: .73rem; font-weight: 800; white-space: nowrap; }
 .cardBody { padding: 0 20px 22px; }
 .meta { border-top: 1px solid var(--neutral-200); padding-top: 18px; }
 .meta p { margin: 0 0 8px; color: var(--neutral-700); font-size: .82rem; line-height: 1.5; overflow-wrap: anywhere; }
 .meta strong { color: var(--green-950); }
 .amounts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 20px 0; }
-.amounts > div { display: grid; gap: 6px; padding: 13px; border: 1px solid var(--neutral-200); border-radius: 9px; background: #fbfcf8; }
+.amounts > div { display: grid; gap: 6px; padding: 13px; border: 1px solid var(--neutral-200); border-radius: 9px; background: var(--white); }
 .amounts dt { color: var(--neutral-700); font-size: .72rem; }
 .amounts dd { margin: 0; font-size: .91rem; font-weight: 800; }
 .linesSection { margin-top: 24px; }

@@ -11,8 +11,8 @@ export async function GET() {
     const { client, user, profile } = await requireCustomerProfile();
     const role = await client.from("user_roles").select("role").eq("user_id", user.id).maybeSingle();
     const staffEntry: HeaderAccount["staffEntry"] = role.error ? null
-      : role.data?.role === "admin" ? { href: "/admin/catalogo", label: "Panel administrativo" }
-      : role.data?.role === "operator" ? { href: "/admin/inventario", label: "Panel de inventario" } : null;
+      : role.data?.role === "admin" ? { href: "/admin", label: "Panel administrativo" }
+      : role.data?.role === "operator" ? { href: "/admin", label: "Panel administrativo" } : null;
     const account: HeaderAccount = {
       name: profile.display_name.trim() || googleDisplayName(user.user_metadata) || "Mi cuenta",
       email: user.email ?? "",

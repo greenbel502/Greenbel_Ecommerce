@@ -1,0 +1,23 @@
+{
+  "time": "2026-10-22T17:10:45.126Z",
+  "business_email": "disabled",
+  "auth_email_confirmation": true,
+  "counts": {
+    "images": 55,
+    "orders": 0,
+    "quotes": 0,
+    "accounts": 3,
+    "payments": 0,
+    "products": 116,
+    "profiles": 3,
+    "post_sale": 0,
+    "audit_events": 2,
+    "storage_files": 56,
+    "test_products": 0,
+    "public_products": 115,
+    "delivery_services": 0,
+    "disabled_triggers": 0,
+    "inventory_movements": 0,
+    "private_staff_operations": 0
+  }
+}

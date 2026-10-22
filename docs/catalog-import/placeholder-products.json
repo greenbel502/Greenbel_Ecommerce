@@ -1,0 +1,375 @@
+{
+  "approved_on": "2026-10-22",
+  "asset": "/images/product-placeholder.svg",
+  "official_logo": "/images/brand/greenbel-horizontal.svg",
+  "behavior": "Existing shared presentation fallback; no image records or uploads created.",
+  "count": 61,
+  "products": [
+    {
+      "sku": "UPL1001",
+      "name": "ALGA 600 250 GR",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1100",
+      "name": "AMISTAR XTRA 12 X 1 LTS",
+      "status": "branded_placeholder",
+      "public": false
+    },
+    {
+      "sku": "SY1095",
+      "name": "MERTECT 50 SC 4x5 L 212",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1089",
+      "name": "VANIVA 45 SC 100 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1028",
+      "name": "PROAN-K 1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1027",
+      "name": "AVARTOS 38 WG 1 KG",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1026",
+      "name": "AVARTOS 38 WG 200 GR",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1025",
+      "name": "COGUAR 28 SC 1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1024",
+      "name": "DIPHAR 25 SC 500 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1023",
+      "name": "DIPHAR 25 SC 1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1022",
+      "name": "EVITO 48 SC 1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1021",
+      "name": "BUSTER 72 WG 30X500 GR",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1020",
+      "name": "GLORY 75 WG 40X500 GR",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1019",
+      "name": "AZUPLUS 20X1 KG",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1017",
+      "name": "MANCOZEB 80 WP 800 GR",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1016",
+      "name": "FLEXION 25 SL 1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1015",
+      "name": "BIOKIL PLUS 41 SL 3.5 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1014",
+      "name": "BIOKIL PLUS 41 SL 12X1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1013",
+      "name": "AKISON 40 SC 12X1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1012",
+      "name": "CYPERMETHIN 25 EC 12X1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1011",
+      "name": "CYPERMETHIN 25 EC 20X500 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1010",
+      "name": "CYPERMETHIN 25 EC 40X250 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1009",
+      "name": "ABA FENIX 32.8 SC 120X100 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1008",
+      "name": "ABA FENIX 32.8 SC 10X1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1007",
+      "name": "DOBLE DUQUE 5 EC 12X1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1006",
+      "name": "DOBLE DUQUE 5 EC 96X125 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1005",
+      "name": "BAMAKO 75 100 GR",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1004",
+      "name": "JAQUE MATE 20 SL 12X1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1003",
+      "name": "BENT 21.82 SL 12X1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "UPL1002",
+      "name": "ALGASOIL 20 KG",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1068",
+      "name": "VANIVA 45 SC 400 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1069",
+      "name": "MINECTO STAR 60 WG 20X400 GR",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1067",
+      "name": "ELATUS 45WG 12X1 KG",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1052",
+      "name": "DARTAÑAN 19.35 SC 12X1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1063",
+      "name": "INCIPIO 20 SC 24X500 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1061",
+      "name": "INCIPIO 20 SC 48X100 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1060",
+      "name": "ECLEON 25 SL 250 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1019",
+      "name": "PREGLONE 20 SL 5 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1051",
+      "name": "FORTENZA MAXX 12X1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1057",
+      "name": "FORTENZA MAXX 100 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1059",
+      "name": "RIDOMIL GOLD PLUS 42.5 WP 1 KG",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1058",
+      "name": "CARIAL FLEX 33 WG 200 GR",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1055",
+      "name": "DARTAÑAN 19.35 SC 2X10 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1049",
+      "name": "DENIM FIT 45 WG 50 GR",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1037",
+      "name": "CARIAL FLEX 33 WG 10X1 KG",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1044",
+      "name": "ELUMIS 105 OD 1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1008",
+      "name": "AMISTAR XTRA 5 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1007",
+      "name": "CRUISER 35 FS 1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "RADIX03",
+      "name": "RADIX 35 ST 8.6 GR - 2UN",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "SY1090",
+      "name": "KLERAT PELLETS 1X30X12 UN (20 GR)",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "RADIX97",
+      "name": "ACIDO INDOL 3 BUTIRICO TECNICO 500 GR",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "RADIX18",
+      "name": "RADIX 35 ST 51.5 GR - 1UN",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "FUT1040",
+      "name": "FOSFIMAX 59-30 - 250 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "FUT1036",
+      "name": "BOTAMISOL 200 GR",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "FUT1015",
+      "name": "ALFOSITOL 5 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "FUT1014",
+      "name": "FOSFIMAX 59-30 5 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "FUT1010",
+      "name": "ALFOSITOL 20X250 CC",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "FUT1009",
+      "name": "BOTAMISOL 5 KG",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "FUT1007",
+      "name": "FOSFIMAX 59-30 1 L",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "FUT1003",
+      "name": "BOTAMISOL 1 KG",
+      "status": "branded_placeholder",
+      "public": true
+    },
+    {
+      "sku": "FUT1001",
+      "name": "ALFOSITOL 1 L",
+      "status": "branded_placeholder",
+      "public": true
+    }
+  ]
+}

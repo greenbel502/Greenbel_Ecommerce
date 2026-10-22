@@ -1,0 +1,306 @@
+[
+  {
+    "columns": "184.004px 184.004px 184.004px 184.014px 184.004px 184.004px 184.004px",
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "items": [
+      {
+        "scrollWidth": 183,
+        "text": "Kawashima",
+        "width": 183
+      },
+      {
+        "scrollWidth": 183,
+        "text": "Takashi",
+        "width": 183
+      },
+      {
+        "scrollWidth": 183,
+        "text": "Bertolini",
+        "width": 183
+      },
+      {
+        "scrollWidth": 183,
+        "text": "Parazzini",
+        "width": 183
+      },
+      {
+        "scrollWidth": 183,
+        "text": "Maruyama",
+        "width": 183
+      },
+      {
+        "scrollWidth": 183,
+        "text": "Honda",
+        "width": 183
+      },
+      {
+        "scrollWidth": 183,
+        "text": "Mitsubishi",
+        "width": 183
+      }
+    ],
+    "path": "/nosotros",
+    "scrollWidth": 1440,
+    "width": 1440,
+    "status": "PASS"
+  },
+  {
+    "columns": "138.994px 139.004px",
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "items": [
+      {
+        "scrollWidth": 138,
+        "text": "Kawashima",
+        "width": 138
+      },
+      {
+        "scrollWidth": 138,
+        "text": "Takashi",
+        "width": 138
+      },
+      {
+        "scrollWidth": 138,
+        "text": "Bertolini",
+        "width": 138
+      },
+      {
+        "scrollWidth": 138,
+        "text": "Parazzini",
+        "width": 138
+      },
+      {
+        "scrollWidth": 138,
+        "text": "Maruyama",
+        "width": 138
+      },
+      {
+        "scrollWidth": 138,
+        "text": "Honda",
+        "width": 138
+      },
+      {
+        "scrollWidth": 138,
+        "text": "Mitsubishi",
+        "width": 138
+      }
+    ],
+    "path": "/nosotros",
+    "scrollWidth": 320,
+    "width": 320,
+    "status": "PASS"
+  },
+  {
+    "columns": "186.006px 186.006px 186.006px 186.006px",
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "items": [
+      {
+        "scrollWidth": 185,
+        "text": "Kawashima",
+        "width": 185
+      },
+      {
+        "scrollWidth": 185,
+        "text": "Takashi",
+        "width": 185
+      },
+      {
+        "scrollWidth": 185,
+        "text": "Bertolini",
+        "width": 185
+      },
+      {
+        "scrollWidth": 185,
+        "text": "Parazzini",
+        "width": 185
+      },
+      {
+        "scrollWidth": 185,
+        "text": "Maruyama",
+        "width": 185
+      },
+      {
+        "scrollWidth": 185,
+        "text": "Honda",
+        "width": 185
+      },
+      {
+        "scrollWidth": 185,
+        "text": "Mitsubishi",
+        "width": 185
+      }
+    ],
+    "path": "/nosotros",
+    "scrollWidth": 820,
+    "width": 820,
+    "status": "PASS"
+  },
+  {
+    "columns": "173.994px 174.004px",
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "items": [
+      {
+        "scrollWidth": 173,
+        "text": "Kawashima",
+        "width": 173
+      },
+      {
+        "scrollWidth": 173,
+        "text": "Takashi",
+        "width": 173
+      },
+      {
+        "scrollWidth": 173,
+        "text": "Bertolini",
+        "width": 173
+      },
+      {
+        "scrollWidth": 173,
+        "text": "Parazzini",
+        "width": 173
+      },
+      {
+        "scrollWidth": 173,
+        "text": "Maruyama",
+        "width": 173
+      },
+      {
+        "scrollWidth": 173,
+        "text": "Honda",
+        "width": 173
+      },
+      {
+        "scrollWidth": 173,
+        "text": "Mitsubishi",
+        "width": 173
+      }
+    ],
+    "path": "/nosotros",
+    "scrollWidth": 390,
+    "width": 390,
+    "status": "PASS"
+  },
+  {
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "path": "/",
+    "scrollWidth": 390,
+    "title": "Cuéntanos sobre tu trabajo.",
+    "width": 390,
+    "status": "PASS"
+  },
+  {
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "path": "/",
+    "scrollWidth": 1440,
+    "title": "Cuéntanos sobre tu trabajo.",
+    "width": 1440,
+    "status": "PASS"
+  },
+  {
+    "font": null,
+    "overflowingHeadings": [],
+    "path": "/cuenta/ingresar",
+    "scrollWidth": 320,
+    "width": 320,
+    "status": "NO EJECUTADO",
+    "reason": "Lectura anterior a la llegada del contenido transmitido; se repite tras esperar el título."
+  },
+  {
+    "font": null,
+    "overflowingHeadings": [],
+    "path": "/productos",
+    "scrollWidth": 1103,
+    "width": 320,
+    "status": "NO EJECUTADO",
+    "reason": "Lectura anterior a la llegada del contenido transmitido; se repite tras esperar el título."
+  },
+  {
+    "font": null,
+    "overflowingHeadings": [],
+    "path": "/contacto",
+    "scrollWidth": 320,
+    "width": 320,
+    "status": "NO EJECUTADO",
+    "reason": "Lectura anterior a la llegada del contenido transmitido; se repite tras esperar el título."
+  },
+  {
+    "font": null,
+    "overflowingHeadings": [],
+    "path": "/cuenta/ingresar",
+    "scrollWidth": 1440,
+    "width": 1440,
+    "status": "NO EJECUTADO",
+    "reason": "Lectura anterior a la llegada del contenido transmitido; se repite tras esperar el título."
+  },
+  {
+    "font": null,
+    "overflowingHeadings": [],
+    "path": "/productos",
+    "scrollWidth": 1440,
+    "width": 1440,
+    "status": "NO EJECUTADO",
+    "reason": "Lectura anterior a la llegada del contenido transmitido; se repite tras esperar el título."
+  },
+  {
+    "font": null,
+    "overflowingHeadings": [],
+    "path": "/contacto",
+    "scrollWidth": 1440,
+    "width": 1440,
+    "status": "NO EJECUTADO",
+    "reason": "Lectura anterior a la llegada del contenido transmitido; se repite tras esperar el título."
+  },
+  {
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "heading": "Equipa tu campo.Compra más fácil.",
+    "overflowingHeadings": [],
+    "path": "/cuenta/ingresar",
+    "scrollWidth": 320,
+    "width": 320,
+    "status": "PASS"
+  },
+  {
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "heading": "Equipos para trabajarcon confianza.",
+    "overflowingHeadings": [],
+    "path": "/productos",
+    "scrollWidth": 320,
+    "width": 320,
+    "status": "PASS"
+  },
+  {
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "heading": "Prepara tu consultasobre equipos y repuestos.",
+    "overflowingHeadings": [],
+    "path": "/contacto",
+    "scrollWidth": 320,
+    "width": 320,
+    "status": "PASS"
+  },
+  {
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "heading": "Equipa tu campo.Compra más fácil.",
+    "overflowingHeadings": [],
+    "path": "/cuenta/ingresar",
+    "scrollWidth": 1440,
+    "width": 1440,
+    "status": "PASS"
+  },
+  {
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "heading": "Equipos para trabajarcon confianza.",
+    "overflowingHeadings": [],
+    "path": "/productos",
+    "scrollWidth": 1440,
+    "width": 1440,
+    "status": "PASS"
+  },
+  {
+    "font": "displayFont, \"displayFont Fallback\", poppins, \"poppins Fallback\", Arial, sans-serif",
+    "heading": "Prepara tu consultasobre equipos y repuestos.",
+    "overflowingHeadings": [],
+    "path": "/contacto",
+    "scrollWidth": 1440,
+    "width": 1440,
+    "status": "PASS"
+  }
+]

@@ -27,7 +27,7 @@ const productSchema = z.object({
   slug,
   name: z.string().trim().min(1).max(240),
   model: z.string().trim().max(160),
-  kind: z.enum(["equipment", "part", "accessory"]),
+  kind: z.enum(["equipment", "part", "accessory", "agricultural"]),
   brandId: nullableUuid,
   categoryId: uuid,
   shortDescription: z.string().trim().max(1000),

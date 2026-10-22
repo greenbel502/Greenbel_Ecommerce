@@ -1,0 +1,13 @@
+{
+  "scope": "Seguimiento de tipografía y marcas; comparación con inicio de esta corrección",
+  "trackedFiles": 319,
+  "changedSourceFiles": [
+    "src/app/layout.tsx",
+    "src/app/globals.css",
+    "src/app/nosotros/page.tsx",
+    "src/app/fonts/mont-heavy-demo.otf"
+  ],
+  "unchangedFiles": 315,
+  "backendBusinessAuthMigrations": "sin cambios",
+  "status": "PASS"
+}

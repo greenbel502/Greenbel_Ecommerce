@@ -4,16 +4,16 @@
 .hero p { max-width: 700px; color: var(--neutral-700); line-height: 1.55; }
 .nav { display: flex; flex-wrap: wrap; gap: 9px; }
 .nav a, .pager a { display: inline-flex; align-items: center; padding: 9px 13px; border: 1px solid var(--neutral-200); border-radius: 999px; background: var(--white); color: var(--green-950); font-size: .78rem; font-weight: 800; text-decoration: none; }
-.notice { margin: 0 0 20px; padding: 14px 17px; border: 1px solid #cdd9c5; border-radius: var(--radius); background: #f2f7e9; font-size: .84rem; line-height: 1.55; }
-.error { margin: 28px 0; padding: 18px; border: 1px solid #f0c5bb; border-radius: var(--radius); background: #fff0ed; color: #8a2d27; }
+.notice { margin: 0 0 20px; padding: 14px 17px; border: 1px solid var(--border-subtle); border-radius: var(--radius); background: var(--surface-tint); font-size: .84rem; line-height: 1.55; }
+.error { margin: 28px 0; padding: 18px; border: 1px solid var(--border-subtle); border-radius: var(--radius); background: var(--surface-tint); color: var(--feedback-error); }
 .list { display: grid; gap: 14px; }
-.card { min-width: 0; padding: 20px; border: 1px solid var(--neutral-200); border-radius: var(--radius); background: var(--white); box-shadow: 0 12px 34px rgba(12,47,28,.04); }
+.card { min-width: 0; padding: 20px; border: 1px solid var(--neutral-200); border-radius: var(--radius); background: var(--white); box-shadow: 0 12px 34px var(--brand-dark-a04); }
 .cardHeader { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
 .cardHeader h2 { margin: 0 0 5px; font-size: 1.15rem; }
 .cardHeader time { flex: 0 0 auto; color: var(--neutral-500); font-size: .72rem; }
 .meta { display: flex; flex-wrap: wrap; gap: 9px 16px; margin: 10px 0; color: var(--neutral-700); font-size: .78rem; }
 .meta a { color: var(--green-900); overflow-wrap: anywhere; }
 .message { margin: 12px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--neutral-700); font-size: .86rem; line-height: 1.6; }
-.tag { display: inline-block; margin-top: 10px; padding: 5px 9px; border-radius: 999px; background: #edf3e7; color: var(--green-900); font-size: .7rem; font-weight: 800; }
+.tag { display: inline-block; margin-top: 10px; padding: 5px 9px; border-radius: 999px; background: var(--surface-tint); color: var(--green-900); font-size: .7rem; font-weight: 800; }
 .pager { display: flex; align-items: center; gap: 12px; margin-top: 24px; color: var(--neutral-700); font-size: .8rem; }
 @media (max-width: 700px) { .shell { width: calc(100% - 24px); margin-top: 28px; } .hero, .cardHeader { align-items: start; flex-direction: column; } .card { padding: 17px; } }

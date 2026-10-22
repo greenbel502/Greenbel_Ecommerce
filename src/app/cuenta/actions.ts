@@ -6,6 +6,7 @@ import { z } from "zod";
 import { getActiveEnvironment } from "@/lib/server/environment";
 import { createSupabaseActionClient } from "@/lib/supabase/server";
 import { customerAuthDestination, googleCallbackUrl } from "@/lib/supabase/auth-navigation";
+import { CustomerProfileError, requireCustomerProfile } from "@/lib/server/customer-profile";
 
 export type AuthActionState = {
   status: "idle" | "error" | "notice";
@@ -98,7 +99,7 @@ export async function signUpAction(_previous: AuthActionState, formData: FormDat
   if (hasSession) redirect(returnTo);
   return {
     status: "notice",
-    message: "Supabase Auth procesó la solicitud, pero no abrió una sesión. Si este proyecto requiere confirmar el correo, sigue el enlace de Auth cuando llegue. El envío y la confirmación no se han verificado aquí."
+    message: "Solicitud de registro procesada. Para ingresar debes confirmar tu correo cuando recibas el enlace. Esta pantalla no confirma la entrega del mensaje."
   };
 }
 
@@ -122,7 +123,7 @@ export async function requestPasswordResetAction(
 
   return {
     status: "notice",
-    message: "Si corresponde, Supabase Auth procesó la recuperación. Usa el enlace de Auth cuando llegue; esta pantalla no confirma la entrega del correo."
+    message: "Si corresponde a una cuenta, se ha solicitado la recuperación. Usa el enlace cuando llegue; esta pantalla no confirma la entrega del correo."
   };
 }
 
@@ -132,19 +133,27 @@ export async function updatePasswordAction(_previous: AuthActionState, formData:
   if (!passwordSchema.safeParse(password).success) return error("Usa una contraseña de 8 a 128 caracteres.");
   if (password !== confirmation) return error("Las contraseñas no coinciden.");
 
-  let updated = false;
   try {
-    const supabase = await createSupabaseActionClient();
-    const { data: userData, error: userError } = await supabase.auth.getUser();
-    if (userError || !userData.user) return error("El enlace de recuperación no es válido o venció.");
-    const { error: updateError } = await supabase.auth.updateUser({ password });
-    updated = !updateError;
-  } catch {
+    const { client, user } = await requireCustomerProfile();
+    if (!user.email || !user.email_confirmed_at) return error("Debes tener un correo confirmado para configurar tu contraseña.");
+    // Uses only the verified session. Never accepts a target user/email or an admin credential.
+    const { data, error: updateError } = await client.auth.updateUser({ password });
+    if (updateError) {
+      if (updateError.code === "reauthentication_needed" || updateError.code === "reauthentication_not_valid") {
+        return error("Por seguridad, cierra sesión y vuelve a ingresar antes de guardar tu contraseña.");
+      }
+      if (updateError.code === "same_password") return error("Elige una contraseña diferente a la que ya usas.");
+      if (updateError.code === "weak_password") return error("Elige una contraseña más segura y vuelve a intentarlo.");
+      return error("No se pudo guardar la contraseña. Inténtalo de nuevo o vuelve a ingresar a tu cuenta.");
+    }
+    if (data.user?.id !== user.id) return error("No se pudo confirmar el cambio de contraseña.");
+  } catch (failure) {
+    if (failure instanceof CustomerProfileError && failure.status === 401) return error("Tu sesión venció. Vuelve a ingresar para guardar tu contraseña.");
+    if (failure instanceof CustomerProfileError && failure.status === 403) return error("Esta cuenta no está habilitada. Contacta a GreenBel para revisar su acceso.");
     return error("No se pudo actualizar la contraseña en este momento.");
   }
 
-  if (!updated) return error("No se pudo actualizar la contraseña. Solicita un nuevo enlace si es necesario.");
-  redirect("/cuenta");
+  return { status: "notice", message: "Contraseña guardada. Ya puedes ingresar con el correo de tu cuenta y esta contraseña." };
 }
 
 export async function signOutAction(): Promise<void> {
