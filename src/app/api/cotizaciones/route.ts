@@ -3,10 +3,13 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { buildPendingDeliveryQuote } from "@/domain/quotes/build-pending-quote";
 import type { OfferInput } from "@/domain/pricing/offer";
+import { loadDocumentVisuals } from "@/lib/pdf/load-document-visuals";
 import { renderQuotePdf } from "@/lib/pdf/quote-pdf";
 import { abuseSourceHash, isAllowedSubmissionOrigin, readLimitedBody } from "@/lib/server/public-submission";
 import { getActiveSupabaseSecretKey } from "@/lib/server/environment";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { requireFinancingAccount } from "@/lib/financing/workflow";
+import { financingFailure } from "@/lib/financing/http";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,6 +19,7 @@ const MAX_BODY_BYTES = 16_384;
 const MAX_LINES = 50;
 const MAX_QUANTITY = 999;
 const schema = z.object({
+  purpose: z.literal("financing").optional(),
   idempotencyKey: z.uuid(),
   customerName: z.string().trim().min(2).max(160)
     .refine((value) => !/[\u0000-\u001f\u007f]/.test(value)),
@@ -134,6 +138,11 @@ export async function POST(request: Request) {
     return json({ error: "Solicitud inválida." }, 400);
   }
 
+  if (parsed.purpose === "financing") {
+    try { const { user } = await requireFinancingAccount(); parsed.customerEmail = user.email!.toLowerCase(); }
+    catch (error) { return financingFailure(error); }
+  }
+
   let client: ReturnType<typeof createSupabaseAdminClient>;
   let started: QuoteStart;
   try {
@@ -143,7 +152,8 @@ export async function POST(request: Request) {
     const fingerprint = createHash("sha256").update(JSON.stringify({
       customerName: parsed.customerName,
       customerEmail: parsed.customerEmail,
-      lines: parsed.lines
+      lines: parsed.lines,
+      ...(parsed.purpose ? { purpose: parsed.purpose } : {})
     })).digest("hex");
     const { data, error } = await client.rpc("begin_guest_quote", {
       p_idempotency_key: parsed.idempotencyKey,
@@ -225,6 +235,7 @@ export async function POST(request: Request) {
     let snapshot;
     try {
       snapshot = buildPendingDeliveryQuote({
+        purpose: parsed.purpose,
         reference: started.quote_reference,
         issuedAt,
         customerName: parsed.customerName,
@@ -254,7 +265,8 @@ export async function POST(request: Request) {
         warranty_months_snapshot: row.warranty_months, warranty_terms_snapshot: row.warranty_terms
       };
     });
-    const pdf = renderQuotePdf(snapshot);
+    const visuals = await loadDocumentVisuals(snapshot.lines.map((line, index) => ({ productId: parsed.lines[index].productId, sku: line.sku })));
+    const pdf = renderQuotePdf(snapshot, visuals);
     const pdfHash = createHash("sha256").update(pdf).digest("hex");
     const path = `${started.quote_id}/${pdfHash}.pdf`;
     const { error: itemError } = await client.from("quote_items").insert(items);

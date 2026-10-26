@@ -17,3 +17,11 @@
 .tag { display: inline-block; margin-top: 10px; padding: 5px 9px; border-radius: 999px; background: var(--surface-tint); color: var(--green-900); font-size: .7rem; font-weight: 800; }
 .pager { display: flex; align-items: center; gap: 12px; margin-top: 24px; color: var(--neutral-700); font-size: .8rem; }
 @media (max-width: 700px) { .shell { width: calc(100% - 24px); margin-top: 28px; } .hero, .cardHeader { align-items: start; flex-direction: column; } .card { padding: 17px; } }
+.gmailConnection { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 20px; }
+.gmailConnection > div { min-width: 0; }
+.gmailConnection h2 { display: flex; align-items: center; gap: 9px; margin: 0 0 10px; }
+.gmailConnection p { font-size: .8rem; line-height: 1.7; overflow-wrap: anywhere; }
+.gmailConnection form { flex-shrink: 0; }
+.gmailRetry { display: grid; justify-items: start; gap: 8px; margin-top: 14px; }
+.gmailRetry small { color: var(--text-secondary); line-height: 1.6; }
+@media (max-width: 700px) { .gmailConnection { flex-direction: column; } }

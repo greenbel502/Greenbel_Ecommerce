@@ -30,3 +30,13 @@ test("cotización no acepta precio ausente, productos duplicados ni importe de n
   assert.throws(() => buildPendingDeliveryQuote({ ...base, selection: [{ productId: "uno", quantity: 0 }] }), /Cantidad/);
   assert.throws(() => buildPendingDeliveryQuote({ ...base, catalog: [{ ...base.catalog[0], availableQuantity: null }, base.catalog[1]] }), /disponibilidad/i);
 });
+
+test("financiamiento admite disponibilidad pendiente con advertencia y mantiene cotización normal restringida", () => {
+  const input = { ...base, catalog: base.catalog.map(p => ({ ...p, availableQuantity: null })) };
+  assert.throws(() => buildPendingDeliveryQuote(input), /disponibilidad/i);
+  const pdf = buildPendingDeliveryQuote({ ...input, purpose: 'financing' });
+  assert.equal(pdf.merchandiseTotal, '14700.00');
+  assert.match(pdf.delivery.description, /Disponibilidad por confirmar; no reserva inventario/);
+  assert.equal(pdf.customerTotal, null);
+  assert.throws(() => buildPendingDeliveryQuote({ ...input, purpose: 'financing', catalog: [{ ...input.catalog[0], regularPrice: null }] }), /Precio próximamente/);
+});

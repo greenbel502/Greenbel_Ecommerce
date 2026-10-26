@@ -4,6 +4,9 @@ node_modules/
 out/
 
 .env
+.env.*
+!.env.example
+!.env.*.example
 .env*.local
 
 *.log
@@ -15,3 +18,13 @@ pnpm-debug.log*
 .DS_Store
 
 .md
+
+# Local verification exports and screenshots may contain account/customer data.
+/output/
+/tmp/
+/docs/**/*.png
+/docs/**/*.pdf
+/docs/**/*.zip
+/docs/**/*.json
+/docs/**/*.txt
+!/docs/brands/logo-sources-*.json

@@ -1,152 +1,361 @@
 "use client";
 
-import Link from "next/link";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import {
+  Check,
+  Eye,
+  MessageSquareQuote,
+  ShieldCheck,
+  Star,
+} from "lucide-react";
+import { CatalogDrawer } from "../catalogo/catalog-drawer";
 import { moderateReviewAction, type ReviewModerationState } from "./actions";
+import {
+  reviewReasons,
+  reviewStatusLabel,
+  type AdminReview,
+} from "@/lib/reviews/types";
+import { useNotificationFeedback } from "@/presentation/notifications/notify";
+import { useConfirm } from "@/presentation/notifications/notification-provider";
 import styles from "./reviews-admin.module.css";
 
-export type PendingReviewRow = Readonly<{
-  id: string;
-  productName: string;
-  productSku: string;
-  rating: number;
-  comment: string;
-  createdAt: string;
-  moderationStatus: string;
-}>;
-
 const idle: ReviewModerationState = { status: "idle", message: "" };
+const dateLabel = (value: string) =>
+  new Date(value).toLocaleDateString("es-GT", {
+    timeZone: "America/Guatemala",
+  });
 
-function ReviewCard({ review }: { review: PendingReviewRow }) {
-  const router = useRouter();
-  const [reason, setReason] = useState("");
-  const [state, action, pending] = useActionState(moderateReviewAction, idle);
-
-  useEffect(() => {
-    if (state.status === "success") router.refresh();
-  }, [router, state.status]);
-
+function Stars({ rating }: { rating: number }) {
   return (
-    <article className={styles.card}>
-      <div className={styles.cardHeader}>
-        <div>
-          <strong>{review.productName}</strong>
-          <small>{review.productSku || "Sin código visible"}</small>
-        </div>
-        <time dateTime={review.createdAt}>
-          {new Date(review.createdAt).toLocaleDateString("es-GT", {
-            timeZone: "America/Guatemala",
-          })}
-        </time>
-      </div>
-      <p
-        className={styles.rating}
-        aria-label={`${review.rating} de 5 estrellas`}
+    <span
+      className={styles.stars}
+      role="img"
+      aria-label={`${rating} de 5 estrellas`}
+    >
+      {[1, 2, 3, 4, 5].map((n) => (
+        <Star
+          key={n}
+          size={16}
+          aria-hidden="true"
+          fill={n <= rating ? "currentColor" : "none"}
+        />
+      ))}
+      <strong aria-hidden="true">{rating}/5</strong>
+    </span>
+  );
+}
+
+function ReviewEditor({
+  review,
+  onClose,
+  onSaved,
+}: {
+  review: AdminReview;
+  onClose: () => void;
+  onSaved: () => void;
+}) {
+  const [decision, setDecision] = useState<"visible" | "hidden">(
+    review.moderationStatus === "pending" ? "visible" : review.moderationStatus,
+  );
+  const [reason, setReason] = useState(review.moderationReason ?? "");
+  const confirm = useConfirm();
+  const [state, action, pending] = useActionState(
+    async (previous: ReviewModerationState, data: FormData) => {
+      if (
+        !(await confirm({
+          title: decision === "visible" ? "Publicar reseña" : "Ocultar reseña",
+          message:
+            decision === "visible"
+              ? "La opinión será visible al público con su calificación y comentario original."
+              : "La opinión se ocultará y quedará registrado el motivo seleccionado.",
+          confirmLabel:
+            decision === "visible" ? "Publicar reseña" : "Ocultar reseña",
+        }))
+      )
+        return previous;
+      return moderateReviewAction(previous, data);
+    },
+    idle,
+  );
+  useNotificationFeedback(state.status, state.message);
+  useEffect(() => {
+    if (state.status === "success") onSaved();
+  }, [state, onSaved]);
+  const changed =
+    decision !== review.moderationStatus ||
+    (decision === "hidden" && reason !== review.moderationReason);
+  return (
+    <CatalogDrawer
+      id="review-editor"
+      title="Revisar reseña"
+      kicker="Moderación"
+      closeLabel="Cerrar reseña"
+      busy={pending}
+      onClose={onClose}
+      returnFocusId={`review-${review.source}-${review.id}`}
+    >
+      <form
+        action={action}
+        className={styles.editorForm}
+        onReset={(e) => e.preventDefault()}
       >
-        {"★".repeat(review.rating)}
-        {"☆".repeat(5 - review.rating)}
-      </p>
-      <p className={styles.comment}>{review.comment}</p>
-      {review.moderationStatus === "pending" ? (
-        <div className={styles.actions}>
-          <form action={action}>
-            <input type="hidden" name="id" value={review.id} />
-            <input type="hidden" name="decision" value="visible" />
-            <input type="hidden" name="reason" value="" />
-            <button
-              type="submit"
-              disabled={pending || state.status === "success"}
-            >
-              Publicar
-            </button>
-          </form>
-          <form action={action}>
-            <input type="hidden" name="id" value={review.id} />
-            <input type="hidden" name="decision" value="hidden" />
+        <input type="hidden" name="id" value={review.id} />
+        <input type="hidden" name="source" value={review.source} />
+        <input
+          type="hidden"
+          name="expectedStatus"
+          value={review.moderationStatus}
+        />
+        <div className={styles.editorContent}>
+          <section className={styles.detail}>
+            <div className={styles.author}>
+              <span className={styles.avatar}>
+                {review.customerName.slice(0, 1).toUpperCase()}
+              </span>
+              <div>
+                <h3>{review.customerName}</h3>
+                <time dateTime={review.createdAt}>
+                  {dateLabel(review.createdAt)}
+                </time>
+              </div>
+              <span className={styles.tag}>
+                {reviewStatusLabel[review.moderationStatus]}
+              </span>
+            </div>
+            <Stars rating={review.rating} />
+            <blockquote>{review.comment}</blockquote>
+            <dl className={styles.origin}>
+              <div>
+                <dt>Origen</dt>
+                <dd>
+                  {review.source === "whatsapp"
+                    ? "Solicitud por WhatsApp"
+                    : "Compra entregada"}
+                </dd>
+              </div>
+              <div>
+                <dt>
+                  {review.source === "whatsapp"
+                    ? "Referencia de selección"
+                    : "Producto"}
+                </dt>
+                <dd>
+                  {review.subject}
+                  <small>{review.reference}</small>
+                </dd>
+              </div>
+            </dl>
+          </section>
+          <section className={styles.detail}>
+            <h3>
+              <ShieldCheck size={19} /> Visibilidad de la reseña
+            </h3>
+            <p>
+              Conserva las palabras y la calificación del cliente. Una
+              valoración baja no es motivo para ocultar.
+            </p>
             <label>
-              <span>Motivo para ocultar</span>
+              Acción
               <select
-                name="reason"
-                value={reason}
-                onChange={(event) => setReason(event.target.value)}
-                required
+                name="decision"
+                value={decision}
+                onChange={(e) =>
+                  setDecision(e.target.value as "visible" | "hidden")
+                }
+                disabled={pending}
               >
-                <option value="">Seleccionar motivo</option>
-                <option value="spam">Spam</option>
-                <option value="personal_data">Datos personales</option>
-                <option value="offensive_content">Contenido ofensivo</option>
+                <option value="visible">Publicar reseña</option>
+                <option value="hidden">Ocultar con motivo</option>
               </select>
             </label>
-            <button
-              type="submit"
-              disabled={pending || !reason || state.status === "success"}
+            {decision === "hidden" && (
+              <label>
+                Motivo para ocultar
+                <select
+                  name="reason"
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  required
+                  disabled={pending}
+                >
+                  <option value="">Selecciona un motivo</option>
+                  {Object.entries(reviewReasons).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+            {decision !== "hidden" && (
+              <input type="hidden" name="reason" value="" />
+            )}
+          </section>
+          {state.message && (
+            <p
+              className={styles.feedback}
+              role={state.status === "error" ? "alert" : "status"}
             >
-              Ocultar
-            </button>
-          </form>
+              {state.message}
+            </p>
+          )}
         </div>
-      ) : (
-        <span className="admin-tag">
-          {review.moderationStatus === "visible" ? "Publicada" : "Oculta"}
-        </span>
-      )}
-      {state.status !== "idle" && (
-        <p
-          className={state.status === "error" ? styles.error : styles.success}
-          role={state.status === "error" ? "alert" : "status"}
-        >
-          {state.message}
-        </p>
-      )}
-    </article>
+        <footer className={styles.editorFooter}>
+          <button
+            type="button"
+            className="secondary-dark-button"
+            onClick={onClose}
+            disabled={pending}
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            className="primary-button"
+            disabled={pending || !changed || (decision === "hidden" && !reason)}
+          >
+            <Check size={18} />
+            {pending ? "Guardando…" : "Guardar moderación"}
+          </button>
+        </footer>
+      </form>
+    </CatalogDrawer>
   );
 }
 
 export function ReviewAdmin({
   reviews,
-  hasMore,
+  total,
+  controls,
+  pager,
+  empty,
 }: {
-  reviews: PendingReviewRow[];
-  hasMore: boolean;
+  reviews: AdminReview[];
+  total: number;
+  controls: ReactNode;
+  pager: ReactNode;
+  empty: ReactNode;
 }) {
+  const router = useRouter();
+  const [selected, setSelected] = useState<AdminReview | null>(null);
   return (
-    <div className={styles.shell}>
+    <section className={styles.shell}>
       <header className={styles.hero}>
         <div>
           <span className="eyebrow">Panel administrativo</span>
-          <h1>Moderar reseñas</h1>
+          <h1>Reseñas de clientes</h1>
           <p>
-            Revisa comentarios de compras entregadas antes de mostrarlos al
-            público.
+            Revisa las opiniones, sus estrellas y su publicación desde un solo
+            lugar.
           </p>
         </div>
-        <Link href="/admin/catalogo" className="secondary-dark-button">
-          Catálogo
-        </Link>
       </header>
-      <p className={styles.notice}>
-        Solo se puede ocultar por spam, datos personales o contenido ofensivo.
-        Una calificación baja no es motivo para ocultar.
-      </p>
-      <section aria-labelledby="pending-reviews-title">
-        <h2 id="pending-reviews-title">
-          Reseñas <span>{reviews.length}</span>
+      <div className={styles.notice}>
+        <ShieldCheck size={20} />
+        <p>
+          Publica opiniones auténticas. Oculta únicamente spam, datos personales
+          o contenido ofensivo.
+        </p>
+      </div>
+      {controls}
+      <div className={styles.listHeading}>
+        <h2>
+          Listado de reseñas <span>{total}</span>
         </h2>
-        {hasMore && (
-          <p className={styles.notice}>
-            Se muestran las 100 reseñas pendientes más antiguas. Atiende estas
-            para ver las siguientes.
-          </p>
-        )}
-        {reviews.length === 0 ? null : (
-          <div className={styles.grid}>
-            {reviews.map((review) => (
-              <ReviewCard key={review.id} review={review} />
-            ))}
-          </div>
-        )}
-      </section>
-    </div>
+        <small>Las nuevas opiniones requieren moderación.</small>
+      </div>
+      {reviews.length ? (
+        <div
+          className={styles.tableWrap}
+          role="region"
+          aria-label="Reseñas de clientes"
+          tabIndex={0}
+        >
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Cliente y opinión</th>
+                <th>Origen</th>
+                <th>Calificación</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reviews.map((r) => (
+                <tr key={`${r.source}-${r.id}`}>
+                  <td>
+                    <div className={styles.customer}>
+                      <span className={styles.avatar}>
+                        {r.customerName.slice(0, 1).toUpperCase()}
+                      </span>
+                      <div>
+                        <strong>{r.customerName}</strong>
+                        <p>{r.comment}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <strong className={styles.source}>
+                      {r.source === "whatsapp" ? "WhatsApp" : "Producto"}
+                    </strong>
+                    <small className={styles.reference}>
+                      {r.reference || r.subject}
+                    </small>
+                  </td>
+                  <td>
+                    <Stars rating={r.rating} />
+                  </td>
+                  <td>
+                    <span
+                      className={`${styles.tag} ${styles[r.moderationStatus]}`}
+                    >
+                      {reviewStatusLabel[r.moderationStatus]}
+                    </span>
+                  </td>
+                  <td>
+                    <time dateTime={r.createdAt}>{dateLabel(r.createdAt)}</time>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      id={`review-${r.source}-${r.id}`}
+                      className={styles.rowAction}
+                      onClick={() => setSelected(r)}
+                    >
+                      <Eye size={16} />
+                      Revisar
+                      <span className={styles.srOnly}>
+                        {" "}
+                        reseña de {r.customerName}
+                      </span>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className={styles.empty}>
+          <MessageSquareQuote size={28} />
+          {empty}
+        </div>
+      )}
+      {pager}
+      {selected && (
+        <ReviewEditor
+          key={`${selected.source}-${selected.id}`}
+          review={selected}
+          onClose={() => setSelected(null)}
+          onSaved={() => {
+            setSelected(null);
+            router.refresh();
+          }}
+        />
+      )}
+    </section>
   );
 }

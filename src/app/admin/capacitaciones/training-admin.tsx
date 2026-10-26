@@ -1,570 +1,489 @@
+/* eslint-disable @next/next/no-img-element -- Controlled private media routes and local object URL previews. */
 "use client";
-
+import { useConfirm } from "@/presentation/notifications/notification-provider";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useActionState, useEffect, useState } from "react";
 import {
-  saveTrainingAction,
-  saveTrainingRelationAction,
-  type TrainingActionState,
-} from "./actions";
-import { EntityPicker } from "../_components/entity-picker";
-import { DraftForm } from "../_components/managed-form";
-import type { ReactNode } from "react";
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
+import { useRouter } from "next/navigation";
+import {
+  BookOpen,
+  Eye,
+  Film,
+  ImageIcon,
+  Pencil,
+  Plus,
+  Star,
+  Trash2,
+  Users,
+} from "lucide-react";
+import type {
+  TrainingRecord,
+  TrainingRating,
+  RatingOverview,
+} from "@/lib/trainings/types";
+import { TrainingStars } from "@/presentation/components/training-stars";
+import { CatalogDrawer } from "../catalogo/catalog-drawer";
+import { CatalogDeleteDialog } from "../catalogo/catalog-delete-dialog";
+import { TrainingEditor } from "./training-editor";
+import { TrainingRelations } from "./training-relations";
 import styles from "./training-admin.module.css";
-
-export type TrainingRow = {
-  id: string;
-  title: string;
-  slug: string;
-  description: string | null;
-  video_url: string | null;
-  cover_path: string | null;
-  publication_status: "draft" | "published" | "archived";
-  created_at: string;
-};
+export type TrainingRow = TrainingRecord;
 export type TrainingProductOption = { id: string; name: string; sku: string };
 export type TrainingCategoryOption = { id: string; name: string };
 export type TrainingProductLink = { training_id: string; product_id: string };
 export type TrainingCategoryLink = { training_id: string; category_id: string };
-
-type RelationKind = "product" | "category";
-type RelationOption = { id: string; label: string };
-
-const idle: TrainingActionState = { status: "idle", message: "" };
-
-function TrainingEditor({ training }: { training?: TrainingRow }) {
-  const [state, action, pending] = useActionState(saveTrainingAction, idle);
-  const [videoUrl, setVideoUrl] = useState(training?.video_url ?? "");
-  const [status, setStatus] = useState(training?.publication_status ?? "draft");
-  const missingVideo = status === "published" && !videoUrl.trim();
-
-  return (
-    <DraftForm status={state.status} action={action} className={styles.form}>
-      <fieldset disabled={pending}>
-        <input type="hidden" name="id" value={training?.id ?? ""} />
-        <div className={styles.fields}>
-          <label>
-            <span>Título</span>
-            <input
-              name="title"
-              defaultValue={training?.title ?? ""}
-              maxLength={240}
-              required
-            />
-          </label>
-          <label>
-            <span>Identificador URL</span>
-            <input
-              name="slug"
-              defaultValue={training?.slug ?? ""}
-              maxLength={160}
-              pattern="[a-z0-9]+(-[a-z0-9]+)*"
-              placeholder="uso-de-equipo"
-              required
-            />
-          </label>
-          <label className={styles.wide}>
-            <span>Descripción</span>
-            <textarea
-              name="description"
-              defaultValue={training?.description ?? ""}
-              maxLength={12000}
-              rows={5}
-            />
-          </label>
-          <label className={styles.wide}>
-            <span>URL del video HTTPS</span>
-            <input
-              name="videoUrl"
-              type="url"
-              value={videoUrl}
-              onChange={(event) => setVideoUrl(event.target.value)}
-              placeholder="https://..."
-              maxLength={2000}
-              required={status === "published"}
-            />
-            <small>
-              Para publicar se necesita una URL HTTPS verificable. En borrador
-              puede quedar vacía.
-            </small>
-          </label>
-          <label>
-            <span>Estado</span>
-            <select
-              name="publicationStatus"
-              value={status}
-              onChange={(event) =>
-                setStatus(
-                  event.target.value as TrainingRow["publication_status"],
-                )
-              }
-            >
-              <option value="draft">Borrador</option>
-              <option value="published" disabled={!videoUrl.trim()}>
-                Publicado
-              </option>
-              <option value="archived">Archivado</option>
-            </select>
-          </label>
-        </div>
-        {missingVideo && (
-          <p className={styles.warning} role="alert">
-            Agrega una URL HTTPS antes de publicar.
-          </p>
-        )}
-        <p className={styles.help}>
-          Guarda la capacitación antes de cargar su portada. El video se
-          registra mediante URL HTTPS; este formulario no crea inscripciones ni
-          reservas.
-        </p>
-        <button type="submit" disabled={pending || missingVideo}>
-          {pending
-            ? "Guardando..."
-            : training
-              ? "Guardar capacitación"
-              : "Crear capacitación"}
-        </button>
-      </fieldset>
-      {state.status !== "idle" && (
-        <p
-          className={state.status === "error" ? styles.error : styles.success}
-          role={state.status === "error" ? "alert" : "status"}
-        >
-          {state.message}
-        </p>
-      )}
-    </DraftForm>
-  );
-}
-
-function TrainingCoverUpload({ training }: { training: TrainingRow }) {
-  const router = useRouter();
-  const [pending, setPending] = useState(false);
-  const [result, setResult] = useState<{
-    status: "success" | "error";
-    message: string;
-  } | null>(null);
-
-  async function submit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const file = formData.get("image");
-    if (
-      !(file instanceof File) ||
-      file.size < 1 ||
-      file.size > 8_000_000 ||
-      !["image/jpeg", "image/png", "image/webp", "image/avif"].includes(
-        file.type,
-      )
-    ) {
-      setResult({
-        status: "error",
-        message: "Selecciona una imagen JPEG, PNG, WebP o AVIF de hasta 8 MB.",
-      });
-      return;
-    }
-    setPending(true);
-    setResult(null);
-    try {
-      const response = await fetch("/api/admin/training-covers", {
-        method: "POST",
-        body: formData,
-        cache: "no-store",
-      });
-      const payload: unknown = await response.json();
-      if (
-        response.status !== 201 ||
-        typeof payload !== "object" ||
-        payload === null ||
-        !("status" in payload) ||
-        payload.status !== "recorded"
-      ) {
-        const message =
-          typeof payload === "object" &&
-          payload !== null &&
-          "error" in payload &&
-          typeof payload.error === "string"
-            ? payload.error
-            : "No se pudo guardar la portada.";
-        setResult({ status: "error", message });
-        return;
-      }
-      form.reset();
-      setResult({
-        status: "success",
-        message: "Portada guardada en el almacenamiento privado.",
-      });
-      router.refresh();
-    } catch {
-      setResult({
-        status: "error",
-        message: "No se pudo conectar con el almacenamiento. Reintenta.",
-      });
-    } finally {
-      setPending(false);
-    }
-  }
-
-  return (
-    <section
-      className={styles.coverPanel}
-      aria-labelledby="training-cover-title"
-    >
-      <h3 id="training-cover-title">Portada de la capacitación</h3>
-      {training.cover_path ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          className={styles.coverPreview}
-          src={`/api/training-covers/${training.id}`}
-          alt={`Portada: ${training.title}`}
-        />
-      ) : (
-        <p className={styles.help}>Sin portada registrada.</p>
-      )}
-      <form onSubmit={submit} className={styles.coverForm}>
-        <input type="hidden" name="trainingId" value={training.id} />
-        <label>
-          <span>Imagen de portada</span>
-          <input
-            name="image"
-            type="file"
-            accept="image/jpeg,image/png,image/webp,image/avif"
-            required
-            disabled={pending}
-          />
-        </label>
-        <button type="submit" disabled={pending}>
-          {pending
-            ? "Guardando..."
-            : training.cover_path
-              ? "Reemplazar portada"
-              : "Cargar portada"}
-        </button>
-      </form>
-      <p className={styles.help}>
-        La imagen se sirve solo desde la ruta controlada cuando la capacitación
-        está publicada. El administrador puede ver la vista previa de
-        borradores.
-      </p>
-      {result && (
-        <p
-          className={result.status === "error" ? styles.error : styles.success}
-          role={result.status === "error" ? "alert" : "status"}
-        >
-          {result.message}
-        </p>
-      )}
-    </section>
-  );
-}
-
-function RelationForm({
-  trainingId,
-  kind,
-  operation,
-  targetId,
-  options,
-}: {
-  trainingId: string;
-  kind: RelationKind;
-  operation: "attach" | "detach";
-  targetId?: string;
-  options?: RelationOption[];
-}) {
-  void options;
-  const router = useRouter();
-  const [state, action, pending] = useActionState(
-    saveTrainingRelationAction,
-    idle,
-  );
-  useEffect(() => {
-    if (state.status === "success") router.refresh();
-  }, [router, state.status]);
-
-  return (
-    <form action={action} className={styles.relationForm}>
-      <input type="hidden" name="trainingId" value={trainingId} />
-      <input type="hidden" name="kind" value={kind} />
-      <input type="hidden" name="operation" value={operation} />
-      {operation === "attach" ? (
-        <EntityPicker
-          entity={kind === "product" ? "products" : "categories"}
-          name="targetId"
-          label={kind === "product" ? "Producto publicado" : "Categoría activa"}
-          required
-          published={kind === "product"}
-          active={kind === "category"}
-        />
-      ) : (
-        <input type="hidden" name="targetId" value={targetId} />
-      )}
-      <button type="submit" disabled={pending}>
-        {pending ? "Guardando…" : operation === "attach" ? "Asociar" : "Quitar"}
-      </button>
-      {state.status !== "idle" && (
-        <p
-          className={state.status === "error" ? styles.error : styles.success}
-          role={state.status === "error" ? "alert" : "status"}
-        >
-          {state.message}
-        </p>
-      )}
-    </form>
-  );
-}
-
-function TrainingRelations({
-  trainingId,
-  products,
-  categories,
-  productLinks,
-  categoryLinks,
-}: {
-  trainingId: string;
+type Relations = {
   products: TrainingProductOption[];
   categories: TrainingCategoryOption[];
   productLinks: TrainingProductLink[];
   categoryLinks: TrainingCategoryLink[];
-}) {
-  const linkedProducts = productLinks.filter(
-    (item) => item.training_id === trainingId,
-  );
-  const linkedCategories = categoryLinks.filter(
-    (item) => item.training_id === trainingId,
-  );
-  const productNames = new Map(
-    products.map((item) => [item.id, `${item.sku} · ${item.name}`]),
-  );
-  const categoryNames = new Map(categories.map((item) => [item.id, item.name]));
-  const availableProducts = products
-    .filter(
-      (item) => !linkedProducts.some((link) => link.product_id === item.id),
-    )
-    .map((item) => ({ id: item.id, label: `${item.sku} · ${item.name}` }));
-  const availableCategories = categories
-    .filter(
-      (item) => !linkedCategories.some((link) => link.category_id === item.id),
-    )
-    .map((item) => ({ id: item.id, label: item.name }));
-
-  return (
-    <div className={styles.relations}>
-      <h3>Relaciones públicas</h3>
-      <p className={styles.help}>
-        Vincula productos publicados o categorías activas. En la ficha pública
-        solo aparecerán productos que continúen publicados con sus
-        clasificaciones activas.
-      </p>
-      <div className={styles.relationColumns}>
-        <section aria-labelledby="training-products-title">
-          <h4 id="training-products-title">Productos</h4>
-          {linkedProducts.length === 0 ? (
-            <p className={styles.help}>Sin productos vinculados.</p>
-          ) : (
-            <ul className={styles.relationList}>
-              {linkedProducts.map((link) => (
-                <li key={link.product_id}>
-                  <span>
-                    {productNames.get(link.product_id) ??
-                      "Producto ya no publicado"}
-                  </span>
-                  <RelationForm
-                    trainingId={trainingId}
-                    kind="product"
-                    operation="detach"
-                    targetId={link.product_id}
-                  />
-                </li>
-              ))}
-            </ul>
-          )}
-          <RelationForm
-            trainingId={trainingId}
-            kind="product"
-            operation="attach"
-            options={availableProducts}
-          />
-        </section>
-        <section aria-labelledby="training-categories-title">
-          <h4 id="training-categories-title">Categorías</h4>
-          {linkedCategories.length === 0 ? (
-            <p className={styles.help}>Sin categorías vinculadas.</p>
-          ) : (
-            <ul className={styles.relationList}>
-              {linkedCategories.map((link) => (
-                <li key={link.category_id}>
-                  <span>
-                    {categoryNames.get(link.category_id) ??
-                      "Categoría ya no activa"}
-                  </span>
-                  <RelationForm
-                    trainingId={trainingId}
-                    kind="category"
-                    operation="detach"
-                    targetId={link.category_id}
-                  />
-                </li>
-              ))}
-            </ul>
-          )}
-          <RelationForm
-            trainingId={trainingId}
-            kind="category"
-            operation="attach"
-            options={availableCategories}
-          />
-        </section>
-      </div>
-    </div>
-  );
-}
-
+};
 export function TrainingAdmin({
   trainings,
+  listRows,
+  selectedId,
+  controls,
+  pager,
   products,
   categories,
   productLinks,
   categoryLinks,
+  ratings,
   publicCatalogConnected,
-  limitedRecords,
-  selectedId,
-  listRows,
-  controls,
-  pager,
 }: {
-  selectedId: string;
+  trainings: TrainingRow[];
   listRows: TrainingRow[];
+  selectedId: string;
   controls: ReactNode;
   pager: ReactNode;
-  trainings: TrainingRow[];
+  limitedRecords: boolean;
+  publicCatalogConnected: boolean;
   products: TrainingProductOption[];
   categories: TrainingCategoryOption[];
   productLinks: TrainingProductLink[];
   categoryLinks: TrainingCategoryLink[];
-  publicCatalogConnected: boolean;
-  limitedRecords: boolean;
+  ratings: { stats: TrainingRating[]; overview: RatingOverview } | null;
 }) {
   const router = useRouter();
-  function setSelectedId(id: string) {
-    const params = new URLSearchParams(window.location.search);
-    if (id) params.set("edit", id);
-    else params.delete("edit");
-    router.push(`/admin/capacitaciones?${params}`);
+  const confirm = useConfirm();
+  const [editing, setEditing] = useState(selectedId),
+    [row, setRow] = useState(trainings.find((t) => t.id === selectedId)),
+    [busy, setBusy] = useState(false),
+    [session, setSession] = useState(0),
+    [localRows, setLocalRows] = useState<Record<string, TrainingRow>>({});
+  const [relations, setRelations] = useState<Relations>({
+      products,
+      categories,
+      productLinks,
+      categoryLinks,
+    }),
+    [loadError, setLoadError] = useState(""),
+    [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState<TrainingRow | null>(null),
+    [deletedIds, setDeletedIds] = useState<Set<string>>(() => new Set()),
+    [notice, setNotice] = useState("");
+  const controller = useRef<AbortController | null>(null),
+    currentId = useRef(editing);
+  const load = useCallback(async (id: string) => {
+    controller.current?.abort();
+    const c = new AbortController();
+    controller.current = c;
+    setLoading(true);
+    setLoadError("");
+    try {
+      const response = await fetch(`/api/admin/trainings/${id}`, {
+        cache: "no-store",
+        signal: AbortSignal.any([c.signal, AbortSignal.timeout(10000)]),
+      });
+      const data = await response.json();
+      if (!response.ok || data.training?.id !== id)
+        throw Error(data.error || "No se pudieron consultar los detalles.");
+      if (c.signal.aborted || currentId.current !== id) return;
+      setRow(data.training);
+      setRelations(data);
+    } catch (error) {
+      if (!c.signal.aborted && currentId.current === id)
+        setLoadError(
+          error instanceof Error
+            ? error.message
+            : "No se pudieron cargar los detalles.",
+        );
+    } finally {
+      if (!c.signal.aborted && currentId.current === id) setLoading(false);
+    }
+  }, []);
+  function url(id: string, replace = false) {
+    const value = new URL(window.location.href);
+    if (id) value.searchParams.set("edit", id);
+    else value.searchParams.delete("edit");
+    value.hash = "";
+    window.history[replace ? "replaceState" : "pushState"](
+      {},
+      "",
+      value.pathname + value.search,
+    );
   }
-  const training = trainings.find((item) => item.id === selectedId);
+  function open(id: string) {
+    controller.current?.abort();
+    currentId.current = id;
+    setEditing(id);
+    setSession((s) => s + 1);
+    setLoadError("");
+    setLoading(false);
+    setRow(
+      id === "new"
+        ? undefined
+        : localRows[id] || trainings.find((t) => t.id === id),
+    );
+    setRelations({
+      products: [],
+      categories: [],
+      productLinks: [],
+      categoryLinks: [],
+    });
+    url(id);
+    if (id !== "new") void load(id);
+  }
+  async function close() {
+    if (busy) return;
+    if (
+      document.querySelector('#editor-capacitacion [data-dirty="true"]') &&
+      !(await confirm({
+        title: "Descartar cambios",
+        message: "Tienes cambios sin guardar. ¿Quieres cerrar y descartarlos?",
+        confirmLabel: "Descartar",
+      }))
+    )
+      return;
+    controller.current?.abort();
+    currentId.current = "";
+    setEditing("");
+    setRow(undefined);
+    url("");
+  }
+  useEffect(() => () => controller.current?.abort(), []);
+  useEffect(() => {
+    const pop = () => {
+      controller.current?.abort();
+      const id = new URLSearchParams(window.location.search).get("edit") ?? "";
+      currentId.current = id;
+      setEditing(id);
+      setSession((s) => s + 1);
+      setRow(trainings.find((t) => t.id === id));
+      if (id && id !== "new") void load(id);
+    };
+    window.addEventListener("popstate", pop);
+    return () => window.removeEventListener("popstate", pop);
+  }, [load, trainings]);
+  const relationChanged = useCallback(() => {
+    if (currentId.current && currentId.current !== "new")
+      void load(currentId.current);
+    router.refresh();
+  }, [load, router]);
+  const overview = ratings?.overview;
   return (
     <div className={styles.shell}>
       <header className={styles.hero}>
         <div>
           <span className="eyebrow">Panel administrativo</span>
           <h1>Capacitaciones</h1>
-          <p>Mantén los videos de uso y cuidado de equipos GreenBel.</p>
+          <p>Comparte conocimiento y conoce la opinión de tus clientes.</p>
         </div>
         <div className={styles.links}>
-          <Link href="/admin/catalogo" className="secondary-dark-button">
-            Catálogo
-          </Link>
-          <Link href="/capacitaciones" className="secondary-dark-button">
+          <Link className={styles.secondary} href="/capacitaciones">
+            <Eye size={17} />
             Vista pública
           </Link>
+          <button
+            id="new-training"
+            type="button"
+            className={styles.primary}
+            onClick={() => open("new")}
+          >
+            <Plus size={18} />
+            Nueva capacitación
+          </button>
         </div>
       </header>
-      <p className={styles.notice} role="status">
-        {publicCatalogConnected
-          ? "La biblioteca pública muestra las capacitaciones publicadas con video disponible."
-          : "La biblioteca pública está en modo de demostración. Los cambios de esta vista se guardan en desarrollo."}
-      </p>
-      {limitedRecords && (
-        <p className={styles.notice}>
-          La vista alcanzó su límite de registros de capacitaciones o
-          relaciones. Amplía la consulta antes de editar elementos que no
-          aparecen aquí.
-        </p>
-      )}
-      <div className="admin-training-layout">
-        <section
-          className={styles.panel}
-          aria-labelledby="training-editor-title"
-        >
-          <details className="admin-editor" open={!!training}>
-            <summary>
-              {training
-                ? `Editar capacitación · ${training.title}`
-                : "Crear capacitación"}
-            </summary>
-            <div className={styles.panelHeading}>
-              <h2 id="training-editor-title">
-                {training ? "Editar video" : "Nuevo video"}
-              </h2>
-              <label>
-                <span>Seleccionar registro</span>
-                <select
-                  value={selectedId}
-                  onChange={(event) => setSelectedId(event.target.value)}
-                >
-                  <option value="">Nuevo video</option>
-                  {trainings.map((item) => (
-                    <option value={item.id} key={item.id}>
-                      {item.title} ·{" "}
-                      {
-                        {
-                          draft: "Borrador",
-                          published: "Publicado",
-                          archived: "Archivado",
-                        }[item.publication_status]
-                      }
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-            <TrainingEditor key={training?.id ?? "new"} training={training} />
-            {training && (
-              <TrainingCoverUpload key={training.id} training={training} />
-            )}
-            {training && (
-              <TrainingRelations
-                trainingId={training.id}
-                products={products}
-                categories={categories}
-                productLinks={productLinks}
-                categoryLinks={categoryLinks}
-              />
-            )}
-          </details>
+      <div className={styles.metrics}>
+        <section>
+          <span>
+            <Star size={19} />
+            Calificación general
+          </span>
+          <TrainingStars
+            average={overview?.average_rating ?? null}
+            count={Number(overview?.rating_count ?? 0)}
+            unavailable={!ratings}
+          />
+          <p>Promedio de todas las calificaciones recibidas.</p>
         </section>
-        <section className={styles.panel} aria-labelledby="training-list-title">
-          {controls}
-          <h2 id="training-list-title">Capacitaciones guardadas</h2>
-          {listRows.length === 0 ? null : (
-            <ul className={styles.list}>
-              {listRows.map((item) => (
-                <li key={item.id}>
-                  <strong>{item.title}</strong>
-                  <small>
-                    {item.slug} ·{" "}
-                    {item.publication_status === "published"
-                      ? "Publicado"
-                      : item.publication_status === "archived"
-                        ? "Archivado"
-                        : "Borrador"}
-                  </small>
-                  <span>
-                    {item.video_url ? "Video HTTPS registrado" : "Sin video"}
-                    {item.cover_path ? " · Portada registrada" : ""}
-                  </span>
-                  <button type="button" onClick={() => setSelectedId(item.id)}>
-                    Editar
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-          {pager}
+        <section>
+          <span>
+            <Users size={19} />
+            Calificaciones recibidas
+          </span>
+          <strong>
+            {overview
+              ? Number(overview.rating_count).toLocaleString("es-GT")
+              : "—"}
+          </strong>
+          <p>Una calificación por cuenta y video.</p>
+        </section>
+        <section>
+          <span>
+            <BookOpen size={19} />
+            Capacitaciones valoradas
+          </span>
+          <strong>
+            {overview
+              ? Number(overview.rated_trainings).toLocaleString("es-GT")
+              : "—"}
+          </strong>
+          <p>Videos que ya tienen opiniones de clientes.</p>
         </section>
       </div>
+      {!publicCatalogConnected && (
+        <p className={styles.notice}>
+          La biblioteca pública está en modo de demostración. Los cambios se
+          guardan en desarrollo.
+        </p>
+      )}
+      <section
+        className={styles.listPanel}
+        aria-labelledby="training-list-title"
+      >
+        <div className={styles.listHeading}>
+          <h2 id="training-list-title" tabIndex={-1}>
+            Biblioteca de capacitaciones
+          </h2>
+          <p>
+            Edita el contenido, revisa su publicación y consulta sus
+            calificaciones.
+          </p>
+        </div>
+        {controls}
+        {notice && (
+          <p role="status" className={styles.notice}>
+            {notice}
+          </p>
+        )}
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th scope="col">Capacitación</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Calificación</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {listRows
+                .filter((item) => !deletedIds.has(item.id))
+                .map((original) => {
+                  const item = localRows[original.id] ?? original;
+                  const rating = ratings?.stats.find(
+                    (r) => r.training_id === item.id,
+                  );
+                  return (
+                    <tr key={item.id} data-selected={editing === item.id}>
+                      <td>
+                        <div className={styles.identity}>
+                          <div className={styles.thumbnail}>
+                            {item.cover_path ? (
+                              <img
+                                src={`/api/training-covers/${item.id}?v=${encodeURIComponent(item.cover_path)}`}
+                                alt=""
+                              />
+                            ) : (
+                              <ImageIcon size={23} />
+                            )}
+                          </div>
+                          <div>
+                            <strong>{item.title}</strong>
+                            <small>
+                              <Film size={13} />
+                              {item.video_storage_path
+                                ? "Video adjunto"
+                                : item.video_url
+                                  ? "Video por enlace"
+                                  : "Sin video"}
+                            </small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span className={styles.badge}>
+                          {
+                            {
+                              published: "Publicado",
+                              draft: "Borrador",
+                              archived: "Archivado",
+                            }[item.publication_status]
+                          }
+                        </span>
+                      </td>
+                      <td>
+                        <TrainingStars
+                          average={rating?.average_rating ?? null}
+                          count={Number(rating?.rating_count ?? 0)}
+                          unavailable={!ratings}
+                        />
+                      </td>
+                      <td>
+                        <div className={styles.rowActions}>
+                          {item.publication_status === "published" && (
+                            <Link
+                              className={styles.secondary}
+                              href={`/capacitaciones/${item.slug}`}
+                              aria-label={`Ver ${item.title}`}
+                            >
+                              <Eye size={16} />
+                            </Link>
+                          )}
+                          <button
+                            id={`edit-training-${item.id}`}
+                            type="button"
+                            onClick={() => open(item.id)}
+                            className={styles.secondary}
+                            aria-label={`Editar ${item.title}`}
+                          >
+                            <Pencil size={16} />
+                            Editar
+                          </button>
+                          <button
+                            type="button"
+                            className={styles.deleteAction}
+                            aria-label={`Eliminar ${item.title}`}
+                            onClick={() => setDeleting(item)}
+                          >
+                            <Trash2 size={16} />
+                            Eliminar
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
+        {pager}
+      </section>
+      {deleting && (
+        <CatalogDeleteDialog
+          kind="training"
+          record={{ id: deleting.id, name: deleting.title }}
+          onClose={() => setDeleting(null)}
+          onDeleted={(id, message) => {
+            setDeletedIds((ids) => new Set(ids).add(id));
+            setNotice(message);
+            setDeleting(null);
+            if (currentId.current === id) {
+              controller.current?.abort();
+              currentId.current = "";
+              setEditing("");
+              setRow(undefined);
+              url("", true);
+            }
+            router.refresh();
+          }}
+        />
+      )}
+      {editing && (
+        <CatalogDrawer
+          id="editor-capacitacion"
+          title={
+            row?.title ??
+            (editing === "new"
+              ? "Nueva capacitación"
+              : "Cargando capacitación…")
+          }
+          kicker={
+            editing === "new" ? "Crear capacitación" : "Editar capacitación"
+          }
+          busy={busy}
+          onClose={close}
+          returnFocusId={
+            editing === "new" ? "new-training" : `edit-training-${editing}`
+          }
+          closeLabel="Cerrar editor de capacitación"
+          className={styles.drawer}
+        >
+          {row || editing === "new" ? (
+            <TrainingEditor
+              key={session}
+              training={row}
+              onBusy={setBusy}
+              onIdCreated={(created) => {
+                if (currentId.current === "new") {
+                  // Keep the editor mounted while its files are uploading. The
+                  // relation request must not be responsible for providing the
+                  // newly created row: removing the editor aborts that upload.
+                  setRow(created);
+                  currentId.current = created.id;
+                  setEditing(created.id);
+                  url(created.id, true);
+                  void load(created.id);
+                }
+              }}
+              onSaved={(saved) => {
+                setRow(saved);
+                setLocalRows((rows) => ({ ...rows, [saved.id]: saved }));
+                router.refresh();
+              }}
+              relations={
+                <div className={styles.editorSection}>
+                  <h3>Productos y categorías relacionados</h3>
+                  {loading && (
+                    <p role="status" className={styles.help}>
+                      Actualizando asociaciones…
+                    </p>
+                  )}
+                  {loadError && (
+                    <p role="alert" className={styles.error}>
+                      {loadError}{" "}
+                      <button
+                        type="button"
+                        className={styles.secondary}
+                        onClick={() => void load(editing)}
+                      >
+                        Reintentar
+                      </button>
+                    </p>
+                  )}
+                  <TrainingRelations
+                    trainingId={editing}
+                    {...relations}
+                    onChanged={relationChanged}
+                  />
+                </div>
+              }
+            />
+          ) : (
+            <div className={styles.editorSection}>
+              <p role={loadError ? "alert" : "status"}>
+                {loadError || "Cargando los detalles de la capacitación…"}
+              </p>
+              {loadError && (
+                <button
+                  className={styles.secondary}
+                  type="button"
+                  onClick={() => void load(editing)}
+                >
+                  Reintentar
+                </button>
+              )}
+            </div>
+          )}
+        </CatalogDrawer>
+      )}
     </div>
   );
 }

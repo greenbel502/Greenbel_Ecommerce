@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Handshake, Lightbulb, MapPinned, PackageSearch, ShieldCheck, Wrench } from "lucide-react";
 import { AnimatedTitle, Reveal } from "@/presentation/components/motion-primitives";
-import { BrandsCarousel } from "@/presentation/components/brands-carousel";
+import { PublicBrands } from "@/presentation/components/public-brands";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
@@ -19,6 +19,8 @@ const values = [
   { Icon: Wrench, title: "Servicio", text: "Diagnóstico y mantenimiento preventivo." },
   { Icon: MapPinned, title: "Cobertura", text: "Atención para clientes en Guatemala." },
 ];
+
+export const dynamic = "force-dynamic";
 
 export default function AboutPage() {
   return (
@@ -99,7 +101,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <BrandsCarousel />
+      <PublicBrands />
     </div>
   );
 }

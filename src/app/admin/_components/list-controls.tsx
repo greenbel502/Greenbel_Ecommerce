@@ -1,5 +1,6 @@
 import { CanonicalPage } from "./canonical-page";
 import Link from "next/link";
+import { RotateCcw, Search, SlidersHorizontal } from "lucide-react";
 import { listHref, type ListState, type ListConfig } from "@/lib/admin-list";
 export function ListTools({
   state,
@@ -38,79 +39,88 @@ export function ListTools({
         ))}
       <input type="hidden" name={`${state.prefix}page`} value="1" />
       {config.search.length > 0 && (
-        <label>
-          Buscar {label}
-          <input
-            type="search"
-            name={`${state.prefix}q`}
-            defaultValue={state.q}
-            placeholder="Escribe para buscar…"
-            maxLength={120}
-          />
+        <label className="admin-list-search">
+          <span>Buscar {label}</span>
+          <span className="admin-list-search-input">
+            <Search size={18} aria-hidden="true" />
+            <input
+              type="search"
+              name={`${state.prefix}q`}
+              defaultValue={state.q}
+              placeholder="Escribe para buscar…"
+              maxLength={120}
+            />
+          </span>
         </label>
       )}
-      {config.filters && (
+      <div className="admin-list-options">
+        {config.filters && (
+          <label>
+            {config.filterLabel || "Estado o tipo"}
+            <select name={`${state.prefix}filter`} defaultValue={state.filter}>
+              <option value="">Todos</option>
+              {Object.entries(config.filters).map(([key, value]) => (
+                <option key={key} value={key}>
+                  {value}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+        {extraFields.map((field) => (
+          <label key={field.key}>
+            {field.label}
+            <select name={field.key} defaultValue={field.value}>
+              <option value="">Todos</option>
+              {Object.entries(field.options).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
+        ))}
         <label>
-          {config.filterLabel || "Estado o tipo"}
-          <select name={`${state.prefix}filter`} defaultValue={state.filter}>
-            <option value="">Todos</option>
-            {Object.entries(config.filters).map(([key, value]) => (
+          Ordenar por
+          <select name={`${state.prefix}sort`} defaultValue={state.sort}>
+            {Object.entries(config.sorts).map(([key, value]) => (
               <option key={key} value={key}>
                 {value}
               </option>
             ))}
           </select>
         </label>
-      )}
-      {extraFields.map((field) => (
-        <label key={field.key}>
-          {field.label}
-          <select name={field.key} defaultValue={field.value}>
-            <option value="">Todos</option>
-            {Object.entries(field.options).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
+        <label>
+          Dirección
+          <select name={`${state.prefix}dir`} defaultValue={state.direction}>
+            <option value="desc">Descendente</option>
+            <option value="asc">Ascendente</option>
+          </select>
+        </label>
+        <label className="admin-list-size">
+          Por página
+          <select name={`${state.prefix}size`} defaultValue={state.size}>
+            {[10, 25, 50].map((size) => (
+              <option key={size}>{size}</option>
             ))}
           </select>
         </label>
-      ))}
-      <label>
-        Ordenar por
-        <select name={`${state.prefix}sort`} defaultValue={state.sort}>
-          {Object.entries(config.sorts).map(([key, value]) => (
-            <option key={key} value={key}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        Dirección
-        <select name={`${state.prefix}dir`} defaultValue={state.direction}>
-          <option value="desc">Descendente</option>
-          <option value="asc">Ascendente</option>
-        </select>
-      </label>
-      <label>
-        Por página
-        <select name={`${state.prefix}size`} defaultValue={state.size}>
-          {[10, 25, 50].map((size) => (
-            <option key={size}>{size}</option>
-          ))}
-        </select>
-      </label>
-      <button type="submit">Aplicar</button>
-      <Link
-        href={listHref(path, state, {
-          q: "",
-          filter: "",
-          page: 1,
-          ...(path === "/admin/usuarios" ? { active: "" } : {}),
-        })}
-      >
-        Limpiar
-      </Link>
+        <div className="admin-list-actions">
+          <button type="submit">
+            <SlidersHorizontal size={16} aria-hidden="true" /> Aplicar filtros
+          </button>
+          <Link
+            href={listHref(path, state, {
+              q: "",
+              filter: "",
+              page: 1,
+              ...(path === "/admin/usuarios" ? { active: "" } : {}),
+            })}
+          >
+            <RotateCcw size={15} aria-hidden="true" /> Limpiar
+          </Link>
+        </div>
+      </div>
     </form>
   );
 }

@@ -2,6 +2,8 @@
 import { useActionState, useEffect, useRef, type ComponentProps } from "react";
 import { useRouter } from "next/navigation";
 import type { AdminFormResult } from "@/lib/server/admin-operation-result";
+import { useConfirm } from "@/presentation/notifications/notification-provider";
+import { useNotificationFeedback } from "@/presentation/notifications/notify";
 type Snapshot = { name: string; value: string; checked?: boolean };
 export function DraftForm({
   status,
@@ -68,24 +70,22 @@ export function ManagedForm({
   className?: string;
   confirmMessage?: string;
 }) {
+  const confirm = useConfirm();
   const [state, submit, pending] = useActionState<AdminFormResult, FormData>(
-    async (_previous, data) => action(data),
+    async (previous, data) => {
+      if (confirmMessage && !(await confirm({ message: confirmMessage })))
+        return previous;
+      return action(data);
+    },
     { status: "idle", message: "" },
   );
   const router = useRouter();
+  useNotificationFeedback(state.status, state.message);
   useEffect(() => {
     if (state.status === "success") router.refresh();
   }, [state, router]);
   return (
-    <DraftForm
-      status={state.status}
-      action={submit}
-      className={className}
-      onSubmit={(event) => {
-        if (confirmMessage && !window.confirm(confirmMessage))
-          event.preventDefault();
-      }}
-    >
+    <DraftForm status={state.status} action={submit} className={className}>
       <fieldset disabled={pending} className="admin-form-fieldset">
         {children}
       </fieldset>

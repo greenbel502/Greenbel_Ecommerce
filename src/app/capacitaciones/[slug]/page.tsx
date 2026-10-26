@@ -1,68 +1,154 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, GraduationCap } from "lucide-react";
-import { getPublicTrainingBySlug, getTrainingRelatedProducts } from "@/application/use-cases/getTrainings";
-import { AnimatedTitle, Reveal } from "@/presentation/components/motion-primitives";
-import styles from "../training.module.css";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
+  GraduationCap,
+  Package,
+  Video,
+} from "lucide-react";
+import {
+  getPublicTrainingBySlug,
+  getTrainingRelatedProducts,
+} from "@/application/use-cases/getTrainings";
 import { readPublicData } from "@/lib/server/public-data-result";
 import { PageStatus } from "@/presentation/components/page-status";
-
+import { TrainingVideo } from "@/presentation/components/training-video";
+import { TrainingStars } from "@/presentation/components/training-stars";
+import { TrainingRatingForm } from "@/presentation/components/training-rating-form";
+import {
+  trainingRatings,
+  trainingRatingViewer,
+} from "@/lib/server/training-ratings";
+import styles from "../training.module.css";
 export const dynamic = "force-dynamic";
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
-  const result = await readPublicData(() => getPublicTrainingBySlug(slug));
-  if (result.status === "unavailable") return { title: "Capacitación temporalmente no disponible", robots: { index: false } };
-  const training = result.data;
-  return training
-    ? { title: training.title, description: training.description ?? "Capacitación pública GreenBel." }
-    : { title: "Capacitación no encontrada" };
+  const r = await readPublicData(() => getPublicTrainingBySlug(slug));
+  return r.status === "unavailable"
+    ? {
+        title: "Capacitación temporalmente no disponible",
+        robots: { index: false },
+      }
+    : r.data
+      ? {
+          title: r.data.title,
+          description: r.data.description ?? "Capacitación pública GreenBel.",
+        }
+      : { title: "Capacitación no encontrada" };
 }
-
-export default async function TrainingDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function TrainingDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
-  const result = await readPublicData(() => getPublicTrainingBySlug(slug));
-  if (result.status === "unavailable") return <PageStatus kind="unavailable" />;
-  const training = result.data;
+  const r = await readPublicData(() => getPublicTrainingBySlug(slug));
+  if (r.status === "unavailable") return <PageStatus kind="unavailable" />;
+  const training = r.data;
   if (!training) notFound();
-  const relatedResult = await readPublicData(() => getTrainingRelatedProducts(training.id));
-  if (relatedResult.status === "unavailable") return <PageStatus kind="unavailable" />;
-  const relatedProducts = relatedResult.data;
-  const pathname = new URL(training.videoUrl).pathname.toLowerCase();
-  const directlyPlayable = /\.(?:mp4|webm|ogg)$/.test(pathname);
-
+  const [related, ratings, viewer] = await Promise.all([
+    readPublicData(() => getTrainingRelatedProducts(training.id)),
+    trainingRatings([training.id]),
+    trainingRatingViewer(training.id),
+  ]);
+  const rating = ratings?.[0];
   return (
-    <section className="section" aria-labelledby="training-detail-title">
-      <Link className={styles.back} href="/capacitaciones"><ArrowLeft size={17} /> Todas las capacitaciones</Link>
-      <Reveal as="span" className="eyebrow">Video de capacitación</Reveal>
-      <AnimatedTitle as="h1" id="training-detail-title" lines={[training.title]} />
-      {training.description && <p className={styles.intro}>{training.description}</p>}
-      {training.hasCover && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img className={styles.detailCover} src={`/api/training-covers/${training.id}`} alt={`Portada: ${training.title}`} />
-      )}
-      {directlyPlayable ? (
-        <video className={styles.video} controls preload="metadata" src={training.videoUrl}>
-          Tu navegador no puede reproducir este video.
-        </video>
-      ) : (
-        <div className={styles.external}>
-          <GraduationCap size={40} aria-hidden="true" />
-          <p>Este video se reproduce en su sitio de origen.</p>
-          <a href={training.videoUrl} target="_blank" rel="noopener noreferrer">Abrir video <ExternalLink size={17} /></a>
+    <div className={styles.detailShell}>
+      <Link className={styles.back} href="/capacitaciones">
+        <ArrowLeft size={17} />
+        Todas las capacitaciones
+      </Link>
+      <div className={styles.detailLayout}>
+        <div className={styles.detailMain}>
+          <TrainingVideo
+            title={training.title}
+            url={training.videoUrl}
+            poster={
+              training.hasCover
+                ? `/api/training-covers/${training.id}`
+                : undefined
+            }
+          />
+          <header className={styles.detailHeading}>
+            <span className="eyebrow">
+              <Video size={16} />
+              Video de capacitación
+            </span>
+            <h1>{training.title}</h1>
+            <TrainingStars
+              average={rating?.average_rating ?? null}
+              count={Number(rating?.rating_count ?? 0)}
+              unavailable={ratings === null}
+            />
+          </header>
+          <section
+            className={styles.description}
+            aria-labelledby="training-description-title"
+          >
+            <h2 id="training-description-title">
+              <BookOpen size={21} />
+              Acerca de este video
+            </h2>
+            <p>
+              {training.description ||
+                "GreenBel comparte esta capacitación para acompañarte en el uso y cuidado de tus equipos."}
+            </p>
+          </section>
+          <TrainingRatingForm id={training.id} viewer={viewer} />
         </div>
-      )}
-      {relatedProducts.length > 0 && <section className={styles.related} aria-labelledby="training-related-title">
-        <h2 id="training-related-title">Productos relacionados</h2>
-        <p>Estos productos están publicados actualmente en el catálogo.</p>
-        <div className={styles.relatedGrid}>{relatedProducts.map((product) => <article key={product.id} className={styles.relatedCard}>
-          <small>{product.sku}</small>
-          <h3>{product.name}</h3>
-          {product.shortDescription && <p>{product.shortDescription}</p>}
-          <Link href={`/productos/${product.slug}`}>Ver producto</Link>
-        </article>)}</div>
-      </section>}
-    </section>
+        <aside className={styles.detailAside}>
+          <section className={styles.learningNote}>
+            <span className={styles.learningIcon}>
+              <GraduationCap size={29} />
+            </span>
+            <span className="eyebrow">Aprende a tu ritmo</span>
+            <h2>Conocimiento que se pone en práctica.</h2>
+            <p>
+              Pausa, vuelve a ver el video y consulta los detalles cuando lo
+              necesites.
+            </p>
+            <Link href="/capacitaciones">
+              Explorar más videos <ArrowRight size={17} />
+            </Link>
+          </section>
+          <section
+            className={styles.related}
+            aria-labelledby="training-related-title"
+          >
+            <h2 id="training-related-title">
+              <Package size={20} />
+              Productos relacionados
+            </h2>
+            {related.status === "unavailable" ? (
+              <p role="status">
+                No se pudieron cargar los productos relacionados.
+              </p>
+            ) : related.data.length ? (
+              <div className={styles.relatedGrid}>
+                {related.data.map((p) => (
+                  <article className={styles.relatedCard} key={p.id}>
+                    <small>{p.sku}</small>
+                    <h3>{p.name}</h3>
+                    {p.shortDescription && <p>{p.shortDescription}</p>}
+                    <Link href={`/productos/${p.slug}`}>
+                      Ver producto <ArrowRight size={15} />
+                    </Link>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <p>No hay productos vinculados a esta capacitación.</p>
+            )}
+          </section>
+        </aside>
+      </div>
+    </div>
   );
 }

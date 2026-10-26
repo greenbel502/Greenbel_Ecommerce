@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Suspense } from "react";
-import { Toaster } from "sonner";
+import "sileo/styles.css";
+import { NotificationProvider } from "@/presentation/notifications/notification-provider";
 import "./globals.css";
 import { CartProvider } from "@/presentation/providers/cart-provider";
+import { Footer } from "@/presentation/components/footer";
 import { SiteFrame } from "@/presentation/components/site-frame";
 import { NavigationLoader } from "@/presentation/components/navigation-loader";
 
@@ -61,11 +63,12 @@ export default function RootLayout({
     <html lang="es">
       <body className={`${poppins.variable} ${displayFont.variable}`}>
         <CartProvider>
-          <SiteFrame>{children}</SiteFrame>
+          <NotificationProvider>
+          <SiteFrame footer={<Footer />}>{children}</SiteFrame>
           <Suspense fallback={null}>
             <NavigationLoader />
           </Suspense>
-          <Toaster richColors position="bottom-right" closeButton />
+          </NotificationProvider>
         </CartProvider>
       </body>
     </html>

@@ -28,6 +28,7 @@ function fromCents(value: bigint): string {
 
 /** Build only from products freshly read by the server; the browser sends IDs and quantities. */
 export function buildPendingDeliveryQuote(input: {
+  purpose?: "financing";
   reference: string;
   issuedAt: string;
   customerName: string;
@@ -49,7 +50,7 @@ export function buildPendingDeliveryQuote(input: {
     const product = catalog.get(selected.productId);
     if (!product) throw new Error("Producto no disponible para cotizar.");
     if (product.regularPrice === null) throw new Error("Precio próximamente: este producto aún no admite cotización monetaria.");
-    if (product.availableQuantity === null || !Number.isSafeInteger(product.availableQuantity) || product.availableQuantity < selected.quantity) {
+    if (input.purpose !== "financing" && (product.availableQuantity === null || !Number.isSafeInteger(product.availableQuantity) || product.availableQuantity < selected.quantity)) {
       throw new Error("La disponibilidad no permite emitir esta cotización todavía.");
     }
     const offer = product.activeOffer
@@ -78,7 +79,7 @@ export function buildPendingDeliveryQuote(input: {
     lines,
     merchandiseTotal: fromCents(merchandise),
     includedVatAmount: null,
-    delivery: { status: "pending", amount: null, description: "El transporte se definirá antes de confirmar una compra." },
+    delivery: { status: "pending", amount: null, description: input.purpose === "financing" ? "Solicitud de información de financiamiento. Disponibilidad por confirmar; no reserva inventario. Transporte por coordinar." : "El transporte se definirá antes de confirmar una compra." },
     customerTotal: null
   };
   validateQuoteDocument(snapshot);

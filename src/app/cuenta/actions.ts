@@ -74,7 +74,7 @@ export async function signUpAction(_previous: AuthActionState, formData: FormDat
   const email = field(formData, "email").trim();
   const password = field(formData, "password");
   const confirmation = field(formData, "passwordConfirmation");
-  const returnTo = field(formData, "returnTo") === "/checkout" ? "/checkout" : "/cuenta";
+  const returnTo = customerAuthDestination(field(formData, "returnTo"));
   if (!emailSchema.safeParse(email).success || !passwordSchema.safeParse(password).success) {
     return error("Ingresa un correo válido y una contraseña de 8 a 128 caracteres.");
   }
@@ -88,7 +88,7 @@ export async function signUpAction(_previous: AuthActionState, formData: FormDat
     const { data, error: authError } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: new URL(returnTo === "/checkout" ? "/auth/confirm?next=%2Fcheckout" : "/auth/confirm", appUrl).toString() }
+      options: { emailRedirectTo: new URL(returnTo === "/cuenta" ? "/auth/confirm" : `/auth/confirm?next=${encodeURIComponent(returnTo)}`, appUrl).toString() }
     });
     if (authError) return error("No se pudo completar el registro. Inténtalo más tarde.");
     hasSession = Boolean(data.session);

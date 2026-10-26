@@ -12,10 +12,17 @@ import {
   Truck,
   Users,
   ArrowUpRight,
+  LockKeyhole,
 } from "lucide-react";
+import { getPausedAdminModule } from "@/lib/admin-module-status";
 import { requireStaffActor } from "@/lib/server/staff-authorization";
+import { adminTrainingRatings } from "@/lib/server/training-ratings";
+import { TrainingStars } from "@/presentation/components/training-stars";
+import trainingStyles from "./capacitaciones/training-admin.module.css";
 export default async function AdminHome() {
   const actor = await requireStaffActor(["admin", "operator"]);
+  const trainingRatings =
+    actor.role === "admin" ? await adminTrainingRatings([]) : null;
   const modules = [
     {
       href: "ventas",
@@ -97,22 +104,67 @@ export default async function AdminHome() {
         desarrollo.
       </p>
       <div className="admin-dashboard-grid">
-        {modules.map((item) => (
-          <Link
-            className="admin-dashboard-card"
-            key={item.href}
-            href={`/admin/${item.href}`}
-          >
-            <item.icon size={24} />
-            <strong>{item.title}</strong>
-            <p>{item.text}</p>
-            <span>
-              Abrir módulo{" "}
-              <ArrowUpRight size={13} style={{ display: "inline" }} />
-            </span>
-          </Link>
-        ))}
+        {modules.map((item) => {
+          if (getPausedAdminModule(`/admin/${item.href}`))
+            return (
+              <article
+                className="admin-dashboard-card is-disabled"
+                key={item.href}
+              >
+                <item.icon size={24} aria-hidden="true" />
+                <strong>{item.title}</strong>
+                <p>
+                  Temporalmente inhabilitado. Las compras se atienden por
+                  WhatsApp.
+                </p>
+                <span className="admin-paused-badge">
+                  <LockKeyhole size={13} aria-hidden="true" /> Inhabilitado
+                </span>
+              </article>
+            );
+          return (
+            <Link
+              className="admin-dashboard-card"
+              key={item.href}
+              href={`/admin/${item.href}`}
+            >
+              <item.icon size={24} />
+              <strong>{item.title}</strong>
+              <p>{item.text}</p>
+              <span>
+                Abrir módulo{" "}
+                <ArrowUpRight size={13} style={{ display: "inline" }} />
+              </span>
+            </Link>
+          );
+        })}
       </div>
+      {actor.role === "admin" && (
+        <section
+          className={trainingStyles.dashboardRatings}
+          aria-labelledby="dashboard-training-rating-title"
+        >
+          <div>
+            <span className="eyebrow">La opinión de tus clientes</span>
+            <h2 id="dashboard-training-rating-title">
+              Calificaciones de capacitaciones
+            </h2>
+            <TrainingStars
+              average={trainingRatings?.overview.average_rating ?? null}
+              count={Number(trainingRatings?.overview.rating_count ?? 0)}
+              unavailable={!trainingRatings}
+            />
+            <p>
+              {trainingRatings
+                ? `${Number(trainingRatings.overview.rating_count)} calificaciones en ${Number(trainingRatings.overview.rated_trainings)} capacitaciones.`
+                : "No se pudieron consultar las calificaciones."}
+            </p>
+          </div>
+          <Link href="/admin/capacitaciones" className="secondary-dark-button">
+            Ver por capacitación <ArrowUpRight size={16} />
+          </Link>
+        </section>
+      )}
     </>
   );
 }

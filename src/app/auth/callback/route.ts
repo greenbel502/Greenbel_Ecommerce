@@ -7,7 +7,7 @@ import { customerAuthDestination } from "@/lib/supabase/auth-navigation";
 /** Google returns a single-use PKCE code, never a trusted role or customer ID. */
 export async function GET(request: NextRequest) {
   const destination = customerAuthDestination(request.nextUrl.searchParams.get("next"));
-  const retrySuffix = destination === "/checkout" ? "&next=%2Fcheckout" : "";
+  const retrySuffix = destination !== "/cuenta" ? `&next=${encodeURIComponent(destination)}` : "";
   const response = new NextResponse(null, {
     status: 303,
     headers: {

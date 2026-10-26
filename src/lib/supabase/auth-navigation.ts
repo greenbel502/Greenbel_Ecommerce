@@ -1,6 +1,7 @@
 /** Only these customer destinations can be selected by an authentication link. */
-export function customerAuthDestination(value: unknown): "/checkout" | "/cuenta" {
-  return value === "/checkout" ? "/checkout" : "/cuenta";
+export type CustomerAuthDestination = "/checkout" | "/cuenta" | "/financiamiento#solicitud";
+export function customerAuthDestination(value: unknown): CustomerAuthDestination {
+  return value === "/checkout" || value === "/financiamiento#solicitud" ? value : "/cuenta";
 }
 
 const loopbackHosts = new Set(["localhost", "127.0.0.1"]);
@@ -21,6 +22,7 @@ export function googleCallbackUrl(appUrl: string | undefined, appEnvironment: st
     origin = requested.origin;
   }
   const callback = new URL("/auth/callback", origin);
-  if (customerAuthDestination(next) === "/checkout") callback.searchParams.set("next", "/checkout");
+  const destination = customerAuthDestination(next);
+  if (destination !== "/cuenta") callback.searchParams.set("next", destination);
   return callback.toString();
 }

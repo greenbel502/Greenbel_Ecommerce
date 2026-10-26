@@ -28,3 +28,13 @@ test("fuera de DEV solo se usa el origen configurado, sin sustituir el host", ()
   assert.throws(() => googleCallbackUrl("https://shop.example", "PROD", "http://localhost:3000", null));
   assert.throws(() => googleCallbackUrl("http://localhost:3000", "PROD", "http://localhost:3001", null));
 });
+
+
+test("financing login returns only to the exact allowed form, including Google", () => {
+  assert.equal(customerAuthDestination("/financiamiento#solicitud"), "/financiamiento#solicitud");
+  const callback = new URL(googleCallbackUrl("http://localhost:3000", "DEV", "http://localhost:3000", "/financiamiento#solicitud"));
+  assert.equal(callback.pathname, "/auth/callback");
+  assert.equal(callback.searchParams.get("next"), "/financiamiento#solicitud");
+  assert.equal(customerAuthDestination("//evil.example/financiamiento"), "/cuenta");
+  assert.equal(customerAuthDestination("/financiamiento#solicitud?next=https://evil.example"), "/cuenta");
+});

@@ -1,6 +1,6 @@
 # GreenBel Ecommerce
 
-Aplicación Next.js 15 y TypeScript construida sobre el mockup GreenBel. La interfaz conserva su identidad visual. Las migraciones 001–023 están aplicadas en Supabase **DEV**; el estado funcional comprobado de cada recorrido está en [GREENBEL_AVANCE.md](GREENBEL_AVANCE.md).
+Aplicación Next.js 15 y TypeScript construida sobre el mockup GreenBel. La interfaz conserva su identidad visual. Las migraciones 001–024 están aplicadas en Supabase **DEV**; el estado funcional comprobado de cada recorrido está en [GREENBEL_AVANCE.md](GREENBEL_AVANCE.md).
 
 ## Arranque local
 
@@ -58,9 +58,9 @@ Los pagos siguen siendo **de prueba**: 011 agrega un simulador controlado por se
 
 ## Modelo, migraciones y verificación
 
-El [modelo revisado](GREENBEL_MODELO_PARA_VALIDACION.md) fue aprobado para DEV. La secuencia aplicada en DEV comprende **001–023**: archivos 001–021 de septiembre, `20261018002200_admin_user_directory.sql` y `20261022002300_agricultural_product_kind.sql`. La ampliación 021 del perfil y la consulta privada 022 fueron aprobadas explícitamente. Sus registros y checksums están en `docs/migrations/`. La antigua `001_initial_schema.sql`, incompatible con las reglas actuales, se conservó en `supabase/legacy/`. Los bloques iniciales tienen notas de revisión en `supabase/MIGRATION_20260929_*_REVIEW.md`.
+El [modelo revisado](GREENBEL_MODELO_PARA_VALIDACION.md) fue aprobado para DEV. La secuencia aplicada en DEV comprende **001–024**: archivos 001–021 de septiembre, `20261018002200_admin_user_directory.sql`, `20261022002300_agricultural_product_kind.sql` y `20261024002400_brand_logos.sql`. La ampliación 021 del perfil y la consulta privada 022 fueron aprobadas explícitamente. Sus registros y checksums están en `docs/migrations/`. La antigua `001_initial_schema.sql`, incompatible con las reglas actuales, se conservó en `supabase/legacy/`. Los bloques iniciales tienen notas de revisión en `supabase/MIGRATION_20260929_*_REVIEW.md`.
 
-**001–023 constan en el historial de Supabase DEV.** Se creó `supabase/config.toml` y el enlace local de CLI coincide con la URL y referencia DEV. 009 corrigió consultas, 010 abrió checkout transaccional, 011 añadió simulador online DEV, 012 operación manual, 013 cancelación directa de confirmado, 014 y 015 reforzaron las reseñas, 017 añadió gestión de roles y acceso operativo con auditoría, 018 creó portadas privadas de capacitaciones y 019 corrigió la validación de UUID de su ruta. La regla 016 de preparación online se sustituyó por 020: exige pago confirmado antes de preparar o avanzar. No ejecutar `db reset`, pegar SQL en Dashboard para saltar el historial ni apuntar a PROD.
+**001–024 constan en el historial de Supabase DEV.** Se creó `supabase/config.toml` y el enlace local de CLI coincide con la URL y referencia DEV. 009 corrigió consultas, 010 abrió checkout transaccional, 011 añadió simulador online DEV, 012 operación manual, 013 cancelación directa de confirmado, 014 y 015 reforzaron las reseñas, 017 añadió gestión de roles y acceso operativo con auditoría, 018 creó portadas privadas de capacitaciones y 019 corrigió la validación de UUID de su ruta. La regla 016 de preparación online se sustituyó por 020: exige pago confirmado antes de preparar o avanzar. No ejecutar `db reset`, pegar SQL en Dashboard para saltar el historial ni apuntar a PROD.
 
 El preflight local de solo lectura ayuda a comprobar el selector, la URL y el archivo de enlace sin mostrar valores. **No verifica la base remota ni que la contraseña corresponda a DEV**:
 
@@ -104,3 +104,18 @@ Consulta [avance y cobertura del panel](docs/admin-redesign-progress.md) para la
 ### Identidad corporativa de la interfaz
 
 La adaptación visual al manual oficial incluye tokens globales, logos originales, Manrope 800 como sustitución temporal de Mont Heavy (pendiente el archivo completo autorizado, sin glifos DEMO) y estilos responsive compartidos para tienda, cuenta y administración. Consulta [alcance, licencia, evidencias y verificaciones pendientes](docs/brand-ui-adaptation.md). No cambia la lógica comercial ni el backend.
+
+
+### Marcas administrables · 24/10/2026
+
+`/admin/catalogo?view=brands` gestiona la lista compartida por productos, Inicio y Nosotros. Crear conserva la marca inactiva; al activarla se muestra en el sitio. El editor tiene un único formulario de datos, logotipo y visibilidad con **Guardar cambios al final**. Elegir/arrastrar una imagen muestra su vista previa como pendiente; el botón final también la guarda. El nombre sustituye al logo cuando falta imagen.
+
+La carga de logotipos está habilitada en DEV tras aprobar y aplicar 024: bucket privado, entrada hasta 5 MB y WebP final hasta 2 MB. Guardar/reemplazar/quitar tiene autorización de servidor; desactivar bloquea también la imagen pública. Historial DEV 001–024; [registro y checksum](docs/migrations/024-brand-logos.md) conservados para futura promoción autorizada. **PASS DEV + HTTP: 39 + 7 comprobaciones**, con limpieza y datos previos intactos. [Uso, evidencia y continuación](docs/brands/2026-10-24-result.md). Revisión visual responsive/teclado/capturas pendiente: Chrome aún no está conectado; no reutiliza evidencia antigua del catálogo.
+
+Continuación del editor de Marcas: [guardado único, diagnóstico y verificaciones](docs/brands/2026-10-24-single-save.md). **PASS: 14 comprobaciones DEV/HTTP nuevas y 8 pruebas locales focalizadas**; revisión real en navegador aún pendiente. Sin nueva migración.
+
+El editor de Marcas ahora se abre como [panel modal superpuesto desde la derecha](docs/brands/2026-10-24-drawer.md), con fondo oscurecido y scroll independiente. Conserva el guardado único. Revisión interactiva pendiente de conexión de Chrome.
+
+Abrir/cerrar el editor de Marcas usa ahora estado local y History API, sin recargar el catálogo por cada clic. [Corrección, pruebas y límites](docs/brands/2026-10-24-fast-open.md). La comprobación interactiva real sigue pendiente de Chrome.
+
+Marcas y Categorías comparten ahora el editor lateral modal; Categorías tiene tabla, organización jerárquica y guardado final. Los filtros separan búsqueda/opciones/acciones y se acomodan al ancho disponible. Ambas tablas permiten **Eliminar** con confirmación y guard de administrador activo; los registros con vínculos se conservan. [Implementación, 35 comprobaciones DEV/HTTP, controles locales y revisión visual pendiente](docs/brands/2026-10-24-classifications.md). Sin nueva migración; no se eliminaron marcas/categorías comerciales.

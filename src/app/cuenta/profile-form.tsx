@@ -1,4 +1,5 @@
 "use client";
+import { useNotificationFeedback } from "@/presentation/notifications/notify";
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
@@ -14,6 +15,7 @@ export function AvatarEditor({ src, name, customPhoto }: { src: string | null; n
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [feedback, setFeedback] = useState<{ error: boolean; text: string } | null>(null);
+  useNotificationFeedback(feedback ? (feedback.error ? "error" : "success") : "idle", feedback?.text);
   async function save(file?: File) {
     if (busy) return;
     if (file && (file.size > 2_000_000 || !["image/jpeg", "image/png", "image/webp"].includes(file.type))) {
@@ -55,6 +57,7 @@ function SaveButton() {
 
 export function ProfileForm({ name, phone, address, email, version }: { name: string; phone: string; address: string; email: string; version: string }) {
   const [state, action] = useActionState<ProfileActionState, FormData>(saveCustomerProfile, { status: "idle", message: "" });
+  useNotificationFeedback(state.status, state.message);
   useEffect(() => { if (state.status === "success") notifyAccountUpdated(); }, [state]);
   return <form action={action} className={styles.form}>
     <input type="hidden" name="version" value={version} />

@@ -1,4 +1,5 @@
 "use server";
+import { ONLINE_CHECKOUT_ENABLED } from "@/lib/commerce/policy";
 
 import {
   AdminOperationResult,
@@ -523,6 +524,7 @@ async function perform_saveServicePaymentOption(
 /** DEV-only policy switch. Blank duration closes that checkout path. */
 async function perform_saveCheckoutSettings(formData: FormData): Promise<void> {
   const actorId = await adminOnly();
+  if (!ONLINE_CHECKOUT_ENABLED) finish("checkout_paused");
   if (getActiveEnvironment().appEnvironment !== "DEV")
     finish("settings_dev_only");
   const parsed = z
@@ -555,6 +557,8 @@ async function perform_saveCheckoutSettings(formData: FormData): Promise<void> {
 }
 
 const messages: Record<string, string> = {
+  checkout_paused:
+    "La compra web está pausada. Las solicitudes se atienden por WhatsApp desde el carrito.",
   service_saved:
     "Servicio guardado. Su disponibilidad depende de su estado, cobertura y medios configurados.",
   zone_saved: "Zona guardada.",

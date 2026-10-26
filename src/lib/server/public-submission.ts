@@ -44,7 +44,7 @@ export async function readLimitedBody(request: Request, maxBytes: number): Promi
 }
 
 /** Returns null when there is no trusted ingress source; never trusts a local client IP header. */
-export function abuseSourceHash(request: Request, scope: "contact" | "quote"): string | null {
+export function abuseSourceHash(request: Request, scope: "contact" | "quote" | "financing" | "chat"): string | null {
   let source: string;
   if (process.env.VERCEL === "1") {
     // Vercel overwrites this ingress header, so the client cannot choose its quota key.
@@ -54,7 +54,10 @@ export function abuseSourceHash(request: Request, scope: "contact" | "quote"): s
     // Local development has no trusted ingress IP. One shared durable quota is intentional.
     source = "local-development";
   } else {
-    return null;
+    // Chat can run on any Next host. Without a verified ingress header use a
+    // conservative shared quota; never accept a caller-supplied IP as identity.
+    if (scope !== "chat") return null;
+    source = "shared-untrusted-production-ingress";
   }
   return createHmac("sha256", getActiveSupabaseSecretKey())
     .update(`greenbel-${scope}-rate-v1\0`)

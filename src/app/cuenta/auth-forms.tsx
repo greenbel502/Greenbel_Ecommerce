@@ -1,4 +1,5 @@
 "use client";
+import { useNotificationFeedback } from "@/presentation/notifications/notify";
 
 import Link from "next/link";
 import { useActionState, useState } from "react";
@@ -18,6 +19,7 @@ import { PasswordFields } from "./password-fields";
 const initialState: AuthActionState = { status: "idle", message: "" };
 
 function Feedback({ state }: { state: AuthActionState }) {
+  useNotificationFeedback(state.status, state.message);
   if (state.status === "idle") return null;
   return (
     <p
@@ -49,7 +51,7 @@ function GoogleButton() {
   );
 }
 
-function GoogleSignIn({ returnTo }: { returnTo?: "/checkout" }) {
+function GoogleSignIn({ returnTo }: { returnTo?: "/checkout" | "/financiamiento#solicitud" }) {
   const [state, action] = useActionState(signInWithGoogleAction, initialState);
   return (
     <>
@@ -63,7 +65,7 @@ function GoogleSignIn({ returnTo }: { returnTo?: "/checkout" }) {
   );
 }
 
-export function SignInForm({ invalidLink = false, googleError, returnTo }: { invalidLink?: boolean; googleError?: "google" | "account"; returnTo?: "/checkout" }) {
+export function SignInForm({ invalidLink = false, googleError, returnTo, financingNotice = false }: { invalidLink?: boolean; googleError?: "google" | "account"; financingNotice?: boolean; returnTo?: "/checkout" | "/financiamiento#solicitud" }) {
   const [state, formAction] = useActionState(signInAction, initialState);
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -71,6 +73,7 @@ export function SignInForm({ invalidLink = false, googleError, returnTo }: { inv
       <span className={styles.loginWelcome}>BIENVENIDO DE NUEVO</span>
       <h2>Ingresa a tu cuenta</h2>
       <p className={styles.loginDescription}>Tus equipos y tus próximas compras te esperan.</p>
+      {financingNotice && <p className={styles.feedback} role="status">Para enviar tu solicitud de financiamiento necesitas iniciar sesión o crear una cuenta. Tu carrito se conservará y después volverás al formulario.</p>}
       {invalidLink && <p className={`${styles.feedback} ${styles.error}`} role="alert">El enlace es inválido o venció. Solicita uno nuevo o inicia sesión.</p>}
       {googleError && <p className={`${styles.feedback} ${styles.error}`} role="alert">{googleError === "account"
         ? "No se pudo habilitar el acceso a tu cuenta. Contacta a GreenBel para revisar su estado."
@@ -91,12 +94,12 @@ export function SignInForm({ invalidLink = false, googleError, returnTo }: { inv
         <SubmitButton>Ingresar</SubmitButton>
       </form>
       <GoogleSignIn returnTo={returnTo} />
-      <p className={styles.createAccount}>¿Primera vez en GreenBel? <Link href={returnTo ? "/cuenta/registro?next=%2Fcheckout" : "/cuenta/registro"}>Crea tu cuenta</Link></p>
+      <p className={styles.createAccount}>¿Primera vez en GreenBel? <Link href={returnTo ? `/cuenta/registro?next=${encodeURIComponent(returnTo)}` : "/cuenta/registro"}>Crea tu cuenta</Link></p>
     </>
   );
 }
 
-export function SignUpForm({ returnTo }: { returnTo?: "/checkout" }) {
+export function SignUpForm({ returnTo }: { returnTo?: "/checkout" | "/financiamiento#solicitud" }) {
   const [state, formAction] = useActionState(signUpAction, initialState);
   return (
     <>
@@ -109,7 +112,7 @@ export function SignUpForm({ returnTo }: { returnTo?: "/checkout" }) {
         <SubmitButton>Crear cuenta</SubmitButton>
       </form>
       <GoogleSignIn returnTo={returnTo} />
-      <div className={styles.links}><Link href={returnTo ? "/cuenta/ingresar?next=%2Fcheckout" : "/cuenta/ingresar"}>Ya tengo cuenta</Link></div>
+      <div className={styles.links}><Link href={returnTo ? `/cuenta/ingresar?next=${encodeURIComponent(returnTo)}` : "/cuenta/ingresar"}>Ya tengo cuenta</Link></div>
     </>
   );
 }

@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import {test,beforeEach} from 'node:test';
+import {createRequire} from 'node:module';
+import {readFileSync} from 'node:fs';
+import ts from 'typescript';
+const require=createRequire(import.meta.url),Module=require('module'),original=Module._load;
+require.extensions['.ts']=(m,p)=>m._compile(ts.transpileModule(readFileSync(p,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText,p);
+const selected={productId:'11111111-1111-4111-8111-111111111111',sku:'QA-PHOTO'};
+let rows,error,blob,downloads,scopedIds;
+Module._load=function(r,p,m){
+ if(r==='server-only')return {};
+ if(r==='@/lib/supabase/public')return{createSupabasePublicClient:()=>({from:()=>({select:()=>({in:(_key,ids)=>{scopedIds=ids;return{eq:()=>({order:()=>({abortSignal:async()=>({data:rows,error})})})}}})})})};
+ if(r==='@/lib/supabase/admin')return{createSupabaseAdminClient:()=>({storage:{from:bucket=>{assert.equal(bucket,'product-images');return{download:async path=>{downloads.push(path);return{data:blob,error:null}}}}}})};
+ return original.call(this,r,p,m);
+};
+const {loadDocumentVisuals}=require('../src/lib/pdf/load-document-visuals.ts');
+beforeEach(()=>{rows=[{product_id:selected.productId,storage_path:'qa/photo.png'}];error=null;downloads=[];scopedIds=[];blob=new Blob([readFileSync('public/images/brand/greenbel-email.png')],{type:'image/png'})});
+test('embeds a bounded thumbnail from the selected, publicly visible product and includes licensed fonts',async()=>{const v=await loadDocumentVisuals([selected]);assert.deepEqual(scopedIds,[selected.productId]);assert.deepEqual(downloads,['qa/photo.png']);const image=v.products.get(selected.sku);assert.ok(image.dataUrl.startsWith('data:image/jpeg;base64,'));assert.ok(image.width<=220&&image.height<=220);assert.ok(v.logo.width>0&&v.fonts.regular.length>1000&&v.fonts.display.length>1000)});
+test('a product hidden by public metadata/RLS is never read through private storage',async()=>{rows=[];const v=await loadDocumentVisuals([selected]);assert.equal(v.products.size,0);assert.equal(downloads.length,0);assert.ok(v.placeholder.dataUrl.startsWith('data:image/png'))});
+test('metadata outage preserves the branded fallback without private image reads',async()=>{error={code:'unavailable'};const v=await loadDocumentVisuals([selected]);assert.equal(v.products.size,0);assert.equal(downloads.length,0)});
+test('corrupt or oversized media uses the fallback instead of failing the document',async()=>{blob=new Blob(['invalid image'],{type:'image/png'});assert.equal((await loadDocumentVisuals([selected])).products.size,0);blob=new Blob([new Uint8Array(8_000_001)],{type:'image/png'});assert.equal((await loadDocumentVisuals([selected])).products.size,0)});
+test('unexpected metadata outside the selected product cannot disclose a storage image',async()=>{rows=[{product_id:'other',storage_path:'must-not-download.png'}];assert.equal((await loadDocumentVisuals([selected])).products.size,0);assert.equal(downloads.length,0)});

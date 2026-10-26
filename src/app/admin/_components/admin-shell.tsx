@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   BookOpen,
+  Bot,
   Boxes,
   ChevronDown,
   ChevronLeft,
@@ -14,10 +15,12 @@ import {
   HandCoins,
   LayoutGrid,
   LogOut,
+  LockKeyhole,
   Menu,
   MessageSquare,
   Package,
   PanelLeftClose,
+  Phone,
   Settings2,
   ShieldCheck,
   Star,
@@ -28,6 +31,7 @@ import {
 import { BrandLogo } from "@/presentation/components/brand-logo";
 import { signOutAction } from "@/app/cuenta/actions";
 import type { StaffRole } from "@/lib/server/staff-authorization";
+import { getPausedAdminModule } from "@/lib/admin-module-status";
 const sections = [
   {
     title: "Gestión",
@@ -59,6 +63,7 @@ const sections = [
         icon: BookOpen,
         admin: true,
       },
+      { path: "/chatbot", label: "Bell · Asistente", icon: Bot, admin: true },
       { path: "/resenas", label: "Reseñas", icon: Star, admin: true },
       {
         path: "/consultas",
@@ -77,6 +82,7 @@ const sections = [
   {
     title: "Configuración",
     items: [
+      { path: "/contacto", label: "Contacto", icon: Phone, admin: true },
       {
         path: "/entregas",
         label: "Entregas y pagos",
@@ -201,6 +207,28 @@ export function AdminShell({
                 <div className="admin-nav-group" key={section.title}>
                   <p>{section.title}</p>
                   {items.map((item) => {
+                    if (getPausedAdminModule(`/admin${item.path}`))
+                      return (
+                        <span
+                          key={item.path}
+                          className="admin-nav-disabled"
+                          role="link"
+                          aria-disabled="true"
+                          aria-label={`${item.label}, inhabilitado`}
+                          title={`${item.label}: inhabilitado temporalmente`}
+                        >
+                          <item.icon size={19} aria-hidden="true" />
+                          <span className="admin-nav-disabled-copy">
+                            <span>{item.label}</span>
+                            <small>Inhabilitado</small>
+                          </span>
+                          <LockKeyhole
+                            size={13}
+                            className="admin-nav-disabled-lock"
+                            aria-hidden="true"
+                          />
+                        </span>
+                      );
                     const active = item.path
                       ? pathname.startsWith(`/admin${item.path}`)
                       : pathname === "/admin";

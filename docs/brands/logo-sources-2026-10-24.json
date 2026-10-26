@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-24",
+  "scope": "Eight existing commercial brands; originals prepared in PNG. Existing DEV upload pipeline normalizes persisted copies to lossless WebP. No runtime hardcoded brand list.",
+  "sources": [
+    {
+      "slug": "futureco",
+      "name": "Futureco",
+      "source_page": "https://www.futurecobioscience.com/",
+      "image_url": "https://www.futurecobioscience.com/wp-content/uploads/2021/09/logo.png",
+      "source_type": "official_manufacturer",
+      "asset_path": "public/images/brands/catalog/futureco.png",
+      "source_file_sha256": "4affa7912a19f8bccca1fdc5db843ff0cbee0680745fa3ca78bc14734a77c652",
+      "png_sha256": "acbccf5cc28eea3cb95980e95392fa9f49d241f2b6a8029d50aa5610d207c494",
+      "width": 330,
+      "height": 105,
+      "bytes": 4685,
+      "transformation": "Lossless PNG normalization; trim blank exterior; transparent outer padding. No artwork, color or proportion changes."
+    },
+    {
+      "slug": "interie",
+      "name": "Interie",
+      "source_page": "https://www.interie.net/",
+      "image_url": "https://interie.net/images/logo_iie.png",
+      "source_type": "official_manufacturer",
+      "asset_path": "public/images/brands/catalog/interie.png",
+      "source_file_sha256": "699a4906e054b9747bfe0ca9d94e6ff1a1b904c467c238738cbcbebc3b3e22be",
+      "png_sha256": "361363ebfe26c80e0d5306cc73ea81e2af2c785af6182447e19519405666c2d2",
+      "width": 1008,
+      "height": 360,
+      "bytes": 106018,
+      "transformation": "Lossless PNG normalization; trim blank exterior; transparent outer padding. No artwork, color or proportion changes."
+    },
+    {
+      "slug": "kawashima",
+      "name": "KAWASHIMA",
+      "source_page": "https://marvelsa.com/",
+      "image_url": "https://marvelsa.com/web/image/2026278-1781a87d/KAWASHIMA.png",
+      "source_type": "commercial_supplier",
+      "asset_path": "public/images/brands/catalog/kawashima.png",
+      "source_file_sha256": "60b7f849b968ffdc250e2affa0c9a250131ccbff79f0d8826da4f3e534aa24fc",
+      "png_sha256": "becbdbb80b3f9b982f2a53621be3bce767cef13b16c48a114c25ae4dd586f33f",
+      "width": 510,
+      "height": 78,
+      "bytes": 3727,
+      "transformation": "Lossless PNG normalization; trim blank exterior; transparent outer padding. No artwork, color or proportion changes."
+    },
+    {
+      "slug": "kawashima-pro",
+      "name": "KAWASHIMA PRO",
+      "source_page": "https://marvelsa.com/",
+      "image_url": "https://marvelsa.com/web/image/2025692-6d8ea0c4/KAWASHIMA%20PRO.png",
+      "source_type": "commercial_supplier",
+      "asset_path": "public/images/brands/catalog/kawashima-pro.png",
+      "source_file_sha256": "4e9a7ae29a357df7edcf4ee1a649c8929420f922efb6f7a6924fbb8ebb91b979",
+      "png_sha256": "b8105f46c29bf46c7246903db3bab09c41dd5686ce1d75335d0981ce599b56e4",
+      "width": 566,
+      "height": 126,
+      "bytes": 5272,
+      "transformation": "Lossless PNG normalization; trim blank exterior; transparent outer padding. No artwork, color or proportion changes."
+    },
+    {
+      "slug": "parazzini",
+      "name": "PARAZZINI",
+      "source_page": "https://marvelsa.com/",
+      "image_url": "https://marvelsa.com/web/image/2026292-3ee729dc/PARAZZINI.png",
+      "source_type": "commercial_supplier",
+      "asset_path": "public/images/brands/catalog/parazzini.png",
+      "source_file_sha256": "9727be255058ed3f66fe82588425226e0748a612689c669b096aaf61c5b6bd80",
+      "png_sha256": "139b8ed48efa0d938988bc671ffb744b8068cb1d9161036e804bf1e7557485de",
+      "width": 514,
+      "height": 85,
+      "bytes": 3934,
+      "transformation": "Lossless PNG normalization; trim blank exterior; transparent outer padding. No artwork, color or proportion changes."
+    },
+    {
+      "slug": "takashi",
+      "name": "TAKASHI",
+      "source_page": "https://marvelsa.com/",
+      "image_url": "https://marvelsa.com/web/image/2025733-7c36fcf7/TAKASHI.png",
+      "source_type": "commercial_supplier",
+      "asset_path": "public/images/brands/catalog/takashi.png",
+      "source_file_sha256": "a14a782820fe15f8fee3bf3a75824bc825c126804ee108f0391e2bb2f16be047",
+      "png_sha256": "df044c3d1c7840b85fbfe09ca28c49e88c27864f31c093883a17eea97336a87f",
+      "width": 486,
+      "height": 96,
+      "bytes": 3615,
+      "transformation": "Lossless PNG normalization; trim blank exterior; transparent outer padding. No artwork, color or proportion changes."
+    },
+    {
+      "slug": "syngenta",
+      "name": "Syngenta",
+      "source_page": "https://www.syngenta.com/",
+      "image_url": "https://www.syngenta.com/themes/custom/themekit/logo.svg",
+      "source_type": "official_manufacturer",
+      "asset_path": "public/images/brands/catalog/syngenta.png",
+      "source_file_sha256": "6ad1e6fcd2fcdbcecab6483d085ee5c6448cd0691a8b29244d7071c8095502ed",
+      "png_sha256": "96c3d2d71378813a1eeccdc6f99748a6450c1effed955ee6d3162e2d0ef5e791",
+      "width": 1224,
+      "height": 362,
+      "bytes": 51121,
+      "transformation": "Rasterize official SVG to PNG; trim blank exterior; transparent outer padding. No artwork, color or proportion changes."
+    },
+    {
+      "slug": "upl",
+      "name": "UPL",
+      "source_page": "https://www.upl-ltd.com/shareholdercenter_pdfs/DmmgqzNlLowslwJdutBQ4sA24SLTpEHN0Z213fTy/Press-Release.pdf",
+      "image_url": null,
+      "source_type": "official_manufacturer",
+      "pdf_extraction": {
+        "page": 1,
+        "xref": 25,
+        "crop_source_pixels": {
+          "left": 0,
+          "top": 0,
+          "width": 330,
+          "height": 307
+        },
+        "source_pdf_sha256": "f8f9c84e4fc59a4353c9cecf73f8063864d8512197b364dd1d53190676e83dfe"
+      },
+      "asset_path": "public/images/brands/catalog/upl.png",
+      "source_file_sha256": "cf3ae1d7699773aab80b566a7a12eee45dfc7deb5ea6f4d0e8f30f6bd359dc73",
+      "png_sha256": "1011db6384d2a4518a7324d48bff28cfc27e821f498ddd7571538718bd68d177",
+      "width": 312,
+      "height": 206,
+      "bytes": 90218,
+      "transformation": "Extract original logo area from official PDF letterhead; trim blank exterior; PNG, transparent outer padding. No artwork, color or proportion changes."
+    }
+  ]
+}

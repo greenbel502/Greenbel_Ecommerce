@@ -125,3 +125,34 @@ Google complementa Auth correo/contraseña. Las credenciales del proveedor se co
 El retorno de Next es `/auth/callback`. En Supabase DEV se añadieron y releyeron los retornos exactos `http://localhost:3000/auth/callback` y `http://localhost:3001/auth/callback`, también sus variantes con `?next=%2Fcheckout`. El servidor conserva el puerto de origen local; otros puertos/hosts requieren una configuración DEV explícita antes de probarlos. El callback configurado para el cliente OAuth de **Google Cloud** es el endpoint `/auth/v1/callback` del proyecto Supabase, distinto del retorno Next.
 
 La confirmación por correo de Supabase continúa habilitada. Google no activa los tres correos de negocio y no requiere Resend. [Sesiones, permisos, pruebas y nombre GreenBel en consentimiento](docs/dev-google-auth.md).
+
+## Gmail para contacto autorizado · 25/10/2026
+
+La petición actual del usuario sustituye la pausa **solo para las notificaciones de /contacto** y usa Gmail API. Financiamiento y OTP siguen pausados; no se integra Resend. La autorización Gmail es independiente del inicio de sesión Google/Supabase descrito arriba.
+
+Variables privadas del servidor, sin NEXT_PUBLIC_: GOOGLE_GMAIL_CLIENT_ID, GOOGLE_GMAIL_CLIENT_SECRET, GOOGLE_GMAIL_REDIRECT_URI, GMAIL_SENDER_EMAIL, GMAIL_NOTIFICATION_EMAIL y GMAIL_TOKEN_ENCRYPTION_KEY. El ejemplo sin secretos está en [.env.gmail.example](.env.gmail.example).
+
+- Callback DEV: http://localhost:3000/api/integrations/gmail/callback.
+- Callback PROD: https://green-bel.vercel.app/api/integrations/gmail/callback.
+- El callback debe coincidir con el origen de DEV_APP_URL/PROD_APP_URL activo y el registrado en Google. PROD exige HTTPS.
+- GMAIL_SENDER_EMAIL es la cuenta que debe consentir; GMAIL_NOTIFICATION_EMAIL es el destinatario fijo y puede coincidir. No se permite que un visitante elija remitente o destinatario. Su correo se utiliza como Reply-To.
+- GMAIL_TOKEN_ENCRYPTION_KEY contiene exactamente 32 bytes aleatorios en Base64 estándar. Usar claves distintas por entorno y conservarlas privadamente. Una clave perdida/cambiada obliga a reconectar.
+- Conservar APP_ENV y los selectores Supabase existentes; no cargar credenciales CLI en Vercel. La ausencia de Gmail no bloquea el registro de consultas. Los modos disabled anteriores no anulan esta autorización específica ni activan financiamiento/OTP.
+
+DEV quedó conectado y con recepción real comprobada. PROD no fue configurado ni desplegado; requiere su propia autorización después de preparar variables e historial de migraciones. El cliente OAuth sigue en Testing, con expiración de siete días para este permiso. [Implementación, pruebas y pasos Vercel](docs/gmail/2026-10-25-implementation.md).
+
+### Actualización autorizada: financiamiento por Gmail, 25/10/2026
+
+Modelo 030 aplicado únicamente en DEV. Añadir `FINANCING_OTP_HMAC_KEY` privada (32 bytes aleatorios Base64, distinta por entorno) además de las variables Gmail existentes. OTP y solicitud usan la cuenta Gmail ya autorizada, solo gmail.send. El destinatario de financiamiento proviene del correo principal de Cooperativa en Administración → Contacto; no de GMAIL_NOTIFICATION_EMAIL. Flujo: consentimiento, PDF privado, OTP, confirmación explícita. No enviar históricos. Detalle, pruebas y pasos pendientes de producción: `docs/gmail/2026-10-25-financing-implementation.md`.
+
+### Decisión posterior: financiamiento con cuenta, modelo 031
+
+Modelo 031 aprobado y aplicado solo en DEV. Sustituye el OTP de financiamiento por la sesión Supabase y el correo de la cuenta activa; `FINANCING_OTP_HMAC_KEY` ya no se usa en este flujo. No cambia la confirmación de cuentas ni la recuperación de Supabase Auth. Mantiene las variables Gmail, el destinatario principal de Cooperativa configurado por administración y la confirmación final del cliente.
+
+Los dos logos públicos del correo se sirven desde el bucket `email-assets` del mismo entorno Supabase; no contiene PDF ni datos de clientes. Nombres inmutables por hash, lectura pública de PNG y sin escritura de navegador. `scripts/dev-publish-mail-assets.mjs` prepara y comprueba exclusivamente DEV. Antes de habilitar PROD debe provisionarse allí el bucket equivalente y las mismas dos imágenes con los nombres de hash del arte final, además de aprobar/aplicar sus migraciones y autorizar Gmail de ese entorno. No apuntar PROD al bucket DEV. El PDF continúa en `quote-pdfs` privado y es el único adjunto. Ver `docs/gmail/2026-10-25-financing-account-implementation.md`.
+
+Para conservar el regreso a Financiamiento se añadieron solo en Supabase DEV las URL exactas `http://localhost:3000/auth/callback?next=%2Ffinanciamiento%23solicitud` y `http://localhost:3000/auth/confirm?next=%2Ffinanciamiento%23solicitud`. Los demás retornos/ajustes permanecen iguales. En PROD se requieren las equivalentes del dominio autorizado; no añadir comodines ni usar localhost.
+
+### Bell · chatbot (26/10/2026)
+
+No añade variables de IA ni dependencias de hosting. Reutiliza `APP_ENV`, `${APP_ENV}_APP_URL`, `${APP_ENV}_SUPABASE_URL`, `${APP_ENV}_SUPABASE_PUBLISHABLE_KEY` y la clave privada `${APP_ENV}_SUPABASE_SECRET_KEY` solo en servidor. Búsqueda textual activa; no hay motor de embeddings configurado. No se necesitan secretos de Gmail ni nuevas credenciales para Bell. Ver `docs/chatbot/2026-10-26-implementation.md` para cuotas, origen del proxy y despliegue pendiente.

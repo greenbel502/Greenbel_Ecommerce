@@ -11,6 +11,11 @@ import {
 } from "@/lib/server/staff-authorization";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import styles from "../inbox.module.css";
+import { GmailConnection } from "./gmail-connection";
+import {
+  readContactNotificationStates,
+  type NotificationStatus,
+} from "@/lib/gmail/repository";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -63,7 +68,8 @@ export default async function ContactAdminPage({
     );
   }
 
-  const state = listState(await searchParams, "", adminLists.contacts);
+  const params = await searchParams;
+  const state = listState(params, "", adminLists.contacts);
   let rows: ContactRow[];
   try {
     const result = await queryAdminList<ContactRow>(
@@ -84,6 +90,24 @@ export default async function ContactAdminPage({
     );
   }
 
+  let notifications: NotificationStatus[] = [];
+  try {
+    notifications = await readContactNotificationStates(
+      rows.map((row) => row.id),
+    );
+  } catch {
+    /* Contact records remain visible if notification tracking is temporarily unavailable. */
+  }
+  const notificationById = new Map(notifications.map((n) => [n.contact_id, n]));
+  const notificationLabel: Record<string, string> = {
+    not_sent: "Sin notificación por correo",
+    pending: "Notificación pendiente",
+    sending: "Envío en proceso; no reenviar",
+    sent: "Notificación aceptada por Gmail",
+    failed: "Notificación fallida; consulta guardada",
+    unknown:
+      "Resultado sin confirmar: revisa Gmail. No se reenviará automáticamente.",
+  };
   return (
     <div className={styles.shell}>
       <div className={styles.hero}>
@@ -91,9 +115,8 @@ export default async function ContactAdminPage({
           <span className="eyebrow">Panel administrativo</span>
           <h1>Consultas registradas</h1>
           <p>
-            Lectura privada de formularios de contacto. La notificación por
-            correo permanece pausada; un registro no indica que GreenBel haya
-            recibido un correo.
+            Consultas guardadas desde el formulario de contacto y estado de sus
+            notificaciones por Gmail.
           </p>
         </div>
         <nav className={styles.nav} aria-label="Otras áreas administrativas">
@@ -102,9 +125,13 @@ export default async function ContactAdminPage({
         </nav>
       </div>
       <p className={styles.notice}>
-        Solo administradores pueden ver estos datos. No se envían mensajes ni se
-        cambia el estado desde esta vista.
+        Solo administradores pueden ver estos datos. Las consultas permanecen
+        guardadas aunque falle una notificación. Conectar Gmail no envía
+        registros históricos.
       </p>
+      <GmailConnection
+        result={typeof params.gmail === "string" ? params.gmail : undefined}
+      />
       <ListTools
         state={state}
         config={adminLists.contacts}
@@ -128,10 +155,49 @@ export default async function ContactAdminPage({
               </div>
               <p className={styles.message}>{row.message}</p>
               <span className={styles.tag}>
-                {row.notification_status === "not_sent"
-                  ? "Sin notificación por correo"
-                  : "Estado de correo no disponible"}
+                {row.notification_status === "sending" &&
+                notificationById.get(row.id)?.last_attempt_at &&
+                Date.now() -
+                  Date.parse(notificationById.get(row.id)!.last_attempt_at!) >
+                  120_000
+                  ? notificationLabel.unknown
+                  : (notificationLabel[row.notification_status] ??
+                    "Estado de correo no disponible")}
               </span>
+              {["sending", "unknown"].includes(row.notification_status) && (
+                <p>
+                  <small>Referencia para revisar en Gmail: {row.id}</small>
+                </p>
+              )}
+              {["failed", "pending"].includes(row.notification_status) &&
+                notificationById.has(row.id) && (
+                  <form
+                    action="/api/integrations/gmail/retry"
+                    method="post"
+                    className={styles.gmailRetry}
+                  >
+                    <input type="hidden" name="contactId" value={row.id} />
+                    <button
+                      type="submit"
+                      className="secondary-dark-button"
+                      disabled={
+                        notificationById.get(row.id)!.attempts >= 5 ||
+                        !!(
+                          notificationById.get(row.id)!.next_retry_at &&
+                          Date.parse(
+                            notificationById.get(row.id)!.next_retry_at!,
+                          ) > Date.now()
+                        )
+                      }
+                    >
+                      Reintentar notificación
+                    </button>
+                    <small>
+                      Hasta cinco intentos, con espera entre reintentos. Si la
+                      autorización venció, reconecta Gmail primero.
+                    </small>
+                  </form>
+                )}
             </article>
           ))}
         </div>

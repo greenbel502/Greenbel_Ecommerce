@@ -147,6 +147,11 @@ button, input, select, textarea { max-width: 100%; }
 .brand-item { display: grid; width: 230px; min-height: 126px; grid-template-rows: 72px auto; place-items: center; gap: 7px; padding: 14px 18px 12px; border: 1px solid var(--brand-dark-a13); border-radius: 8px; background: var(--white-a82); box-shadow: 0 10px 24px var(--brand-dark-a06); color: var(--green-950); backdrop-filter: blur(8px); transform-origin: center; }
 .brand-logo-wrap { display: grid; width: 100%; height: 72px; place-items: center; }
 .brand-logo-wrap img { width: auto; max-width: 178px; height: auto; max-height: 62px; object-fit: contain; }
+.brand-item:has(.brand-catalog-link) { grid-template-rows: 1fr; }
+.brand-catalog-link { display: grid; width: 100%; height: 100%; grid-template-rows: 72px auto; place-items: center; gap: 7px; text-decoration: none; }
+.brand-catalog-link:focus-visible { outline: 3px solid var(--brand-olive); outline-offset: 5px; border-radius: var(--radius); }
+.brand-missing-logo { display: grid; width: 60px; height: 60px; place-items: center; color: var(--brand-olive); background: var(--surface-tint); border-radius: var(--radius); }
+.brands-empty { padding: 20px; text-align: center; color: var(--neutral-700); }
 .brand-item strong { font-family: var(--font-display), var(--font-sans), Arial, sans-serif; font-size: .78rem; font-weight: 800; }
 .brands-marquee:hover .brands-track, .brands-marquee:focus-within .brands-track { animation-play-state: paused; }
 @keyframes brands-scroll { to { transform: translateX(-50%); } }
@@ -1315,7 +1320,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--green-800); box-
   margin: 0 auto 100px;
 }
 .financing-contact-aside { padding: 54px; border-radius: var(--radius); background: var(--green-900); color: var(--white); }
-.financing-contact-logo { display: grid; min-height: 122px; place-items: center; margin-bottom: 42px; padding: 18px; border-radius: var(--radius); background: var(--white-a96); }
+.financing-contact-logo { display: grid; min-height: 122px; place-items: center; margin-bottom: 42px; padding: 0; background: transparent; }
 .financing-contact-logo img { width: min(100%, 430px); height: auto; object-fit: contain; }
 .financing-contact-aside h2 { margin: 12px 0 18px; font-size: 3rem; line-height: 1.06; }
 .financing-contact-aside > div > p { max-width: 540px; margin: 0; color: var(--white-a68); line-height: 1.7; }
@@ -1466,9 +1471,21 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--brand-olive); 
 .value-grid h3 { margin-top: 22px; font-size: .9375rem; }
 .value-grid article { height: 100%; padding: 22px; }
 .final-cta { padding: clamp(28px, 4vw, 56px); border-radius: var(--radius-lg); }
+.advice-band + .final-cta { margin-top: clamp(32px, 4vw, 64px); }
 .final-cta h2 { font-size: var(--type-heading); }
 .testimonials-panel { background: var(--surface-tint); padding: clamp(22px, 4vw, 56px); border-radius: var(--radius-lg); }
 .testimonials-heading h2 { font-size: var(--type-heading); }
+
+.home-reviews-heading { max-width: 680px; }
+.home-reviews-heading .eyebrow { display: inline-flex; align-items: center; gap: 9px; }
+.home-reviews-heading h2 { margin: 14px 0; font-size: var(--type-heading); line-height: 1.15; }
+.home-reviews-heading p, .home-reviews-access p { margin: 0; color: var(--neutral-700); line-height: 1.65; }
+.home-reviews-access { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 28px; padding: clamp(20px, 3vw, 32px); border: 1px solid var(--border-subtle); border-radius: var(--radius); background: var(--white); }
+.home-reviews-icon { display: grid; flex: 0 0 56px; width: 56px; height: 56px; place-items: center; border-radius: var(--radius); background: var(--brand-beige); color: var(--brand-olive); }
+.home-reviews-access > div { flex: 1 1 300px; min-width: 0; }
+.home-reviews-access h3 { margin: 0 0 8px; font-size: 1.0625rem; line-height: 1.4; }
+.home-reviews-access .primary-button { flex-shrink: 0; }
+
 .catalog-hero { padding-top: clamp(28px, 4vw, 58px); }
 .catalog-hero h1, .product-info h1, .cart-heading h1, .checkout-heading h1 { font-size: var(--type-display); line-height: 1.15; }
 .breadcrumbs { flex-wrap: wrap; row-gap: 8px; margin-bottom: 24px; }
@@ -1497,7 +1514,6 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--brand-olive); 
 .filter-drawer, .cart-drawer, .payment-modal { box-shadow: var(--shadow-overlay); }
 .payment-modal { max-height: calc(100dvh - 32px); }
 .empty-state h1, .empty-state h2 { font-size: var(--type-heading); }
-[data-sonner-toaster] { --normal-bg: var(--white); --normal-text: var(--brand-dark); --normal-border: var(--border-subtle); --success-bg: var(--surface-active); --success-text: var(--brand-dark); --success-border: var(--brand-olive); --error-bg: var(--feedback-error-surface); --error-text: var(--feedback-error); --error-border: var(--feedback-error-border); --info-bg: var(--surface-tint); --info-text: var(--brand-dark); --info-border: var(--border-strong); }
 @media (min-width: 901px) and (max-width: 1200px) {
   .nav-shell { gap: 10px; }
   .brand-logo { --logo-art-width: 105px; --logo-clear-space: 20px; }
@@ -1568,3 +1584,9 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--brand-olive); 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Sileo uses the corporate palette; red remains a functional error indicator. */
+:root { --sileo-width: min(360px, calc(100vw - 32px)); --sileo-state-success: #3A4813; --sileo-state-loading: #3A4813; --sileo-state-info: #1E3A1F; --sileo-state-action: #3A4813; --sileo-state-warning: #3A4813; --sileo-state-error: var(--feedback-error); }
+[data-sileo-viewport] { z-index: 1000 !important; font-family: var(--font-sans), sans-serif; }
+[data-sileo-toast] { text-align: left; font-family: inherit; }
+@media (max-width: 480px) { [data-sileo-viewport][data-position$="right"] { right: 16px !important; } }

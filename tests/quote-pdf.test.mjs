@@ -4,6 +4,7 @@ import path from "node:path";
 import test from "node:test";
 import { validateQuoteDocument } from "../src/domain/quotes/quote-document.ts";
 import { renderQuotePdf } from "../src/lib/pdf/quote-pdf.ts";
+import { pdfVisuals } from "./pdf-visual-fixture.mjs";
 
 const example = {
   version: 1,
@@ -31,7 +32,7 @@ const example = {
 
 test("PDF de cotización pendiente conserva los importes, identifica el documento y no exige correo", async () => {
   validateQuoteDocument(example);
-  const pdf = renderQuotePdf(example);
+  const pdf = renderQuotePdf(example, pdfVisuals);
   assert.equal(Buffer.from(pdf.subarray(0, 5)).toString(), "%PDF-");
   assert.ok(pdf.length > 2000);
   if (process.env.GREENBEL_PDF_QA_DIR) {
@@ -59,7 +60,7 @@ test("cotización extensa pagina líneas y conserva un total conciliado", async 
     name: `Producto ficticio DEV ${index + 1} con una descripción extensa para comprobar el salto de línea en el PDF`
   }));
   const longQuote = { ...example, reference: "DEV-EJEMPLO-LARGO", lines, merchandiseTotal: "7200.00" };
-  const pdf = renderQuotePdf(longQuote);
+  const pdf = renderQuotePdf(longQuote, pdfVisuals);
   assert.ok(pdf.length > 5000);
   if (process.env.GREENBEL_PDF_QA_DIR) {
     await writeFile(path.join(process.env.GREENBEL_PDF_QA_DIR, "cotizacion-larga-dev.pdf"), pdf);

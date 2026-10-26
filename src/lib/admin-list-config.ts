@@ -10,13 +10,20 @@ export const adminLists: Record<string, ListConfig> = {
     search: ["name", "email", "phone", "message"],
     sorts: { created_at: "Fecha", name: "Nombre" },
     filterColumn: "notification_status",
-    filters: { not_sent: "Sin notificación" },
+    filters: {
+      not_sent: "Sin notificación",
+      pending: "Pendiente",
+      sending: "En proceso",
+      sent: "Notificada",
+      failed: "Fallida",
+      unknown: "Sin confirmar",
+    },
   },
   financing: {
     search: ["applicant_name", "email", "phone"],
     sorts: { created_at: "Fecha", applicant_name: "Solicitante" },
     filterColumn: "stage",
-    filters: { draft: "Borrador" },
+    filters: { draft: "Borrador", verified: "Listo para enviar", sent: "Correo enviado" },
   },
   quotes: {
     search: ["reference", "customer_name", "customer_email"],
@@ -75,7 +82,7 @@ export const adminLists: Record<string, ListConfig> = {
     search: ["name", "sku", "model"],
     sorts: {
       name: "Nombre",
-      sku: "SKU",
+      sku: "Código",
       regular_price: "Precio",
       created_at: "Fecha",
     },
@@ -84,6 +91,7 @@ export const adminLists: Record<string, ListConfig> = {
     filters: publicationFilters,
   },
   brands: {
+    filterLabel: "Estado",
     search: ["name", "slug"],
     sorts: { name: "Nombre", created_at: "Fecha" },
     defaultSort: "name",
@@ -91,6 +99,7 @@ export const adminLists: Record<string, ListConfig> = {
     filters: activeFilters,
   },
   categories: {
+    filterLabel: "Estado",
     search: ["name", "slug"],
     sorts: { name: "Nombre", created_at: "Fecha" },
     defaultSort: "name",
@@ -119,7 +128,7 @@ export const adminLists: Record<string, ListConfig> = {
   },
   stock: {
     search: ["name", "sku"],
-    sorts: { name: "Nombre", sku: "SKU" },
+    sorts: { name: "Nombre", sku: "Código" },
     defaultSort: "name",
   },
   movements: {

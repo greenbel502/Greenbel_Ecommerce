@@ -1,3 +1,4 @@
+import { ONLINE_CHECKOUT_ENABLED } from "@/lib/commerce/policy";
 import { listState, type AdminParams } from "@/lib/admin-list";
 import { adminLists } from "@/lib/admin-list-config";
 import { queryAdminList } from "@/lib/server/admin-list-query";
@@ -21,6 +22,8 @@ import {
   saveServiceZoneRate,
 } from "./actions";
 import styles from "./delivery-admin.module.css";
+import { getPausedAdminModule } from "@/lib/admin-module-status";
+import { PausedModule } from "../_components/paused-module";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -553,6 +556,9 @@ export default async function DeliveryAdminPage({
     );
   }
 
+  if (getPausedAdminModule("/admin/entregas"))
+    return <PausedModule module="entregas" />;
+
   const params = await searchParams;
   const states = Object.fromEntries(
     ["services", "zones", "rates", "options"].map((key) => [
@@ -702,7 +708,13 @@ export default async function DeliveryAdminPage({
           hasta definir un plazo. Desactivar el simulador bloquea la revisión de
           compras con pasarela aunque haya una opción de medio activa.
         </p>
-        {!devMode ? (
+        {!ONLINE_CHECKOUT_ENABLED ? (
+          <p className={styles.notice}>
+            La compra web está pausada. Las solicitudes se atienden por WhatsApp
+            desde el carrito; los pagos y las reservas automáticas no están
+            habilitados.
+          </p>
+        ) : !devMode ? (
           <p className={styles.notice}>
             La configuración de simulación solo está disponible en DEV.
           </p>

@@ -18,6 +18,8 @@ import {
 import { createSupabaseReadClient } from "@/lib/supabase/server";
 import { SalesNavigation } from "../ventas/components";
 import styles from "../ventas/sales.module.css";
+import { getPausedAdminModule } from "@/lib/admin-module-status";
+import { PausedModule } from "../_components/paused-module";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -95,6 +97,9 @@ export default async function ExternalShipmentsPage({
       </div>
     );
   }
+
+  if (getPausedAdminModule("/admin/envios"))
+    return <PausedModule module="envios" />;
 
   const state = listState(await searchParams, "", adminLists.shipments);
   try {

@@ -1,0 +1,264 @@
+.shell {
+  color: var(--brand-dark);
+  min-width: 0;
+}
+.header {
+  margin-bottom: 28px;
+}
+.header h1 {
+  font-size: clamp(1.8rem, 3vw, 2.35rem);
+  margin: 10px 0;
+}
+.header p,
+.card header p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin: 8px 0;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.card {
+  background: var(--white);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  min-width: 0;
+}
+.card > header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 25px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.card h2 {
+  font-size: 1.3rem;
+  margin: 0;
+}
+.group {
+  padding: 24px;
+}
+.group + .group {
+  border-top: 1px solid var(--border-subtle);
+}
+.groupHeading,
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.groupHeading {
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.groupHeading h3 {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.95rem;
+  margin: 0;
+}
+.entry {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  align-items: center;
+}
+.entry > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  min-width: 0;
+}
+.entry strong {
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+.entry small {
+  color: var(--text-secondary);
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  background: var(--surface-tint);
+  border-radius: 20px;
+  font-size: 0.7rem;
+}
+.primary,
+.secondary,
+.danger {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 13px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 9px;
+  background: var(--white);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 750;
+  cursor: pointer;
+  color: var(--brand-dark);
+}
+.primary {
+  background: var(--brand-vivid);
+  border-color: var(--brand-vivid);
+}
+.danger {
+  color: var(--feedback-error);
+}
+.danger:hover {
+  border-color: var(--feedback-error);
+}
+.secondary:hover {
+  background: var(--surface-soft);
+}
+.primary:disabled,
+.secondary:disabled,
+.danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.help,
+.empty {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.notice {
+  background: var(--surface-soft);
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.form {
+  --required-marker: none;
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+.fields {
+  display: grid;
+  gap: 24px;
+  padding: 28px;
+}
+.fields label {
+  display: grid;
+  gap: 9px;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+.fields input:not([type="checkbox"]) {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 9px;
+  font: inherit;
+  font-weight: 500;
+  box-sizing: border-box;
+}
+.fields small {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+.fields .check {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 15px;
+  background: var(--surface-soft);
+  border-radius: 10px;
+  line-height: 1.5;
+}
+.check input {
+  margin-top: 2px;
+  accent-color: var(--brand-olive);
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.formFooter {
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  padding: 22px 28px;
+  background: var(--white);
+  border-top: 1px solid var(--border-subtle);
+}
+.formFooter button {
+  width: 100%;
+}
+.error {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--feedback-error);
+}
+.confirm {
+  width: min(460px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 28px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  background: var(--white);
+  color: var(--brand-dark);
+  box-shadow: var(--shadow-overlay);
+  overflow: auto;
+}
+.confirm::backdrop {
+  background: color-mix(in srgb, var(--ink) 42%, transparent);
+}
+.confirm h2 {
+  font-size: 1.25rem;
+  margin: 16px 0;
+}
+.confirm p {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.confirm .actions {
+  justify-content: flex-end;
+  margin-top: 22px;
+}
+@media (max-width: 1050px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .group,
+  .card > header {
+    padding: 20px;
+  }
+  .entry {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .actionText {
+    display: inline;
+  }
+  .fields {
+    padding: 22px;
+  }
+  .confirm .actions {
+    flex-direction: column;
+  }
+  .confirm button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,36 @@
+import fs from 'node:fs';import os from 'node:os';import assert from 'node:assert/strict';import{createHash,randomBytes,randomUUID}from'node:crypto';import{createClient}from'@supabase/supabase-js';import{createServerClient}from'@supabase/ssr';
+const e=process.env;assert.equal(e.APP_ENV,'DEV');assert.equal(fs.readFileSync('supabase/.temp/project-ref','utf8').trim(),e.SUPABASE_DEV_PROJECT_REF);assert.equal(new URL(e.DEV_SUPABASE_URL).hostname,e.SUPABASE_DEV_PROJECT_REF+'.supabase.co');
+const db=createClient(e.DEV_SUPABASE_URL,e.DEV_SUPABASE_SECRET_KEY,{auth:{persistSession:false,autoRefreshToken:false}}),origin='http://localhost:3000';
+const dir=os.homedir()+'/.codex/private/greenbel-document-visual-qa';fs.mkdirSync(dir,{recursive:true,mode:0o700});const journal=dir+'/current.json';
+const need=r=>{assert.ok(!r.error,r.error?.code);return r.data;};
+let f=fs.existsSync(journal)?JSON.parse(fs.readFileSync(journal)):null;const save=()=>fs.writeFileSync(journal,JSON.stringify(f),{mode:0o600});
+if(!f){f={tag:randomUUID().slice(0,8),users:[],quoteKey:randomUUID(),draftKey:randomUUID()};f.marker='QA Document visuals '+f.tag;save();
+ for(const role of ['owner','other']){const email='greenbel502+visual-'+f.tag+'-'+role+'@gmail.com',password=randomBytes(24).toString('base64url')+'Aa1!';const user=need(await db.auth.admin.createUser({email,password,email_confirm:true,user_metadata:{qa_marker:f.marker,display_name:f.marker+' '+role}})).user;const row={id:user.id,email,password,role};f.users.push(row);save();const jar=new Map();const client=createServerClient(e.DEV_SUPABASE_URL,e.DEV_SUPABASE_PUBLISHABLE_KEY,{cookies:{getAll:()=>[...jar].map(([name,value])=>({name,value})),setAll:a=>a.forEach(v=>jar.set(v.name,v.value))}});need(await client.auth.signInWithPassword({email,password}));row.cookie=[...jar].map(([k,v])=>encodeURIComponent(k)+'='+encodeURIComponent(v)).join('; ');save();}
+ f.productId=need(await db.from('catalog_products').select('id').eq('sku','FUT1023').single()).id;save();}
+if(process.argv.includes('--unused-final-template')&&f.templateVersion!=='external-logos-v1'){f.previousRequests=[...(f.previousRequests??[]),f.request].filter(Boolean);f.request=null;f.draftKey=randomUUID();f.templateVersion='external-logos-v1';f.sent=false;save();}
+const owner=f.users.find(u=>u.role==='owner'),other=f.users.find(u=>u.role==='other');
+const results=[];const check=(label,ok)=>{assert.ok(ok,label);results.push({label,status:'PASS'});console.log('PASS:',label);};
+async function post(path,body,cookie=owner.cookie,source=origin){return fetch(origin+path,{method:'POST',headers:{'content-type':'application/json',origin:source,cookie},body:JSON.stringify(body),signal:AbortSignal.timeout(60000)});}
+async function expect(label,path,body,status,cookie=owner.cookie,source=origin){const r=await post(path,body,cookie,source);const text=await r.text();check(label,r.status===status);for(const secret of [e.DEV_SUPABASE_SECRET_KEY,e.GOOGLE_GMAIL_CLIENT_SECRET,e.GMAIL_TOKEN_ENCRYPTION_KEY,owner.cookie].filter(Boolean))assert.ok(!text.includes(secret),'Secret response');return JSON.parse(text);}
+const quoteBody={purpose:'financing',idempotencyKey:f.quoteKey,customerName:f.marker,customerEmail:'tampered@example.invalid',lines:[{productId:f.productId,quantity:2}]};
+await expect('Anonymous cannot prepare financing PDF','/api/cotizaciones',quoteBody,401,'');
+if(!f.quote){const q=await post('/api/cotizaciones',quoteBody);assert.ok(q.ok,'Own quote preparation failed');f.quote=await q.json();assert.equal(f.quote.status,'issued');save();}
+const quote=need(await db.from('quotes').select('customer_email,pdf_sha256,pdf_bytes,pdf_storage_path').eq('id',f.quote.quoteId).single());check('PDF uses authenticated email despite a tampered browser email',quote.customer_email===owner.email);
+const body={idempotencyKey:f.draftKey,quoteId:f.quote.quoteId,quoteAccessToken:f.quote.downloadToken,applicantName:f.marker,phone:null,message:'Prueba visual DEV autorizada: logo de Cooperativa a color y PDF con fotos de producto y marca oficial. No es una solicitud comercial real.',consent:true};
+await expect('Anonymous cannot create financing request','/api/financiamiento/borradores',body,401,'');
+if(!f.request){const r=await post('/api/financiamiento/borradores',body);assert.ok(r.ok,'Own financing preparation failed');f.request=await r.json();save();}
+const id=f.request.id;
+await expect('Repeat preparation is idempotent','/api/financiamiento/borradores',body,200);
+await expect('Visitor cannot choose a different reply email','/api/financiamiento/borradores',{...body,email:'tampered@example.invalid'},400);
+for(const endpoint of ['estado','pdf','enviar']){const b=endpoint==='enviar'?{id,confirm:true}:{id};await expect('Anonymous blocked: '+endpoint,'/api/financiamiento/'+endpoint,b,401,'');await expect('Other account blocked: '+endpoint,'/api/financiamiento/'+endpoint,b,403,other.cookie);}
+const state=await expect('Owner reads own prepared request','/api/financiamiento/estado',{id},200);check('Account identity is ready with no OTP fields',state.email===owner.email&&state.stage==='verified'&&!('challengeId'in state));
+await expect('Foreign origin rejected','/api/financiamiento/estado',{id},403,owner.cookie,'https://untrusted.example');
+await expect('Explicit send confirmation required','/api/financiamiento/enviar',{id},400);
+await expect('Visitor cannot override recipient or account','/api/financiamiento/enviar',{id,confirm:true,to:'other@example.invalid',userId:other.id},400);
+await expect('OTP endpoint retired without sending','/api/financiamiento/verificacion',{id,action:'request'},410);
+const pdf=await post('/api/financiamiento/pdf',{id});assert.equal(pdf.status,200);const bytes=Buffer.from(await pdf.arrayBuffer());check('Owner downloads exact frozen PDF',createHash('sha256').update(bytes).digest('hex')===quote.pdf_sha256&&bytes.length===Number(quote.pdf_bytes));fs.mkdirSync('output/pdf',{recursive:true});fs.writeFileSync('output/pdf/cotizacion-greenbel-con-imagenes.pdf',bytes);
+if(process.argv.includes('--send-real')){
+ const settings=need(await db.from('site_content').select('payload').eq('key','contact').single());const recipient=settings.payload.entries.find(x=>x.company==='cooperative'&&x.kind==='email'&&x.primary)?.value;assert.equal(recipient,'diederich.josue.emidio@gmail.com','Test destination must remain the explicitly controlled mailbox');
+ const sent=await expect('Gmail accepts one controlled test email','/api/financiamiento/enviar',{id,confirm:true},200);check('Delivery acknowledged',sent.status==='sent');await expect('Repeated send returns sent without another email','/api/financiamiento/enviar',{id,confirm:true},200);const jobs=need(await db.rpc('financing_notification_status',{p_ids:[id]}));check('Exactly one Gmail attempt after repeated confirmation',jobs[0].attempts===1&&jobs[0].status==='sent');f.sent=true;f.reference=state.reference;save();
+}
+fs.writeFileSync('docs/qa/2026-10-26-documentos/http.json',JSON.stringify({devOnly:true,marker:f.marker,requestId:id,quoteId:f.quote.quoteId,reference:state.reference,realEmailSent:Boolean(f.sent),tests:results},null,2));console.log({passed:results.length,reference:state.reference});

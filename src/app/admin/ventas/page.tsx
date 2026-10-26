@@ -27,6 +27,8 @@ import {
   type SalesShipment,
 } from "./data";
 import styles from "./sales.module.css";
+import { getPausedAdminModule } from "@/lib/admin-module-status";
+import { PausedModule } from "../_components/paused-module";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -55,6 +57,9 @@ export default async function SalesAdminPage({
       notFound();
     return <SalesUnavailable />;
   }
+
+  if (getPausedAdminModule("/admin/ventas"))
+    return <PausedModule module="ventas" />;
 
   const params = await searchParams;
   const state = listState(params, "", adminLists.orders);

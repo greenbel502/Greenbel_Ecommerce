@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 import { getActiveEnvironment } from "@/lib/server/environment";
 import { authCookieOptions } from "@/lib/supabase/auth-cookie-options";
+import { customerAuthDestination } from "@/lib/supabase/auth-navigation";
 
 export async function GET(request: NextRequest) {
   const response = new NextResponse(null, {
@@ -38,7 +39,7 @@ export async function GET(request: NextRequest) {
     if (!result.error && result.data.session && result.data.user) {
       const recovery = type === "recovery" || (code && request.nextUrl.searchParams.get("flow") === "recovery");
       response.headers.set("Location", recovery ? "/cuenta#seguridad"
-        : request.nextUrl.searchParams.get("next") === "/checkout" ? "/checkout" : "/cuenta");
+        : customerAuthDestination(request.nextUrl.searchParams.get("next")));
     }
   } catch {
     // Keep the fixed failure redirect; no token or auth error is logged.

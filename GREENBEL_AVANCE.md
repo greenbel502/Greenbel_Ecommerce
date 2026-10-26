@@ -1,8 +1,106 @@
 # GreenBel — avance y punto de reanudación
 
-Actualizado: 22/10/2026. Copia activa: `Greenbel_Ecommerce`, rama `dev`, base `9594d93`. Cambios locales conservados, sin nuevo commit, push ni despliegue. Solo DEV. Las verificaciones históricas siguientes no se atribuyen a los datos actuales después de la limpieza.
+Actualizado: 25/10/2026. Copia activa: `Greenbel_Ecommerce`, rama `dev`, revisión base `0644f86`. Cambios locales de Inicio del 23/10 conservados; gestión de marcas y nuevo listado/editor de productos implementados y verificados por HTTP/DEV, con revisión visual pendiente. Solo DEV; sin nuevo commit, push o despliegue.
+
+## Capacitaciones: biblioteca, archivos y estrellas · 25/10/2026
+
+- **Implementado:** biblioteca con portadas, búsqueda y paginación; detalle con reproductor, título, descripción, productos relacionados y calificación editable de 1–5 estrellas. Editor administrativo lateral, arrastre/selección de portada y MP4/WebM hasta 50 MB, enlace automático y guardado final coordinado. Promedios reales por video y resumen ponderado en el inicio administrativo.
+- **Modelo aprobado y aplicado:** migración 025 exclusivamente en DEV, bucket de videos privado, publicación con URL o archivo, votos únicos por cuenta/capacitación, RLS y agregaciones sin datos personales públicos. Historial local/remoto comprobado. Reseñas de productos, operaciones comerciales, roles y pausa de correo conservados.
+- **PASS:** 67 comprobaciones DEV/HTTP, 8 de componentes DOM, 4 unitarias; tipos/lint/formato/diff/build aislado. Incluye carga TUS real, confirmación concurrente, rangos, portada, privacidad de borradores, RLS, actualización de voto sin duplicación, promedios y trece registros para paginación. Fixtures/medios/cuentas retirados, estado comercial previo idéntico y diario QA cerrado.
+- **NO EJECUTADO:** validación visual responsive, foco nativo y reproducción decodificada en Chrome: la conexión nativa sigue sin navegador. CSS responsive implementado; DOM no se presenta como prueba visual. Pendiente aportar/publicar videos comerciales definitivos.
+- [Implementación, fallos corregidos, evidencia y continuidad](docs/trainings/2026-10-25-implementation.md). Sin PROD, commit/push/despliegue ni envíos comerciales.
+
+## Productos: enlace automático · 25/10/2026
+
+- **Implementado por petición del usuario:** retirado «Nombre en el enlace» del formulario. El servidor lo genera al crear, normaliza nombre/código y resuelve colisiones con la restricción única existente. Al editar conserva la URL guardada e ignora valores `slug` del cliente. Sin migraciones ni regeneración de enlaces comerciales.
+- **PASS:** 15 comprobaciones finales DEV/HTTP, 13 DOM, 3 unitarias, tipos/lint/formato/diff y build aislado. Fixtures retirados y estado comercial previo idéntico; sin nuevos residuos de auditoría.
+- **Límite real:** una comprobación adicional de render de ficha pública agotó 45 s; una ficha comercial existente respondió 200 en 33 108 ms. Lentitud local registrada por separado, sin modificar la ruta pública ni afirmar render completo de la ficha efímera. Chrome real continúa no disponible.
+- [Implementación, evidencia y continuidad](docs/products/2026-10-25-automatic-links.md). Las menciones históricas al campo editable de enlace quedan sustituidas por esta decisión.
+
+## Productos: corrección de carga atascada · 25/10/2026
+
+- **Corregido:** imágenes/detalles ya no dependen de que `router.refresh()` vuelva a cargar el catálogo con la selección local. Lectura privada exclusiva del producto, consultas paralelas, timeout de 10 segundos en cliente, error y Reintentar carga.
+- **Conservado:** datos existentes en errores recuperables y campos escritos; selección/URL; guardado y permisos de servidor. Respuestas canceladas o de otro producto no sustituyen la selección. Operaciones confirmadas renuevan sus datos mediante el lector específico.
+- **PASS:** 17 DEV/HTTP de lectura y permisos, 13 de componentes DOM, 8 del lector/listas, tipos/lint/formato/diff y build aislado. HTTP local: 6732 ms en primer acceso con 4467 ms de compilación DEV; después 771/682 ms. No se prometen esos tiempos para PROD ni para bytes de fotos.
+- Datos comerciales sin cambios; identidades efímeras de lectura retiradas sin nuevos residuos/auditorías. El actor histórico bloqueado anterior se conserva sin cambios.
+- **NO EJECUTADO:** Chrome real y capturas; la herramienta sigue sin navegador. [Causa, corrección, evidencias y continuidad](docs/products/2026-10-25-loading-fix.md).
+
+## Productos: tabla, imágenes y editor lateral · 25/10/2026
+
+- **Implementado:** tabla con miniaturas y Editar/Eliminar; editor modal a la derecha, imágenes al inicio y guardado principal en el pie final. «Código del producto» y «Nombre en el enlace» con ayudas; Marca/Categoría como desplegables únicos con búsqueda interna. Apertura local inmediata con carga explícita de detalles.
+- **Conservado:** formularios/acciones de especificaciones, incluidos, compatibilidades, imágenes y portada. El guardado final corresponde a datos generales; las otras operaciones se identifican aparte. Código, enlace, precio y validaciones existentes conservados.
+- **Eliminar real protegido:** administrador activo y confirmación en servidor, DELETE único, FK impiden perder información vinculada. Productos con vínculos pueden archivarse. Lectura privada de imágenes administrativas para borradores; ruta pública/Storage privado conservados. Sin migraciones ni cambios de RLS/esquema.
+- **PASS:** 25 comprobaciones finales DEV/HTTP; 10 interacciones de componentes en DOM simulado; 11 pruebas locales pertinentes; tipos/lint/diff y build aislado. Datos comerciales conservados, sin correos/cobros/PROD/publicación Git.
+- **Incidencia de QA documentada:** al probar la portada se generó un evento inmutable. Su actor técnico queda sin rol, inactivo y bloqueado en Auth; no se omitieron las FK. Producto/categoría/foto de esa prueba retirados; repetición final sin residuos nuevos. No se afirma limpieza total de auditoría.
+- **NO EJECUTADO:** revisión visual/interactiva en Chrome y responsive real, porque el navegador sigue no disponible. [Implementación, evidencia y continuidad](docs/products/2026-10-25-editor.md).
+
+## Selector único con búsqueda integrada · 25/10/2026
+
+- **Corregido:** Categoría superior muestra un único desplegable con buscador dentro de la lista. El patrón compartido también se aplica a las selecciones de marca/producto/servicio/zona que ya usaban `EntityPicker`. «Sin categoría superior» mantiene una categoría principal.
+- **Conservado:** valores del formulario, evento de selección usado por el editor, validación requerida, consultas acotadas del servidor, exclusiones y filtros existentes. Sin cambios de backend ni escrituras de negocio.
+- **PASS:** siete pruebas de interacción en DOM simulado, tipos, lint global, diff y build aislado exit 0; consulta sin sesión rechazada HTTP 401. jsdom se usó solo como herramienta externa en `/tmp`, sin dependencias nuevas en el proyecto.
+- **NO EJECUTADO:** revisión visual/clic en Chrome, top layer real y capturas; navegador sigue sin estar disponible. La prueba de posición calculada a 320 px no se presenta como QA responsive real.
+- [Implementación, evidencia y continuidad](docs/brands/2026-10-25-integrated-picker.md). Sin migraciones, commit/push/PROD/correos/pagos.
+
+## Filtros y gestión de marcas/categorías · 24/10/2026
+
+- **Implementado:** filtros compartidos con búsqueda separada, campos flexibles y acciones agrupadas; tabla de categorías y editor modal lateral como Marcas. Editar/Nueva categoría abren con datos locales; URL directa/historial conservados. Guardado al final, errores por campo, jerarquía y visibilidad mantenidas.
+- **Eliminar funcional:** junto a Editar en ambas tablas, confirmación con nombre, validación de administrador activo en servidor y bloqueo si existen productos/subcategorías/capacitaciones vinculados. FK existentes conservadas; el logo se retira solo después del borrado confirmado. Sin nuevas migraciones ni cambios de RLS/roles.
+- **PASS DEV/HTTP: 35:** acciones de categorías, validaciones, dependencias, roles, filtros/paginación, borrado real de fixtures/logo y limpieza. Primera aserción del arnés corregida al distinguir el nombre del padre dentro de una subcategoría. Ambas ejecuciones retiraron sus datos temporales; filas comerciales previas idénticas.
+- **PASS LOCAL:** 11 pruebas existentes pertinentes, TypeScript, ESLint completo, diff y build final aislado exit 0.
+- **Pendiente real:** navegador no disponible. Clic/foco/responsive/capturas NO EJECUTADOS; reanudar con la lista concreta de [verificaciones pendientes](docs/brands/2026-10-24-classifications.md). No usar cuentas o registros reales para probar Eliminar.
+- Solo DEV, sin commit/push/PROD/correos/pagos. Los ocho logos comerciales y el catálogo se conservan.
+
+## Logotipos comerciales en PNG · 24/10/2026
+
+- **Implementado DEV:** ocho PNG corroborados de fabricantes/proveedor; siete logos nuevos asociados a las marcas existentes y Futureco conservado. Inicio/Nosotros mantienen la fuente administrable compartida. PNG entregables; copia del sistema optimizada a WebP sin pérdida por el mecanismo existente. Sin cambios de backend/esquema.
+- **PASS:** revisión visual de archivos, sintaxis/lint/diff, lectura persistida y HTTP de las ocho imágenes en ambas páginas; PNG HTTP con hashes correctos, Storage privado conservado. Productos/perfiles/roles y otros datos de marcas sin cambios; sin fixtures nuevos.
+- **Pendiente:** revisión interactiva/capturas del sitio por navegador no disponible. No se atribuye una lámina de logos a una captura del sitio. Continúa pendiente el QA del editor indicado más abajo.
+- **Continuidad:** [fuentes, evidencias y PNG](docs/brands/2026-10-24-logo-import.md). No se necesitan nuevas migraciones ni repetir la carga. Solo DEV, sin commit/push/PROD/correos/pagos.
 
 
+
+
+
+## Marcas: corrección de apertura lenta y reapertura · 24/10/2026
+
+- **Implementado:** Editar/Nueva marca usan estado local y datos ya cargados; se elimina la navegación completa al abrir/cerrar. Diálogo sincronizado con la selección concreta en layout effect, URL/historial conservados y filtro sin parámetro obsoleto. Refresco tras escritura confirmada o selección desconocida, no por abrir una fila conocida. Guardado y permisos de servidor conservados.
+- **PASS LOCAL:** TypeScript, ESLint dirigido, diff y build optimizado aislado exit 0.
+- **PASS DEV + HTTP: 10:** acceso directo, selección fuera de página, datos y diálogo en HTML, botones locales, filtros sin editor obsoleto y limpieza. Una cuenta ficticia de lectura administrativa retirada; filas de catálogo/perfiles/roles preexistentes idénticas. Sin escrituras de marcas/logos/productos.
+- **NO EJECUTADO:** clic real, reapertura, historial y latencia/red de navegador. Chrome no disponible. El usuario preguntó cómo conectarlo; se entregaron pasos oficiales y continúa pendiente la conexión. No se afirma que compilar o leer HTML demuestre la apertura interactiva.
+- **Reanudar:** [diagnóstico, evidencias y casos concretos](docs/brands/2026-10-24-fast-open.md); conectar navegador y cerrar la verificación del clic. Sin migraciones, correos, PROD, commit, push o despliegue.
+
+## Marcas: editor lateral superpuesto · 24/10/2026
+
+- **Implementado:** editor como diálogo modal nativo sobre la página, alineado a la derecha, fondo oscurecido/inactivo y tabla sin encogerse. Altura de viewport, ancho adaptable, scroll interno, encabezado y guardado accesibles. X/Cancelar/Escape/fondo cierran y conservan filtros/página; foco y bloqueo de scroll se restauran. Cierre deshabilitado mientras guarda. Movimiento reducido respetado.
+- **PASS LOCAL:** TypeScript, ESLint dirigido y build optimizado aislado (exit 0, 17/17 páginas); diff sin errores.
+- **NO EJECUTADO:** QA visual/interactivo/capturas y tamaños reales, porque Chrome sigue sin estar disponible. No se atribuye soporte nativo o CSS a una prueba ejecutada. No se repiten escrituras DEV ni suites del guardado que no cambió.
+- **Continuidad:** [implementación, límites y revisión pendiente](docs/brands/2026-10-24-drawer.md). Conectar Chrome y comprobar este diálogo. Sin cambios de backend/migraciones/datos, correos, PROD, commit, push o despliegue.
+
+## Corrección de Marcas: guardar datos e imagen juntos · 24/10/2026
+
+- **Diagnóstico real:** ocho marcas sin logo persistido y bucket sin archivos; la imagen de la captura era una selección local. La interfaz separaba Guardar datos/Guardar logotipo, permitiendo confundir vista previa con persistencia.
+- **Implementado:** un formulario y **Guardar cambios al final**, zona de arrastre/selección, preview con nombre/tamaño/estado pendiente o guardado, descartar/retirar/deshacer. La misma acción incluye archivo y visibilidad mediante operaciones protegidas existentes. Progreso real por etapa, ID confirmado conservado, mensajes parciales y reintentos sin duplicar ni fingir éxito. API añade puntero confirmado a la respuesta. Sin migración nueva; 024 no cambia.
+- **PASS DEV + HTTP: 14:** controlador compartido con la UI, nombre/imagen/estado persistidos, HTML de Inicio/Nosotros con versión guardada y bytes privados idénticos, errores/reintentos/reemplazo/retirada/visibilidad y rechazo a cliente. Limpieza tras ejecución fallida del arnés y exitosa; filas comerciales preexistentes idénticas. Primer fallo del arnés por ID de acción recortado corregido y reverificado.
+- **PASS LOCAL:** ocho pruebas focalizadas, TypeScript, ESLint dirigido, build optimizado aislado y diff. No se repitieron checkout ni suites sin relación.
+- **NO EJECUTADO:** interacción/drag/teclado/responsive/capturas y navegación cliente real: Chrome sigue sin estar disponible para la herramienta. No se atribuyen pruebas HTTP como QA visual. [Evidencia y reanudación](docs/brands/2026-10-24-single-save.md).
+- **Siguiente paso:** conectar Chrome y revisar el guardado desde la UI en 320/390/820/1440 px y al volver a Inicio/Nosotros. Para uso personal, volver a seleccionar la imagen y pulsar el botón final; no se puede convertir una selección previa del navegador en archivo persistido sin guardarla. Correos pausados; sin PROD, commit, push o despliegue.
+
+## Marcas compartidas: panel, productos, Inicio y Nosotros · 24/10/2026
+
+- **Implementado:** marcas activas compartidas por ambas páginas y selector de productos, sin lista fija. Tabla y editor único con nombre prioritario, identificador sugerido, logo/visibilidad separados. Búsqueda/filtros/orden/paginación en servidor conservados.
+- **024 aprobada y aplicada solo DEV:** bucket privado WebP/2 MB, sin nuevas columnas/políticas/grants. Preflight de destino, CLI/historial 001–023, dry-run exclusivo y lectura final **001–024** coincidentes; RLS/políticas previas intactas. [Registro y checksum](docs/migrations/024-brand-logos.md).
+- **PASS DEV + HTTP: 39 + 7 comprobaciones:** persistencia, ambas páginas, relación de producto, permisos, búsqueda/páginas, carga real, respuesta privada/pública, MIME falso, límites de archivo y resultado procesado, proporción/transparencia, concurrencia (un ganador), retirada/reintentos, imagen pública denegada al desactivar y selector habilitado. Trece marcas, un producto, cuatro cuentas temporales y sus imágenes retirados; registros preexistentes de marcas/productos/perfiles/roles idénticos.
+- **PASS LOCAL:** nueve pruebas focalizadas, ESLint/TypeScript/build frontend aislado conservados de la implementación; script ampliado con sintaxis/ESLint PASS y diff sin errores. Sin repetir checkout ni dejar fixtures.
+- **Pendiente real de entorno:** nuevo intento tras el «sí» del usuario: Chrome no disponible, inventario vacío y fallo de arranque del control nativo. Responsive, teclado, preview/confirmaciones en navegador y capturas **NO EJECUTADOS** en este apartado. No se eludió la restricción.
+- **Reanudar:** conectar navegador y revisar solo Marcas en móvil/tablet/escritorio/teclado. No repetir migración ni pedir aprobación otra vez. [Informe, pruebas y pasos personales](docs/brands/2026-10-24-result.md). Ocho marcas actuales sin logos cargados: muestran nombre hasta subir recursos corroborados. Correos pausados, Auth intacta; sin PROD, commit, push o despliegue.
+
+## Separación del inicio y acceso a reseñas · 23/10/2026
+
+- **Implementado:** margen propio entre Respaldo técnico y llamada final cuando son contiguos; apartado de opiniones recuperado como acceso a reseñas de cada ficha. No se recuperan testimonios/puntuaciones ficticios ni se simula un muro agregado de opiniones.
+- **PASS LOCAL:** separación y sección visibles en 390/820/1440 CSS px, enlace al catálogo, ausencia de desbordamiento, ESLint, TypeScript y diff. Servidor real en `localhost:3001`; `3000` es otro proyecto.
+- **Alcance:** solo CSS y JSX de presentación; datos, consultas, Auth, reglas, correos y permisos intactos. Sin PROD, commit, push o despliegue.
+- **Continuidad:** [registro, capturas y límites](docs/home-sections-2026-10-23.md). Reseñas reales se consultan/escriben en cada producto con las reglas existentes; un muro agregado en inicio no está implementado en este ajuste.
 
 ## Catálogo de empresa, limpieza y editor · 22/10/2026
 
@@ -248,3 +346,70 @@ El usuario detectó dos fallos no cubiertos por las medidas geométricas anterio
 **Límites:** dispositivos físicos y zoom nativo 200 % no ejecutados. Aviso de hidratación bajo emulación de movimiento reducido documentado por separado; visibilidad resuelta mediante CSS local, sin editar las primitivas compartidas. Mont completa sigue pendiente de la adaptación anterior. No se repiten ni declaran comprobadas operaciones de negocio por este cambio visual.
 
 **Continuidad:** [reporte y evidencia](docs/about-ui-refresh.md). Servidor DEV y ruta `http://localhost:3000/nosotros` disponibles; emulación restablecida. Imágenes originales y datos preservados. Correos pausados. Sin migraciones, PROD, commit, push, merge ni despliegue.
+
+
+### Capacitaciones: cancelación de carga inicial · 25/10/2026
+
+Corregida la transición de alta a edición: el padre recibe el registro creado completo y conserva montado el editor mientras carga video/portada. Antes se desmontaba hasta recibir las asociaciones y su cleanup abortaba la transferencia. Regresión reproducida antes y aprobada después; 9 pruebas DOM y 67 verificaciones DEV/HTTP pasan, incluida carga real de video/portada, persistencia y limpieza preservando el borrador del usuario. TypeScript, ESLint, formato, diff y build aislado exit 0. Chrome real **NO EJECUTADO** por conexión nativa no disponible. No se cambiaron límites ni esquema: video 50 MB en aplicación/bucket y global Storage 50 MiB confirmado por lectura. El usuario debe volver a seleccionar ambos archivos en su borrador; no había objetos guardados que recuperar. [Evidencia y continuidad](docs/trainings/2026-10-25-upload-fix.md). Sin PROD ni publicación Git; correo comercial pausado.
+
+
+### Eliminar capacitación con confirmación · 25/10/2026
+
+Preparados botón junto a Editar, modal nativo con nombre/consecuencias, cancelar/Escape, bloqueo de doble envío, error/reintento y retirada de fila tras éxito. Acción protegida y limpieza de medios propios posterior al borrado transaccional. **12 pruebas DOM y 5 unitarias PASS**, tipos/lint/formato/diff/build aislado PASS. **Pendiente aprobación de la ampliación/migración 026** solicitada conforme a AGENTS.md; no se creó/aplicó la migración ni se ejecutó borrado real. No presentar como operativo todavía. QA DEV --delete preparado, sin tocar la capacitación real del usuario. Chrome real no disponible. [Estado y continuidad](docs/trainings/2026-10-25-delete-implementation.md).
+
+
+### Cierre de eliminación de capacitaciones · 25/10/2026
+
+El usuario pidió terminar el paso pendiente. **Completado en DEV:** modal y eliminación real de capacitación, votos y asociaciones en una transacción, con limpieza posterior del video/portada propios. Migraciones **026 y 027 aplicadas**, paridad 27/27; 027 corrige el conflicto 40001 que PostgREST reintentaba a PT409 sin cambiar el modelo. **27 pruebas DEV/HTTP, 12 DOM y 5 unitarias PASS**. Tipos/lint/formato/diff/build aislado exit 0. Chrome ahora conectado: apertura, Cancelar/Escape, teclado/foco y modal sin desbordamiento a **389/820/1440 CSS px** comprobados; viewport restablecido. No se pulsó confirmar en la capacitación real: su registro, portada, video y voto permanecen; fixtures/cuentas QA retiradas y baseline idéntico. [Evidencia final y límites](docs/trainings/2026-10-25-delete-implementation.md). Panel actualizado con modal cerrado. Sin PROD ni publicación Git; correo comercial pausado.
+
+### Contacto administrativo y compra por WhatsApp · 25/10/2026
+
+**Completado en DEV:** Administración → Contacto permite agregar/editar/eliminar teléfonos y correos de GreenBel y cooperativa, editor lateral, Guardar al final y modal para eliminar. Principal de GreenBel alimenta WhatsApp y contacto público; cooperativa permanece privada. Reutiliza el borrador CMS `contact`, sin migraciones nuevas. Carrito con única compra por WhatsApp: modal explicativo → Continuar descarga PDF de selección y abre el chat, conservando el carrito. Checkout anterior cerrado en web/API/política DB existente; pasarela pendiente. **24 comprobaciones DEV/HTTP y 8 DOM PASS**; Chrome descargó el PDF y abrió WhatsApp al destino QA, sin enviar mensaje. Responsive **389/820/1440 CSS px**, PDF de 50 referencias/siete páginas inspeccionado, tipos/lint/formato/diff/build aislado exit 0. Fixtures/cuentas retiradas, datos comerciales previos conservados, servidor QA detenido y viewport restablecido. **Pendiente operativo:** el administrador debe cargar los contactos oficiales; no quedaron números ficticios. Guardar correos no reactiva envíos. Las reseñas siguen exigiendo entrega registrada. [Evidencia, archivos y continuidad](docs/commerce/2026-10-25-whatsapp-implementation.md). Sin PROD ni publicación Git.
+
+### Pausa visual de módulos administrativos · 25/10/2026
+
+**Completado en DEV:** Ventas y posventa, Envíos externos y Entregas y pagos figuran como **Inhabilitado**, con candado y sin enlaces activos en menú/Inicio. Las tres rutas y el detalle de venta muestran aviso de pausa tras verificar acceso, sin formularios. Inventario sigue accesible. TypeScript, ESLint, formato TS/TSX y diff PASS; Chrome autenticado, menú contraído/móvil y **389/820/1440 CSS px** revisados. No hubo cambios de datos, acciones de negocio, APIs, esquema ni PROD. [Evidencia y continuidad](docs/admin/2026-10-25-modulos-pausados.md).
+
+### Gmail API para consultas · 25/10/2026
+
+**Completado en DEV con correo real recibido:** el formulario anónimo conserva registro/validaciones/UI y notifica después de confirmar Supabase. OAuth administrativo exclusivo gmail.send, offline/PKCE/state, refresh token cifrado y tablas privadas. From/To fijos, Reply-To del cliente, fallos sin perder la consulta y reintentos administrativos protegidos. No se despachan históricos. Esta autorización sustituye la pausa únicamente para contacto; financiamiento/OTP siguen pausados.
+
+El usuario aprobó el modelo y 028 solo DEV; 029 corrigió la recuperación de pending dentro del mismo modelo. **Paridad 29/29**. Google 403 corregido agregando únicamente greenbel502@gmail.com como usuario de prueba, con aprobación expresa. El usuario completó consentimiento; botón actualizado abre Google explícitamente y el panel muestra Gmail conectado.
+
+**PASS:** 20 unitarias, 20 verificaciones SQL con rollback, 18 HTTP DEV, registro sin sesión, un correo real en Recibidos con todos los campos, botón Responder dirigido al correo ficticio del cliente sin enviar respuesta, repetición sin otro intento/mensaje, tipos/lint/formato/diff/build aislado exit 0 y escaneo de secretos del JS cliente. Tarjeta Gmail a **389/820/1440 CSS px** revisada en Chrome, sin desbordamiento; viewport restablecido. Fixture propio y job retirados; otras consultas, autorización y datos de negocio preservados.
+
+**NO EJECUTADO:** despliegue/prueba Vercel/PROD, dispositivo físico ni caducidad real a siete días. Google sigue en Testing: completar marca/publicación/verificación aplicable antes de operación estable. Revisar avisos de versiones preexistentes Next/Zod antes de promover; mitigación sharp existente comprobada. No hubo commit/push ni cambios PROD. [Archivos, variables, autorización, instrucciones Vercel, evidencia y límites](docs/gmail/2026-10-25-implementation.md).
+
+### Nueva plantilla Gmail y contacto sin producto · 25/10/2026
+
+**Completado en DEV:** Producto o código retirado del formulario/payload, Tipo de consulta a todo el ancho. Correo con logotipo oficial PNG incrustado, cabecera corporativa, mensaje destacado, datos para responder y acción de respuesta. Conserva MIME de texto, Reply-To, validaciones y entrega existentes; campos históricos preservados y sin migraciones.
+
+**PASS:** 22 pruebas Gmail, tipos/lint/formato/diff/build aislado, PNG incluido en tracing, envío real desde formulario de Chrome sin sesión y recepción/logotipo/Reply-To comprobados en Gmail. Formulario **389/820/1440 CSS px**, HTML de correo **360/390/640 px** y textos largos sin desbordamiento. Solo fixture/job propios retirados; datos ajenos y conexión preservados. Viewport restablecido y preview temporal detenido. **NO EJECUTADO:** Gmail móvil nativo, otros clientes, dispositivos físicos ni PROD. Sin commit/push/despliegue. [Diseño, archivos y evidencia](docs/gmail/2026-10-25-template-refresh.md).
+
+### Compra WhatsApp: total, sesión y opciones · 25/10/2026
+
+**Completado en DEV:** total por precio × cantidad, envío separado, sesión/perfil activo exigidos en UI y API. Pago efectivo/transferencia y entrega retiro/domicilio como preferencias obligatorias para el mensaje y PDF, según confirmación del usuario. Contacto permanece anónimo. **8 unitarias, 11 DOM y 10 HTTP PASS**, Chrome 2→3→2 unidades, modal/enlace y **389/820/1440 CSS px** verificados, PDF real renderizado, tipos/lint/formato/diff/build aislado exit 0. Cuenta QA retirada; sesión y carrito del usuario preservados; sin pedidos/pagos/inventario/configuración alterados. Sin migraciones ni PROD/publicación. Número WhatsApp administrativo de ocho dígitos conservado; falta código de país para un destino de Guatemala. [Archivos, evidencia y límites](docs/commerce/2026-10-25-purchase-total-auth.md).
+
+### Financiamiento Gmail + PDF · 25/10/2026
+
+Modelo 030 aprobado y aplicado solo en DEV. Logo blanco original; selección/PDF privado con disponibilidad pendiente autorizada, OTP y confirmación final; destinatario principal de Cooperativa administrable, Reply-To verificado y seguimiento/reintento seguro. Prueba real recibida en Spam, PDF descargado íntegro (2 × Q83.25 = Q166.50), sin duplicados; fixtures propios limpiados con respaldo/simulación/guards restaurados. TypeScript, ESLint, build aislado, 32 pruebas unitarias, 25 SQL de financiamiento + 20 de regresión contacto y 13 HTTP pasaron. Formulario revisado en Chrome a 390/820/1440 CSS. PROD, commit/push y despliegue no ejecutados. Continuidad/evidencias: `docs/gmail/2026-10-25-financing-implementation.md`.
+
+### Financiamiento con sesión, sin OTP · modelo 031 · 25–26/10/2026
+
+Modelo 031 aprobado y aplicado exclusivamente en DEV. Cuenta activa/propietario/correo validados en servidor y base; OTP específico retirado, sin alterar Supabase Auth. Resumen de productos desplegable con miniaturas, cantidades y total; formulario en dos pasos con PDF y confirmación final. Aviso de ingreso y retorno seguro desde login; carrito conservado. Contacto continúa anónimo.
+
+Plantilla con ambos logos por HTTPS público y un solo PDF adjunto. Correo final recibido y Reply-To comprobado; PDF descargado desde Gmail idéntico al privado. Gmail bloqueó las imágenes en Spam: se marcó el mensaje de prueba como «No es spam» y ambos logos cargaron. 33 unitarias, 22 HTTP, 24 SQL con rollback, TypeScript, ESLint y build aislado PASS; Chrome a 390/820/1440 CSS px y teclado revisados. Limpieza de tres solicitudes, dos cotizaciones/PDF y dos cuentas QA con respaldo privado, simulación, guards restaurados y hash de los demás datos intacto. Sin PROD, commit/push ni despliegue. Continuidad: `docs/gmail/2026-10-25-financing-account-implementation.md`.
+
+### Plantillas con imágenes y Sileo · 26/10/2026
+
+Manual oficial adjunto revisado completo, 36 páginas. PDFs nuevos de cotización/selección WhatsApp con logo original, paleta corporativa, fuentes limpias incrustadas y miniaturas proporcionales del catálogo; fallback explícito si no hay foto, sin alterar importes, stock, permisos ni PDFs emitidos. Correo de financiamiento con el logo de Cooperativa a color que coincide con el adjunto; blanco conservado en la página. Sileo 0.1.6 sustituye Sonner y anuncia operaciones en tienda/panel; confirmaciones nativas sustituidas por modal corporativo, con cancelación/Escape comprobados sin guardar.
+
+50 unitarias, 22 HTTP DEV, tipos/lint/diff y build aislado PASS; recursos/fuentes incluidos en tracing. PDF real recibido en Gmail Recibidos con ambos logos cargados y un único adjunto, hash descargado idéntico; 40 líneas/ocho páginas y fallback renderizados. Sileo observado en escritorio y 390 px; carrito restaurado a sus dos unidades originales. Limpieza de una solicitud, una cotización/PDF y dos cuentas QA con respaldo, simulación y conservación de los demás datos. Sin migraciones nuevas ni cambios PROD/publicación. Mont completa, prueba Vercel/dispositivos físicos y correo oficial de Cooperativa siguen pendientes. [Evidencia y continuidad](docs/qa/2026-10-26-documentos/implementation.md).
+
+### Bell · 26/10/2026
+
+Modelo 033 aprobado y aplicado DEV: asistente textual/SQL real, conocimiento revisado, contexto, cuotas e historial privado, administración con tablas/paneles derechos. 48 unitarias/regresión, 40 SQL y 46 HTTP PASS; build y responsive 390/820/1440 PASS. Fixtures técnicos retirados; historial usado manualmente preservado. Embeddings preparados pero no activos; sin API comercial ni infraestructura añadida. Sin commit/push/PROD/despliegue. Continuidad y evidencia: `docs/chatbot/2026-10-26-implementation.md`.
+
+### Ajuste final y preparación de publicación dev · 26/10/2026
+
+Por petición explícita del usuario, notificaciones Sileo en la parte superior central, fijadas en el proveedor y en cada llamada de la API común. Validación Chrome 390/1440: centro correcto, sin desbordamiento. Suite completa 155/155 PASS, TypeScript, lint del ajuste y build PASS. Usuario autorizó subir todo a `dev`; el repositorio público conserva código, recursos, migraciones y documentación, con credenciales y evidencias/exportaciones locales excluidas por `.gitignore`. No se aplica ninguna migración ni cambio PROD durante esta publicación Git.

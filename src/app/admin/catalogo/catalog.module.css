@@ -582,3 +582,12 @@
     font-size: 1rem;
   }
 }
+
+.shell .fieldHelp {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,62 @@
+-- Rollback-only DEV integration checks; no existing business rows are mutated.
+set local statement_timeout='20s';
+create function pg_temp.verify(ok boolean,label text) returns void language plpgsql as $$ begin if ok is not true then raise exception 'FAIL: %',label; end if; raise notice 'PASS: %',label; end $$;
+do $$
+declare owner_id uuid:=gen_random_uuid(); other_id uuid:=gen_random_uuid(); admin_id uuid:=gen_random_uuid(); operator_id uuid:=gen_random_uuid(); invitation uuid; review_id uuid; j jsonb; i integer; ref text;
+begin
+ insert into auth.users(id,email,raw_user_meta_data) values(owner_id,owner_id||'@example.invalid','{}'),(other_id,other_id||'@example.invalid','{}'),(admin_id,admin_id||'@example.invalid','{}'),(operator_id,operator_id||'@example.invalid','{}');
+ update public.profiles set display_name=E'Ana\nApellido privado' where id=owner_id;
+ update public.user_roles set role='admin' where user_id=admin_id;
+ update public.user_roles set role='operator' where user_id=operator_id;
+ perform pg_temp.verify(not has_function_privilege('anon','public.submit_whatsapp_review(uuid,integer,text)','execute'),'Anonymous cannot submit');
+ perform pg_temp.verify(not has_function_privilege('authenticated','public.issue_whatsapp_review_invitation(uuid,text)','execute'),'Browser cannot mint an invitation');
+ perform pg_temp.verify(not has_table_privilege('anon','public.whatsapp_reviews','select') and not has_table_privilege('authenticated','public.whatsapp_reviews','insert'),'Raw reviews inaccessible and not writable from browser');
+ perform pg_temp.verify(not has_table_privilege('authenticated','public.admin_review_inbox','select'),'Admin inbox has server-only access');
+ perform pg_temp.verify((select bool_or(relrowsecurity) from pg_class where oid='public.whatsapp_reviews'::regclass),'RLS enabled');
+ perform pg_temp.verify(md5(pg_get_functiondef('greenbel_private.guard_review()'::regprocedure))='43030298f67ff0f4b0041e6eed6b4dbc','Delivered product review guard unchanged');
+ invitation:=public.issue_whatsapp_review_invitation(owner_id,'GB-0123ABCD');
+ perform pg_temp.verify(invitation=public.issue_whatsapp_review_invitation(owner_id,'GB-0123ABCD'),'Invitation issuance is idempotent');
+ perform set_config('request.jwt.claim.sub',other_id::text,true);
+ begin perform public.submit_whatsapp_review(invitation,5,'Ajena'); raise exception 'Foreign invitation accepted'; exception when insufficient_privilege then raise notice 'PASS: Foreign invitation denied'; end;
+ perform set_config('request.jwt.claim.sub',owner_id::text,true);
+ begin perform public.submit_whatsapp_review(invitation,6,'Invalid'); raise exception 'Six stars accepted'; exception when invalid_parameter_value then raise notice 'PASS: Invalid stars rejected'; end;
+ begin perform public.submit_whatsapp_review(invitation,5,' '); raise exception 'Blank accepted'; exception when invalid_parameter_value then raise notice 'PASS: Blank comment rejected'; end;
+ update public.profiles set active=false where id=owner_id;
+ begin perform public.submit_whatsapp_review(invitation,5,'Inactive'); raise exception 'Inactive accepted'; exception when insufficient_privilege then raise notice 'PASS: Inactive customer denied'; end;
+ update public.profiles set active=true where id=owner_id;
+ review_id:=public.submit_whatsapp_review(invitation,1,'Comentario crítico que debe poder publicarse.');
+ perform pg_temp.verify(review_id=public.submit_whatsapp_review(invitation,1,'Comentario crítico que debe poder publicarse.'),'Identical retry returns same review');
+ begin perform public.submit_whatsapp_review(invitation,5,'Changed'); raise exception 'Second review accepted'; exception when sqlstate 'P4090' then raise notice 'PASS: One immutable review per invitation'; end;
+ perform pg_temp.verify(not exists(select 1 from public.published_whatsapp_reviews() where id=review_id),'Pending review is not public');
+ begin perform public.moderate_whatsapp_review(review_id,'pending','visible',null); raise exception 'Customer moderated'; exception when insufficient_privilege then raise notice 'PASS: Customer cannot moderate'; end;
+ perform set_config('request.jwt.claim.sub',operator_id::text,true);
+ begin perform public.moderate_whatsapp_review(review_id,'pending','visible',null); raise exception 'Operator moderated'; exception when insufficient_privilege then raise notice 'PASS: Operator cannot moderate'; end;
+ begin perform public.issue_whatsapp_review_invitation(operator_id,'GB-FFFFFFFF'); raise exception 'Operator invited'; exception when insufficient_privilege then raise notice 'PASS: Operator cannot mint own invitation'; end;
+ perform set_config('request.jwt.claim.sub',admin_id::text,true);
+ perform public.moderate_whatsapp_review(review_id,'pending','visible',null);
+ perform pg_temp.verify(exists(select 1 from public.published_whatsapp_reviews() where id=review_id and rating=1 and author_name='Ana'),'Admin can publish a one-star review with first name only');
+ select to_jsonb(r) into j from public.published_whatsapp_reviews() r where id=review_id;
+ perform pg_temp.verify(not j ?| array['customer_id','invitation_id','email','phone','reference'],'Public projection excludes contact and ownership fields');
+ begin perform public.moderate_whatsapp_review(review_id,'visible','hidden','negative_rating'); raise exception 'Bad reason accepted'; exception when invalid_parameter_value then raise notice 'PASS: Low rating is not a hiding reason'; end;
+ begin perform public.moderate_whatsapp_review(review_id,'pending','hidden','spam'); raise exception 'Stale accepted'; exception when sqlstate 'P4090' then raise notice 'PASS: Concurrent stale moderation rejected'; end;
+ perform public.moderate_whatsapp_review(review_id,'visible','hidden','personal_data');
+ perform pg_temp.verify(not exists(select 1 from public.published_whatsapp_reviews() where id=review_id),'Hidden review disappears publicly');
+ perform pg_temp.verify((select count(*)=2 from public.audit_events where entity_type='whatsapp_review' and entity_id=review_id),'Moderation history recorded without comment or PII');
+ perform pg_temp.verify((select comment='Comentario crítico que debe poder publicarse.' and rating=1 from public.whatsapp_reviews where id=review_id),'Moderation preserves original text and stars');
+ perform pg_temp.verify(exists(select 1 from public.admin_review_inbox where id=review_id and source='whatsapp'),'Unified inbox includes WhatsApp origin');
+ perform set_config('request.jwt.claim.sub',owner_id::text,true);
+ for i in 1..4 loop
+   ref:='GB-'||lpad(to_hex(i),8,'0');
+   perform public.submit_whatsapp_review(public.issue_whatsapp_review_invitation(owner_id,upper(ref)),5,'Quota QA');
+ end loop;
+ invitation:=public.issue_whatsapp_review_invitation(owner_id,'GB-00000005');
+ begin perform public.submit_whatsapp_review(invitation,5,'Quota QA'); raise exception 'Quota exceeded'; exception when sqlstate 'P4290' then raise notice 'PASS: Durable five-per-hour review quota'; end;
+end $$;
+set local role anon;
+do $$ begin
+  begin perform 1 from public.whatsapp_review_invitations; raise exception 'Private invitation readable'; exception when insufficient_privilege then raise notice 'PASS: Anonymous raw invitation read denied'; end;
+  begin perform 1 from public.whatsapp_reviews; raise exception 'Private review readable'; exception when insufficient_privilege then raise notice 'PASS: Anonymous raw review read denied'; end;
+  perform 1 from public.published_whatsapp_reviews();
+  raise notice 'PASS: Anonymous public projection works';
+end $$;
+reset role;

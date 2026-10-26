@@ -11,10 +11,12 @@ import {
 } from "@/lib/server/staff-authorization";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import styles from "../inbox.module.css";
+import { financeRpc } from "@/lib/financing/workflow";
+import { FinancingRetry } from "./retry-button";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Borradores de financiamiento",
+  title: "Solicitudes de financiamiento",
   robots: { index: false, follow: false },
 };
 
@@ -67,6 +69,13 @@ export default async function FinancingAdminPage({
   }
 
   const state = listState(await searchParams, "", adminLists.financing);
+  let notifications: {
+    id: string;
+    status: string;
+    recipient: string;
+    attempts: number;
+    retryAt: string | null;
+  }[] = [];
   let rows: FinanceRow[];
   let references: Map<string, string>;
   try {
@@ -79,6 +88,9 @@ export default async function FinancingAdminPage({
       adminLists.financing,
     );
     rows = (result.data ?? []) as FinanceRow[];
+    notifications = await financeRpc("financing_notification_status", {
+      p_ids: rows.map((row) => row.id),
+    });
     const ids = [...new Set(rows.map((row) => row.quote_id))];
     if (ids.length > 0) {
       const quoteResult = await admin
@@ -110,11 +122,11 @@ export default async function FinancingAdminPage({
       <div className={styles.hero}>
         <div>
           <span className="eyebrow">Panel administrativo</span>
-          <h1>Borradores de financiamiento</h1>
+          <h1>Solicitudes de financiamiento</h1>
           <p>
             Lectura privada de solicitudes vinculadas a una cotización emitida.
-            La verificación de correo y el envío a la cooperativa siguen
-            pausados.
+            El cliente verifica su correo y confirma el envío del PDF a la
+            cooperativa.
           </p>
         </div>
         <nav className={styles.nav} aria-label="Otras áreas administrativas">
@@ -123,8 +135,9 @@ export default async function FinancingAdminPage({
         </nav>
       </div>
       <p className={styles.notice}>
-        Solo administradores pueden ver estos borradores. Esta vista no verifica
-        correos, envía solicitudes ni cambia estados.
+        Solo administradores pueden ver estos datos. Se permite reintentar un
+        rechazo de correo ya confirmado por el cliente; no se envían borradores
+        históricos.
       </p>
       <ListTools
         state={state}
@@ -163,9 +176,31 @@ export default async function FinancingAdminPage({
               </div>
               <span className={styles.tag}>
                 {row.stage === "draft"
-                  ? "Borrador · sin verificación ni envío"
-                  : "Estado no disponible"}
+                  ? "Borrador · correo pendiente"
+                  : row.stage === "sent"
+                    ? "Correo aceptado por Gmail · no implica crédito aprobado"
+                    : "Cuenta autenticada · pendiente de envío"}
               </span>
+              {notifications
+                .filter((n) => n.id === row.id)
+                .map((n) => (
+                  <div key={n.id} className={styles.meta}>
+                    <span>
+                      Notificación:{" "}
+                      {n.status === "sent"
+                        ? "Aceptada por Gmail"
+                        : n.status === "failed"
+                          ? "Falló el envío"
+                          : n.status === "unknown"
+                            ? "Resultado no confirmado; sin reenvío"
+                            : "En proceso"}
+                    </span>
+                    <span>Destinatario: {n.recipient}</span>
+                    {n.status === "failed" && n.attempts < 5 && (
+                      <FinancingRetry id={row.id} />
+                    )}
+                  </div>
+                ))}
             </article>
           ))}
         </div>

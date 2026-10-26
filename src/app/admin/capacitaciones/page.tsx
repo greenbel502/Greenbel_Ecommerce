@@ -10,6 +10,7 @@ import { listState, type AdminParams } from "@/lib/admin-list";
 import { adminLists } from "@/lib/admin-list-config";
 import { queryAdminList } from "@/lib/server/admin-list-query";
 import { ListTools, ListPager, ListEmpty } from "../_components/list-controls";
+import { adminTrainingRatings } from "@/lib/server/training-ratings";
 import {
   TrainingAdmin,
   type TrainingRow,
@@ -41,7 +42,7 @@ export default async function TrainingAdminPage({
     state = listState(params, "", adminLists.trainings),
     admin = createSupabaseAdminClient();
   const columns =
-    "id,title,slug,description,video_url,cover_path,publication_status,created_at";
+    "id,title,slug,description,video_url,video_storage_path,cover_path,publication_status,created_at";
   const result = await queryAdminList<TrainingRow>(
     admin,
     "trainings",
@@ -51,10 +52,16 @@ export default async function TrainingAdminPage({
   );
   const listRows = [...result.data];
   const selectedId =
-    typeof params.edit === "string" && /^[a-f0-9-]{36}$/i.test(params.edit)
-      ? params.edit
-      : "";
-  if (selectedId && !result.data.some((r) => r.id === selectedId)) {
+    params.edit === "new"
+      ? "new"
+      : typeof params.edit === "string" && /^[a-f0-9-]{36}$/i.test(params.edit)
+        ? params.edit
+        : "";
+  if (
+    selectedId &&
+    selectedId !== "new" &&
+    !result.data.some((r) => r.id === selectedId)
+  ) {
     const row = await admin
       .from("trainings")
       .select(columns)
@@ -68,7 +75,7 @@ export default async function TrainingAdminPage({
     categories: TrainingCategoryOption[] = [],
     productLinks: TrainingProductLink[] = [],
     categoryLinks: TrainingCategoryLink[] = [];
-  if (selectedId) {
+  if (selectedId && selectedId !== "new") {
     const [pr, cr] = await Promise.all([
       admin
         .from("training_products")
@@ -117,6 +124,7 @@ export default async function TrainingAdminPage({
       categoryLinks={categoryLinks}
       publicCatalogConnected={shouldUseSupabaseCatalog()}
       limitedRecords={false}
+      ratings={await adminTrainingRatings(result.data.map((t) => t.id))}
       controls={
         <ListTools
           state={state}

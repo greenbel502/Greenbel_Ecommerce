@@ -47,6 +47,8 @@ import {
   type SalesShipment,
 } from "../data";
 import styles from "../sales.module.css";
+import { getPausedAdminModule } from "@/lib/admin-module-status";
+import { PausedModule } from "../../_components/paused-module";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -82,6 +84,9 @@ export default async function SalesDetailPage({
       notFound();
     return <SalesUnavailable detail />;
   }
+
+  if (getPausedAdminModule("/admin/ventas"))
+    return <PausedModule module="ventas" />;
 
   const inputParams = await searchParams;
   const query = Object.fromEntries(

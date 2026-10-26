@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState, useTransition } from "react";
-import { toast } from "sonner";
+import { notify } from "@/presentation/notifications/notify";
 import { useRouter } from "next/navigation";
 import { saveUserAccess, type UserActionState } from "./actions";
 export type AccessRow = {
@@ -36,7 +36,7 @@ export function UserActions({ user, own }: { user: AccessRow; own: boolean }) {
         const result = await saveUserAccess(idle, data);
         setState(result);
         if (result.status === "success") {
-          toast.success(result.message);
+          notify.success(result.message);
           dialog.current?.close();
           router.refresh();
         }
