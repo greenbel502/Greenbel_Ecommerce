@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { LoaderDemo } from "@/presentation/components/loader-demo";
 
 export const metadata: Metadata = {
-  title: "Demo loader Bell IA"
+  title: "Demo loader Bell IA",
+  robots: { index: false, follow: false },
 };
 
 export default function LoaderDemoPage() {

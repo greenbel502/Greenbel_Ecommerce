@@ -5,11 +5,13 @@ import { ArrowRight, Handshake, Lightbulb, MapPinned, PackageSearch, ShieldCheck
 import { AnimatedTitle, Reveal } from "@/presentation/components/motion-primitives";
 import { PublicBrands } from "@/presentation/components/public-brands";
 import styles from "./about.module.css";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Nosotros",
   description: "Conoce la asesoría técnica, servicio y respaldo postventa de GreenBel en Guatemala.",
-};
+  path: "/nosotros",
+});
 
 const values = [
   { Icon: Lightbulb, title: "Experiencia", text: "Conocimiento aplicado a necesidades reales." },

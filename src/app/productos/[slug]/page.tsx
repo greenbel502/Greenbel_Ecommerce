@@ -16,6 +16,7 @@ import { AnimatedTitle, Reveal } from "@/presentation/components/motion-primitiv
 import trainingStyles from "@/app/capacitaciones/training.module.css";
 import { readPublicData } from "@/lib/server/public-data-result";
 import { PageStatus } from "@/presentation/components/page-status";
+import { breadcrumbStructuredData, pageMetadata, productDescription, productStructuredData, serializeStructuredData } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -25,8 +26,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (result.status === "unavailable") return { title: "Producto temporalmente no disponible", robots: { index: false } };
   const product = result.data;
   return product
-    ? { title: product.name, description: product.shortDescription }
-    : { title: "Producto no encontrado" };
+    ? { ...pageMetadata({ title: product.name, description: productDescription(product), path: `/productos/${encodeURIComponent(product.slug)}`,
+      ...(product.image !== "/images/product-placeholder.svg" ? { image: product.image } : {}) }),
+      ...(product.isMockPrice ? { robots: { index: false } } : {}) }
+    : { title: "Producto no encontrado", robots: { index: false } };
 }
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -63,18 +66,17 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const imageNote = product.image === "/images/product-placeholder.svg"
     ? "Imagen del producto pendiente"
     : product.isMockPrice ? "Imagen de referencia del catálogo" : "Imagen del producto";
-  const jsonLd = product.isMockPrice ? null : {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
-    sku: product.sku,
-    brand: { "@type": "Brand", name: product.brand },
-    ...(product.description.trim() ? { description: product.description } : {})
-  };
+  const jsonLd = productStructuredData(product);
+  const breadcrumbs = breadcrumbStructuredData([
+    { name: "Inicio", path: "/" },
+    { name: "Productos", path: "/productos" },
+    { name: product.name, path: `/productos/${encodeURIComponent(product.slug)}` },
+  ]);
 
   return (
     <>
-      {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />}
+      {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeStructuredData(jsonLd) }} />}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeStructuredData(breadcrumbs) }} />
       <section className="product-detail-shell">
         <nav className="breadcrumbs" aria-label="Migas de pan">
           <Link href="/">Inicio</Link>

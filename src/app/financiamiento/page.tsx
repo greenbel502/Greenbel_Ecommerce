@@ -17,12 +17,14 @@ import {
   Reveal,
 } from "@/presentation/components/motion-primitives";
 import { FinancingForm } from "@/presentation/components/financing-form";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Financiamiento con Cooperativa Concepción",
   description:
-    "Conoce la alianza de GreenBel y Cooperativa Concepción R.L. y el estado del proceso de financiamiento.",
-};
+    "Solicita información sobre posible financiamiento para tu selección de productos GreenBel con Cooperativa Concepción R.L. Cada solicitud está sujeta a evaluación de la cooperativa.",
+  path: "/financiamiento",
+});
 
 const preparationSteps = [
   {

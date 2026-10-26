@@ -2,16 +2,18 @@ import { readPublicGreenbelContacts } from "@/lib/server/contact-settings";
 import type { Metadata } from "next";
 import { Clock3, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { ContactForm } from "@/presentation/components/contact-form";
+import { pageMetadata } from "@/lib/seo";
 import {
   AnimatedTitle,
   Reveal,
 } from "@/presentation/components/motion-primitives";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contacto",
   description:
-    "Información de contacto y consultas sobre equipos agrícolas y repuestos GreenBel.",
-};
+    "Contacta a GreenBel en Guatemala. Solicita asesoría e información sobre productos agrícolas, equipos y repuestos mediante nuestros canales de atención.",
+  path: "/contacto",
+});
 
 const questions = [
   [

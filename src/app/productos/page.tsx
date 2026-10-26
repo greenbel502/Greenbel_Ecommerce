@@ -6,8 +6,9 @@ import { ProductCatalog } from "@/presentation/components/product-catalog";
 import { AnimatedTitle, Reveal } from "@/presentation/components/motion-primitives";
 import { readPublicData } from "@/lib/server/public-data-result";
 import { PageStatus } from "@/presentation/components/page-status";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Productos", description: "Catálogo de equipos de aspersión, bombeo, repuestos e implementos GreenBel." };
+export const metadata: Metadata = pageMetadata({ title: "Productos agrícolas, equipos y repuestos", description: "Explora productos agrícolas, equipos de aspersión y bombeo, implementos y repuestos. Consulta precios y fichas del catálogo GreenBel en Guatemala.", path: "/productos" });
 export const dynamic = "force-dynamic";
 
 export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ categoria?: string; busqueda?: string }> }) {

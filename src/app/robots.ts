@@ -1,2 +1,29 @@
 import type { MetadataRoute } from "next";
-export default function robots(): MetadataRoute.Robots { return { rules: { userAgent: "*", allow: "/", disallow: ["/checkout"] }, sitemap: "https://greenbel.gt/sitemap.xml" }; }
+import { isIndexableEnvironment, siteUrl } from "@/lib/seo";
+
+export default function robots(): MetadataRoute.Robots {
+  if (!isIndexableEnvironment())
+    return { rules: { userAgent: "*", disallow: "/" } };
+  return {
+    rules: {
+      userAgent: "*",
+      allow: [
+        "/",
+        "/api/product-images/",
+        "/api/training-covers/",
+        "/api/training-videos/",
+      ],
+      disallow: [
+        "/admin",
+        "/cuenta",
+        "/carrito",
+        "/checkout",
+        "/api/",
+        "/auth/",
+        "/loader-demo",
+        "/references/",
+      ],
+    },
+    sitemap: siteUrl("/sitemap.xml"),
+  };
+}

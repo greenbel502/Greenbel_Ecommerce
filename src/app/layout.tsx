@@ -8,6 +8,7 @@ import { CartProvider } from "@/presentation/providers/cart-provider";
 import { Footer } from "@/presentation/components/footer";
 import { SiteFrame } from "@/presentation/components/site-frame";
 import { NavigationLoader } from "@/presentation/components/navigation-loader";
+import { isIndexableEnvironment, pageMetadata, SITE_DESCRIPTION, SITE_URL } from "@/lib/seo";
 
 const poppins = localFont({
   src: [
@@ -31,28 +32,19 @@ const displayFont = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://greenbel.gt"),
+  ...pageMetadata({ title: "Productos agrícolas y equipos en Guatemala", description: SITE_DESCRIPTION, path: "/" }),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "GreenBel | Equipos agrícolas en Guatemala",
+    default: "GreenBel | Productos agrícolas y equipos en Guatemala",
     template: "GreenBel | %s",
   },
-  description:
-    "Equipos de aspersión, bombeo, repuestos y servicio técnico con asesoría especializada en Guatemala.",
+  robots: isIndexableEnvironment()
+    ? { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } }
+    : { index: false, follow: false },
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: "/icon.svg",
     apple: "/icon.svg",
-  },
-  openGraph: {
-    title: "GreenBel Guatemala",
-    description: "Potencia y respaldo para cada trabajo en el campo.",
-    type: "website",
-    locale: "es_GT",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "GreenBel Guatemala",
-    description: "Equipos agrícolas con respaldo técnico.",
   },
 };
 

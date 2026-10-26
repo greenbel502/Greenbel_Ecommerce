@@ -23,6 +23,7 @@ import {
   trainingRatingViewer,
 } from "@/lib/server/training-ratings";
 import styles from "../training.module.css";
+import { breadcrumbStructuredData, pageMetadata, serializeStructuredData } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
@@ -37,11 +38,13 @@ export async function generateMetadata({
         robots: { index: false },
       }
     : r.data
-      ? {
+      ? pageMetadata({
           title: r.data.title,
           description: r.data.description ?? "Capacitación pública GreenBel.",
-        }
-      : { title: "Capacitación no encontrada" };
+          path: `/capacitaciones/${encodeURIComponent(r.data.slug)}`,
+          ...(r.data.hasCover ? { image: `/api/training-covers/${r.data.id}` } : {}),
+        })
+      : { title: "Capacitación no encontrada", robots: { index: false } };
 }
 export default async function TrainingDetailPage({
   params,
@@ -61,6 +64,11 @@ export default async function TrainingDetailPage({
   const rating = ratings?.[0];
   return (
     <div className={styles.detailShell}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeStructuredData(breadcrumbStructuredData([
+        { name: "Inicio", path: "/" },
+        { name: "Capacitaciones", path: "/capacitaciones" },
+        { name: training.title, path: `/capacitaciones/${encodeURIComponent(training.slug)}` },
+      ])) }} />
       <Link className={styles.back} href="/capacitaciones">
         <ArrowLeft size={17} />
         Todas las capacitaciones

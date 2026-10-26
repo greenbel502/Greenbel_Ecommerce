@@ -11,6 +11,7 @@ import { mockTestimonials } from "@/infrastructure/mock/testimonials";
 import { resolveAppEnvironment } from "@/lib/server/environment-policy";
 import { readPublicData } from "@/lib/server/public-data-result";
 import { PageStatus } from "@/presentation/components/page-status";
+import { serializeStructuredData, siteStructuredData } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +22,7 @@ export default async function HomePage() {
   const hasMockProducts = featuredProducts.some((product) => product.isMockPrice);
   const showMockEditorial = resolveAppEnvironment(process.env) === "DEV";
   return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeStructuredData(siteStructuredData()) }} />
     <section className="hero-bento">
       <div className="hero-copy"><Reveal as="span" className="eyebrow">Equipos agrícolas y de jardinería</Reveal><AnimatedTitle as="h1" lines={["Potencia y respaldo", "para cada trabajo en el campo."]} delay={0.06} /><Reveal as="p" delay={0.2}>{hasMockProducts ? "Explora equipos y repuestos en este catálogo de demostración. Los datos comerciales se confirmarán antes de habilitar compras." : "Explora equipos y repuestos GreenBel. Consulta sus fichas y los canales de atención disponibles."}</Reveal><Reveal className="hero-actions" delay={0.3}><Link className="primary-button" href="/productos">Explorar productos <ArrowRight size={18} /></Link><Link className="secondary-dark-button" href="/contacto"><MessageCircle size={18} /> Ver contacto</Link></Reveal><Reveal className="hero-proof" delay={0.4}><span><BadgeCheck size={18} /> Marcas reconocidas</span><span><ShieldCheck size={18} /> Respaldo postventa</span></Reveal></div>
       <div className="hero-media"><Image src="/images/greenbel-hero.png" alt="Equipos agrícolas GreenBel trabajando en el campo" fill priority sizes="(max-width: 900px) 100vw, 54vw" /><div className="hero-float top"><HeartHandshake /><span><strong>Asesoría especializada</strong><small>Según tu cultivo o proyecto</small></span></div><div className="hero-float bottom"><Wrench /><span><strong>Servicio y repuestos</strong><small>Soporte después de la compra</small></span></div></div>

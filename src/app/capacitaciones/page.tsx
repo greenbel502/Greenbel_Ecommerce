@@ -15,11 +15,13 @@ import { PageStatus } from "@/presentation/components/page-status";
 import { TrainingStars } from "@/presentation/components/training-stars";
 import { trainingRatings } from "@/lib/server/training-ratings";
 import styles from "./training.module.css";
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/seo";
+export const metadata: Metadata = pageMetadata({
   title: "Capacitaciones",
   description:
     "Aprende a usar y cuidar tus equipos con los videos de GreenBel.",
-};
+  path: "/capacitaciones",
+});
 export const dynamic = "force-dynamic";
 export default async function TrainingPage({
   searchParams,
