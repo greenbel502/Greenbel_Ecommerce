@@ -27,7 +27,7 @@ export default async function AdminHome() {
     {
       href: "ventas",
       title: "Ventas y posventa",
-      text: "Pedidos, preparación, pagos de prueba y atención de casos.",
+      text: "Pedidos, preparación y atención posventa.",
       icon: ClipboardList,
     },
     {
@@ -71,19 +71,19 @@ export default async function AdminHome() {
           {
             href: "consultas",
             title: "Consultas",
-            text: "Mensajes recibidos; notificación por correo pausada.",
+            text: "Consultas registradas y estado de las notificaciones por Gmail.",
             icon: MessageSquare,
           },
           {
             href: "financiamiento",
             title: "Financiamiento",
-            text: "Borradores y cotizaciones; verificación y envío pausados.",
+            text: "Solicitudes de información y envío de cotizaciones a la cooperativa.",
             icon: HandCoins,
           },
           {
             href: "entregas",
             title: "Entregas y pagos",
-            text: "Servicios, coberturas, tarifas y configuración de pruebas.",
+            text: "Servicios, coberturas, tarifas y métodos de pago.",
             icon: Settings2,
           },
           {

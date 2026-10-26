@@ -213,7 +213,7 @@ export default async function OrderDetailPage({
               <h2 id="cancel-title">{canCancelDraft ? "Cancelar borrador"
                 : canCancelConfirmed ? "Cancelar antes de preparación" : "Solicitar cancelación"}</h2>
               <p className={styles.muted}>{canCancelDraft
-                ? "Se cancelará solo si no hay preparación, cobro de prueba aprobado ni inventario reservado."
+                ? "Se cancelará solo si no hay preparación, cobro aprobado ni inventario reservado."
                 : canCancelConfirmed
                   ? "Se cancelará y liberará la reserva solo si no comenzó la preparación ni existe un intento de pago pendiente o aprobado."
                   : "El equipo revisará la solicitud. Enviarla no cancela el pedido ni confirma un reembolso."}</p>

@@ -6,6 +6,7 @@ import {
 } from "@/lib/server/staff-authorization";
 import { createSupabaseReadClient } from "@/lib/supabase/server";
 import { AdminShell } from "./_components/admin-shell";
+import { getActiveEnvironment } from "@/lib/server/environment";
 import "./admin.css";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ export default async function AdminLayout({
       role={actor.role}
       name={profile?.display_name || "Mi cuenta"}
       email={auth.user?.email || ""}
+      development={getActiveEnvironment().appEnvironment === "DEV"}
     >
       {children}
     </AdminShell>

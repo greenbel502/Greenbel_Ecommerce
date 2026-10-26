@@ -67,11 +67,13 @@ if (productUrl) {
   }
   results.push("PASS: ficha real, esquema de producto, precio y fotografía accesible");
 }
-for (const path of ["/carrito", "/cuenta/ingresar", "/loader-demo"]) {
+for (const path of ["/carrito", "/cuenta/ingresar"]) {
   const html = await (await read(path)).text();
   assert.ok(tagValues(html, 'name="robots"', "content").some((v) => v?.includes("noindex")));
   results.push(`PASS: noindex de ${path}`);
 }
+assert.equal((await fetch(origin + "/loader-demo", { redirect: "manual" })).status, 404);
+results.push("PASS: demo interna no disponible en producción");
 const social = await read("/opengraph-image");
 assert.ok(social.headers.get("content-type")?.startsWith("image/png"));
 const png = Buffer.from(await social.arrayBuffer());

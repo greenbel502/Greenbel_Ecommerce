@@ -98,11 +98,13 @@ export function AdminShell({
   role,
   name,
   email,
+  development,
 }: {
   children: React.ReactNode;
   role: StaffRole;
   name: string;
   email: string;
+  development: boolean;
 }) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
@@ -284,9 +286,9 @@ export function AdminShell({
             </span>
           </div>
           <div className="admin-topbar-right">
-            <span className="admin-env">
+            {development && <span className="admin-env">
               <span /> DEV
-            </span>
+            </span>}
             <details className="admin-account">
               <summary>
                 <span className="admin-initial">

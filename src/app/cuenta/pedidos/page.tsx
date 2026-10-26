@@ -84,7 +84,7 @@ export default async function OrdersPage({
         <div>
           <span className="eyebrow">Cuenta GreenBel</span>
           <h1 id="orders-title">Mis pedidos.</h1>
-          <p>Consulta por separado el avance del pedido, la entrega y los intentos de pago de prueba.</p>
+          <p>Consulta el avance de tus pedidos y el estado de sus entregas.</p>
         </div>
         <Link href="/productos" className="secondary-dark-button">Ver productos</Link>
       </div>
@@ -123,7 +123,7 @@ export default async function OrdersPage({
                     : paymentStatus(payment?.status ?? null)}</dd></div>
                 </dl>
                 <div className={styles.cardFoot}>
-                  <small>Los pagos mostrados son registros de prueba; no confirman un cobro real.</small>
+                  {payment?.test_mode === true && <small>Registro simulado; no confirma un cobro real.</small>}
                   <Link href={`/cuenta/pedidos/${order.id}`} className="inline-link">Ver detalle</Link>
                 </div>
               </article>

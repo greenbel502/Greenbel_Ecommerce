@@ -125,7 +125,7 @@ export default async function FinancingAdminPage({
           <h1>Solicitudes de financiamiento</h1>
           <p>
             Lectura privada de solicitudes vinculadas a una cotización emitida.
-            El cliente verifica su correo y confirma el envío del PDF a la
+            El cliente ingresa con su cuenta y confirma el envío del PDF a la
             cooperativa.
           </p>
         </div>

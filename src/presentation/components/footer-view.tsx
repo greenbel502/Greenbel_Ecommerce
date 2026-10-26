@@ -26,7 +26,7 @@ export function FooterView({
               <BrandLogo variant="light" />
             </Link>
             <span>
-              © {new Date().getFullYear()} GreenBel. Ecommerce demostrativo.
+              © {new Date().getFullYear()} GreenBel.
             </span>
           </div>
           <nav aria-label="Información legal">
@@ -94,7 +94,7 @@ export function FooterView({
       </div>
       <div className="footer-bottom">
         <span>
-          © {new Date().getFullYear()} GreenBel. Ecommerce demostrativo.
+          © {new Date().getFullYear()} GreenBel.
         </span>
         <div>
           <Link href="/legal/privacidad">Privacidad</Link>

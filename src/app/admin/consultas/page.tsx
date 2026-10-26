@@ -121,7 +121,7 @@ export default async function ContactAdminPage({
         </div>
         <nav className={styles.nav} aria-label="Otras áreas administrativas">
           <Link href="/admin/catalogo">Catálogo</Link>
-          <Link href="/admin/financiamiento">Borradores de financiamiento</Link>
+          <Link href="/admin/financiamiento">Solicitudes de financiamiento</Link>
         </nav>
       </div>
       <p className={styles.notice}>

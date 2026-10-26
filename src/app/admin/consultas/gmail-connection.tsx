@@ -59,6 +59,14 @@ export async function GmailConnection({ result }: { result?: string }) {
               ? "Gmail requiere reconexión"
               : "Gmail sin conectar"}
         </p>
+        {!connected && (
+          <p role="status">
+            Las consultas se guardan, pero no pueden notificarse por correo hasta
+            que conectes la cuenta remitente. Pulsa {connection ? "«Reconectar Gmail»" : "«Conectar Gmail»"}
+            {" "}y completa la autorización en Google. Una vez conectada, las
+            consultas nuevas podrán generar notificaciones.
+          </p>
+        )}
         {config && (
           <p>
             Remitente: {config.senderEmail}
