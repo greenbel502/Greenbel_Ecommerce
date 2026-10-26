@@ -2,35 +2,43 @@ import "server-only";
 import { createHash } from "node:crypto";
 import { z } from "zod";
 import { getActiveEnvironment } from "@/lib/server/environment";
+import type { AppEnvironment } from "@/lib/server/environment-policy";
 
 export const GMAIL_SCOPE = "https://www.googleapis.com/auth/gmail.send";
 export const GMAIL_STATE_COOKIE = "greenbel_gmail_oauth";
 export const GMAIL_CALLBACK_PATH = "/api/integrations/gmail/callback";
-export const GMAIL_VARIABLES = [
-  "GOOGLE_GMAIL_CLIENT_ID",
-  "GOOGLE_GMAIL_CLIENT_SECRET",
-  "GOOGLE_GMAIL_REDIRECT_URI",
-  "GMAIL_SENDER_EMAIL",
-  "GMAIL_NOTIFICATION_EMAIL",
-  "GMAIL_TOKEN_ENCRYPTION_KEY",
-] as const;
+export function gmailVariableNames(environment: AppEnvironment) {
+  return {
+    clientId: `GOOGLE_GMAIL_${environment}_CLIENT_ID`,
+    clientSecret: `GOOGLE_GMAIL_${environment}_CLIENT_SECRET`,
+    redirectUri: `GOOGLE_GMAIL_${environment}_REDIRECT_URI`,
+    senderEmail: `GMAIL_SENDER_${environment}_EMAIL`,
+    notificationEmail: `GMAIL_NOTIFICATION_${environment}_EMAIL`,
+    encryptionKey: "GMAIL_TOKEN_ENCRYPTION_KEY",
+  } as const;
+}
 
 export function missingGmailVariables() {
-  return GMAIL_VARIABLES.filter((key) => !process.env[key]?.trim());
+  const { appEnvironment } = getActiveEnvironment();
+  return Object.values(gmailVariableNames(appEnvironment)).filter(
+    (key) => !process.env[key]?.trim(),
+  );
 }
 export function gmailConfig() {
-  if (missingGmailVariables().length)
-    throw Error("gmail_configuration_missing");
   const env = getActiveEnvironment();
+  const variables = gmailVariableNames(env.appEnvironment);
+  if (Object.values(variables).some((key) => !process.env[key]?.trim()))
+    throw Error("gmail_configuration_missing");
+  const value = (key: string) => process.env[key]!.trim();
   const senderEmail = z
     .email()
     .max(254)
-    .parse(process.env.GMAIL_SENDER_EMAIL?.trim().toLowerCase());
+    .parse(value(variables.senderEmail).toLowerCase());
   const notificationEmail = z
     .email()
     .max(254)
-    .parse(process.env.GMAIL_NOTIFICATION_EMAIL?.trim().toLowerCase());
-  const redirect = new URL(process.env.GOOGLE_GMAIL_REDIRECT_URI!.trim());
+    .parse(value(variables.notificationEmail).toLowerCase());
+  const redirect = new URL(value(variables.redirectUri));
   if (
     !env.appUrl ||
     redirect.origin !== new URL(env.appUrl).origin ||
@@ -47,20 +55,20 @@ export function gmailConfig() {
       ))
   )
     throw Error("gmail_redirect_invalid");
-  const rawKey = process.env.GMAIL_TOKEN_ENCRYPTION_KEY!.trim();
+  const rawKey = value(variables.encryptionKey);
   const encryptionKey = Buffer.from(rawKey, "base64");
   if (
     encryptionKey.length !== 32 ||
     encryptionKey.toString("base64") !== rawKey
   )
     throw Error("gmail_encryption_key_invalid");
-  const clientId = process.env.GOOGLE_GMAIL_CLIENT_ID!.trim();
+  const clientId = value(variables.clientId);
   const clientFingerprint = createHash("sha256").update(clientId).digest("hex");
   return {
     senderEmail,
     notificationEmail,
     clientId,
-    clientSecret: process.env.GOOGLE_GMAIL_CLIENT_SECRET!.trim(),
+    clientSecret: value(variables.clientSecret),
     redirectUri: redirect.href,
     origin: redirect.origin,
     secureCookies: redirect.protocol === "https:",

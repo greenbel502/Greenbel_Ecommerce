@@ -11,7 +11,7 @@ if(process.argv.includes('--unused-final-template')&&f.templateVersion!=='extern
 const owner=f.users.find(u=>u.role==='owner'),other=f.users.find(u=>u.role==='other');
 const results=[];const check=(label,ok)=>{assert.ok(ok,label);results.push({label,status:'PASS'});console.log('PASS:',label);};
 async function post(path,body,cookie=owner.cookie,source=origin){return fetch(origin+path,{method:'POST',headers:{'content-type':'application/json',origin:source,cookie},body:JSON.stringify(body),signal:AbortSignal.timeout(60000)});}
-async function expect(label,path,body,status,cookie=owner.cookie,source=origin){const r=await post(path,body,cookie,source);const text=await r.text();check(label,r.status===status);for(const secret of [e.DEV_SUPABASE_SECRET_KEY,e.GOOGLE_GMAIL_CLIENT_SECRET,e.GMAIL_TOKEN_ENCRYPTION_KEY,owner.cookie].filter(Boolean))assert.ok(!text.includes(secret),'Secret response');return JSON.parse(text);}
+async function expect(label,path,body,status,cookie=owner.cookie,source=origin){const r=await post(path,body,cookie,source);const text=await r.text();check(label,r.status===status);for(const secret of [e.DEV_SUPABASE_SECRET_KEY,e.GOOGLE_GMAIL_DEV_CLIENT_SECRET,e.GMAIL_TOKEN_ENCRYPTION_KEY,owner.cookie].filter(Boolean))assert.ok(!text.includes(secret),'Secret response');return JSON.parse(text);}
 const quoteBody={purpose:'financing',idempotencyKey:f.quoteKey,customerName:f.marker,customerEmail:'tampered@example.invalid',lines:[{productId:f.productId,quantity:2}]};
 await expect('Anonymous cannot prepare financing PDF','/api/cotizaciones',quoteBody,401,'');
 if(!f.quote){const q=await post('/api/cotizaciones',quoteBody);assert.ok(q.ok,'Own quote preparation failed');f.quote=await q.json();assert.equal(f.quote.status,'issued');save();}

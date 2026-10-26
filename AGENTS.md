@@ -41,6 +41,8 @@ CLI: trabajar solo con DEV autorizado, comprobar referencia enlazada y no expone
 
 ## Configuración mínima vigente
 
+**Gmail por entorno · 26/10/2026:** por petición explícita del usuario, `APP_ENV` selecciona `GOOGLE_GMAIL_DEV_CLIENT_ID/CLIENT_SECRET/REDIRECT_URI` o sus equivalentes `GOOGLE_GMAIL_PROD_*`. Remitente y destinatario usan `GMAIL_SENDER_DEV_EMAIL`/`GMAIL_NOTIFICATION_DEV_EMAIL` o sus equivalentes PROD. La clave conserva el nombre común `GMAIL_TOKEN_ENCRYPTION_KEY`, sin rotar sus valores. No recurrir al otro entorno ni a los nombres globales antiguos del cliente/correos. El inicio con Google sigue configurado en Supabase y es independiente. Ver `.env.gmail.example` y `docs/gmail/2026-10-26-environment-names.md`.
+
 Usar el `.env.example` incluido y la guía de entorno actualizada al archivo compartido por el usuario. No exigir variables futuras para arrancar funciones independientes. PROD y Resend pueden estar vacíos en DEV con correo pausado. Modo de correo ausente significa disabled. Credenciales CLI solo para herramientas DEV; no para el runtime.
 
 **Bell · modelo 033 aprobado y aplicado solo DEV, 26/10/2026:** chatbot integrado en Next.js/Supabase, catálogo real por SQL, FTS español/trigramas y respuestas revisadas; conversaciones privadas con sesión, idempotencia y cuotas. Admin `/admin/chatbot`, tablas y paneles derechos. pgvector/cola/adaptador preparados, sin motor de embeddings configurado ni inferencia semántica activa. No añadir APIs comerciales ni asumir hosting/servidores. No modificar checkout o Auth para Bell. Ver `docs/chatbot/2026-10-26-implementation.md`; producción/despliegue no autorizados. Esta aclaración específica del usuario prevalece sobre referencias históricas al hosting en otros documentos.

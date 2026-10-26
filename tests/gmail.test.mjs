@@ -151,15 +151,25 @@ class StaffAuthorizationError extends Error {
   }
 }
 Object.assign(process.env, {
-  GOOGLE_GMAIL_CLIENT_ID: "qa.apps.googleusercontent.com",
-  GOOGLE_GMAIL_CLIENT_SECRET: "qa-client-secret",
-  GOOGLE_GMAIL_REDIRECT_URI:
+  GOOGLE_GMAIL_DEV_CLIENT_ID: "qa.apps.googleusercontent.com",
+  GOOGLE_GMAIL_DEV_CLIENT_SECRET: "qa-client-secret",
+  GOOGLE_GMAIL_DEV_REDIRECT_URI:
     "http://localhost:3000/api/integrations/gmail/callback",
-  GMAIL_SENDER_EMAIL: "sender@example.invalid",
-  GMAIL_NOTIFICATION_EMAIL: "owner@example.invalid",
+  GMAIL_SENDER_DEV_EMAIL: "sender@example.invalid",
+  GMAIL_NOTIFICATION_DEV_EMAIL: "owner@example.invalid",
   GMAIL_TOKEN_ENCRYPTION_KEY: Buffer.alloc(32, 7).toString("base64"),
+  GOOGLE_GMAIL_PROD_CLIENT_ID: "qa-prod.apps.googleusercontent.com",
+  GOOGLE_GMAIL_PROD_CLIENT_SECRET: "qa-prod-client-secret",
+  GOOGLE_GMAIL_PROD_REDIRECT_URI:
+    "https://www.greenbel.store/api/integrations/gmail/callback",
+  GMAIL_SENDER_PROD_EMAIL: "sender-prod@example.invalid",
+  GMAIL_NOTIFICATION_PROD_EMAIL: "owner-prod@example.invalid",
 });
-const { gmailConfig, GMAIL_SCOPE } = require("../src/lib/gmail/config.ts");
+const {
+  gmailConfig,
+  missingGmailVariables,
+  GMAIL_SCOPE,
+} = require("../src/lib/gmail/config.ts");
 const { seal, unseal } = require("../src/lib/gmail/crypto.ts");
 const {
   prepareGmailAuthorization,
@@ -284,15 +294,69 @@ test("OAuth requests only send permission, offline consent and PKCE; state is se
   );
 });
 test("configuration rejects a cross-origin callback and invalid encryption key", () => {
-  const original = process.env.GOOGLE_GMAIL_REDIRECT_URI;
-  process.env.GOOGLE_GMAIL_REDIRECT_URI =
+  const original = process.env.GOOGLE_GMAIL_DEV_REDIRECT_URI;
+  process.env.GOOGLE_GMAIL_DEV_REDIRECT_URI =
     "https://evil.invalid/api/integrations/gmail/callback";
   assert.throws(gmailConfig);
-  process.env.GOOGLE_GMAIL_REDIRECT_URI = original;
+  process.env.GOOGLE_GMAIL_DEV_REDIRECT_URI = original;
   const k = process.env.GMAIL_TOKEN_ENCRYPTION_KEY;
   process.env.GMAIL_TOKEN_ENCRYPTION_KEY = "weak";
   assert.throws(gmailConfig);
   process.env.GMAIL_TOKEN_ENCRYPTION_KEY = k;
+});
+test("Gmail selects credentials and recipients for the active environment with the configured common key name", () => {
+  const prior = active;
+  try {
+    const dev = gmailConfig();
+    active = {
+      ...active,
+      appEnvironment: "PROD",
+      appUrl: "https://www.greenbel.store",
+    };
+    const prod = gmailConfig();
+    assert.equal(dev.clientId, "qa.apps.googleusercontent.com");
+    assert.equal(prod.clientId, "qa-prod.apps.googleusercontent.com");
+    assert.equal(prod.clientSecret, "qa-prod-client-secret");
+    assert.equal(dev.senderEmail, "sender@example.invalid");
+    assert.equal(prod.senderEmail, "sender-prod@example.invalid");
+    assert.equal(prod.notificationEmail, "owner-prod@example.invalid");
+    assert.deepEqual(prod.encryptionKey, dev.encryptionKey);
+    assert.notEqual(dev.tokenContext, prod.tokenContext);
+    assert.deepEqual(missingGmailVariables(), []);
+  } finally {
+    active = prior;
+  }
+});
+test("missing PROD credentials never fall back to DEV or unscoped Gmail variables", () => {
+  const prior = active,
+    prodId = process.env.GOOGLE_GMAIL_PROD_CLIENT_ID;
+  const legacyId = process.env.GOOGLE_GMAIL_CLIENT_ID;
+  try {
+    active = {
+      ...active,
+      appEnvironment: "PROD",
+      appUrl: "https://www.greenbel.store",
+    };
+    delete process.env.GOOGLE_GMAIL_PROD_CLIENT_ID;
+    process.env.GOOGLE_GMAIL_CLIENT_ID = "legacy-credentials-must-not-be-used";
+    assert.deepEqual(missingGmailVariables(), ["GOOGLE_GMAIL_PROD_CLIENT_ID"]);
+    assert.throws(gmailConfig, /gmail_configuration_missing/);
+  } finally {
+    active = prior;
+    process.env.GOOGLE_GMAIL_PROD_CLIENT_ID = prodId;
+    if (legacyId === undefined) delete process.env.GOOGLE_GMAIL_CLIENT_ID;
+    else process.env.GOOGLE_GMAIL_CLIENT_ID = legacyId;
+  }
+});
+test("DEV does not require or validate inactive PROD settings", () => {
+  const prodSecret = process.env.GOOGLE_GMAIL_PROD_CLIENT_SECRET;
+  try {
+    delete process.env.GOOGLE_GMAIL_PROD_CLIENT_SECRET;
+    assert.deepEqual(missingGmailVariables(), []);
+    assert.equal(gmailConfig().clientId, "qa.apps.googleusercontent.com");
+  } finally {
+    process.env.GOOGLE_GMAIL_PROD_CLIENT_SECRET = prodSecret;
+  }
 });
 test("MIME has fixed From/To, client Reply-To, complete fields, escaped HTML and stable reference", () => {
   const c = gmailConfig(),
@@ -511,24 +575,24 @@ test("JSON connection handoff exposes only a Google authorization URL and keeps 
 });
 test("production callback requires HTTPS and produces secure cookies", () => {
   const prior = active,
-    uri = process.env.GOOGLE_GMAIL_REDIRECT_URI;
+    uri = process.env.GOOGLE_GMAIL_PROD_REDIRECT_URI;
   try {
     active = {
       ...active,
       appEnvironment: "PROD",
-      appUrl: "https://green-bel.vercel.app",
+      appUrl: "https://www.greenbel.store",
     };
-    process.env.GOOGLE_GMAIL_REDIRECT_URI =
-      "https://green-bel.vercel.app/api/integrations/gmail/callback";
+    process.env.GOOGLE_GMAIL_PROD_REDIRECT_URI =
+      "https://www.greenbel.store/api/integrations/gmail/callback";
     const c = gmailConfig();
     assert.equal(c.secureCookies, true);
     assert.match(c.tokenContext, /PROD/);
-    process.env.GOOGLE_GMAIL_REDIRECT_URI =
+    process.env.GOOGLE_GMAIL_PROD_REDIRECT_URI =
       "http://localhost:3000/api/integrations/gmail/callback";
     assert.throws(gmailConfig);
   } finally {
     active = prior;
-    process.env.GOOGLE_GMAIL_REDIRECT_URI = uri;
+    process.env.GOOGLE_GMAIL_PROD_REDIRECT_URI = uri;
   }
 });
 test("valid callback encrypts the refresh token and clears state without exposing credentials", async () => {

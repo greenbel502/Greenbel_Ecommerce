@@ -130,16 +130,27 @@ La confirmación por correo de Supabase continúa habilitada. Google no activa l
 
 La petición actual del usuario sustituye la pausa **solo para las notificaciones de /contacto** y usa Gmail API. Financiamiento y OTP siguen pausados; no se integra Resend. La autorización Gmail es independiente del inicio de sesión Google/Supabase descrito arriba.
 
-Variables privadas del servidor, sin NEXT_PUBLIC_: GOOGLE_GMAIL_CLIENT_ID, GOOGLE_GMAIL_CLIENT_SECRET, GOOGLE_GMAIL_REDIRECT_URI, GMAIL_SENDER_EMAIL, GMAIL_NOTIFICATION_EMAIL y GMAIL_TOKEN_ENCRYPTION_KEY. El ejemplo sin secretos está en [.env.gmail.example](.env.gmail.example).
+**Nombres vigentes · 26/10/2026:** `APP_ENV` selecciona un grupo completo. Las variables privadas son:
+
+| Propósito | DEV | PROD |
+| --- | --- | --- |
+| Cliente de envío | `GOOGLE_GMAIL_DEV_CLIENT_ID` | `GOOGLE_GMAIL_PROD_CLIENT_ID` |
+| Secreto OAuth | `GOOGLE_GMAIL_DEV_CLIENT_SECRET` | `GOOGLE_GMAIL_PROD_CLIENT_SECRET` |
+| Callback Gmail | `GOOGLE_GMAIL_DEV_REDIRECT_URI` | `GOOGLE_GMAIL_PROD_REDIRECT_URI` |
+| Remitente | `GMAIL_SENDER_DEV_EMAIL` | `GMAIL_SENDER_PROD_EMAIL` |
+| Destinatario de contacto | `GMAIL_NOTIFICATION_DEV_EMAIL` | `GMAIL_NOTIFICATION_PROD_EMAIL` |
+| Clave de cifrado | `GMAIL_TOKEN_ENCRYPTION_KEY` | `GMAIL_TOKEN_ENCRYPTION_KEY` |
+
+Sin `NEXT_PUBLIC_`. No se leen las variables del otro entorno ni los nombres globales antiguos. En Vercel Production se configura el grupo PROD y `GMAIL_TOKEN_ENCRYPTION_KEY`, cuyo nombre común se conserva por decisión del usuario. El ejemplo sin secretos está en [.env.gmail.example](.env.gmail.example). [Migración de nombres y pruebas](docs/gmail/2026-10-26-environment-names.md).
 
 - Callback DEV: http://localhost:3000/api/integrations/gmail/callback.
-- Callback PROD: https://green-bel.vercel.app/api/integrations/gmail/callback.
+- Callback PROD: https://www.greenbel.store/api/integrations/gmail/callback.
 - El callback debe coincidir con el origen de DEV_APP_URL/PROD_APP_URL activo y el registrado en Google. PROD exige HTTPS.
-- GMAIL_SENDER_EMAIL es la cuenta que debe consentir; GMAIL_NOTIFICATION_EMAIL es el destinatario fijo y puede coincidir. No se permite que un visitante elija remitente o destinatario. Su correo se utiliza como Reply-To.
-- GMAIL_TOKEN_ENCRYPTION_KEY contiene exactamente 32 bytes aleatorios en Base64 estándar. Usar claves distintas por entorno y conservarlas privadamente. Una clave perdida/cambiada obliga a reconectar.
+- `GMAIL_SENDER_DEV_EMAIL`/`GMAIL_SENDER_PROD_EMAIL` es la cuenta que debe consentir; `GMAIL_NOTIFICATION_DEV_EMAIL`/`GMAIL_NOTIFICATION_PROD_EMAIL` es el destinatario fijo y puede coincidir. No se permite que un visitante elija remitente o destinatario. Su correo se utiliza como Reply-To.
+- `GMAIL_TOKEN_ENCRYPTION_KEY` contiene exactamente 32 bytes aleatorios en Base64 estándar. Usar claves distintas por entorno y conservarlas privadamente. Una clave perdida/cambiada obliga a reconectar.
 - Conservar APP_ENV y los selectores Supabase existentes; no cargar credenciales CLI en Vercel. La ausencia de Gmail no bloquea el registro de consultas. Los modos disabled anteriores no anulan esta autorización específica ni activan financiamiento/OTP.
 
-DEV quedó conectado y con recepción real comprobada. PROD no fue configurado ni desplegado; requiere su propia autorización después de preparar variables e historial de migraciones. El cliente OAuth sigue en Testing, con expiración de siete días para este permiso. [Implementación, pruebas y pasos Vercel](docs/gmail/2026-10-25-implementation.md).
+DEV quedó conectado y con recepción real comprobada en la implementación original. El 26/10 se publicaron main, las migraciones y la configuración de PROD; su autorización Gmail administrativa continúa pendiente por decisión del usuario. Renombrar variables conservando sus valores no vuelve a autorizar ninguna cuenta ni envía registros históricos. El cliente OAuth sigue en Testing, con expiración de siete días para este permiso. [Implementación, pruebas y pasos Vercel](docs/gmail/2026-10-25-implementation.md).
 
 ### Actualización autorizada: financiamiento por Gmail, 25/10/2026
 
