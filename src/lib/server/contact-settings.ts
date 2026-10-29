@@ -7,8 +7,9 @@ import {
   publicGreenbelContacts,
   type ContactSettings,
 } from "@/lib/contacts/model";
+import { publicLocations, type LocationEntry } from "@/lib/contacts/locations";
 
-/** Private draft in the existing CMS. Only the GreenBel primary projection is public. */
+/** Private CMS draft; public readers expose only selected contact fields and active locations. */
 export async function readContactSettings(): Promise<ContactSettings> {
   noStore();
   const { data, error } = await createSupabaseAdminClient()
@@ -26,6 +27,20 @@ export async function readContactSettings(): Promise<ContactSettings> {
   if (!parsed.success)
     throw Error("La configuración de contacto no tiene un formato compatible.");
   return { revision: data.updated_at, contacts: parsed.data };
+}
+
+export async function readPublicLocations(company: LocationEntry["company"]) {
+  try {
+    return {
+      locations: publicLocations(
+        (await readContactSettings()).contacts.locations,
+        company,
+      ),
+      available: true,
+    };
+  } catch {
+    return { locations: [], available: false };
+  }
 }
 export async function readPublicGreenbelContacts() {
   try {

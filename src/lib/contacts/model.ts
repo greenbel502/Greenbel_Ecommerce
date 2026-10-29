@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { initialLocations, locationEntrySchema } from "./locations";
 
 export const companySchema = z.enum(["greenbel", "cooperative"]);
 export const contactKindSchema = z.enum(["phone", "email"]);
@@ -35,9 +36,10 @@ export const contactsPayloadSchema = z
   .object({
     version: z.literal(1),
     entries: z.array(contactEntrySchema).max(40),
+    locations: z.array(locationEntrySchema).max(100).default(initialLocations),
   })
   .strict()
-  .superRefine(({ entries }, ctx) => {
+  .superRefine(({ entries, locations }, ctx) => {
     const ids = new Set<string>(),
       values = new Set<string>(),
       main = new Set<string>();
@@ -57,9 +59,22 @@ export const contactsPayloadSchema = z
       values.add(key);
       if (item.primary) main.add(scope);
     }
+    const locationIds = new Set<string>(),
+      locationKeys = new Set<string>();
+    for (const location of locations) {
+      const key = `${location.company}:${location.name.toLocaleLowerCase("es")}:${location.address.toLocaleLowerCase("es")}`;
+      if (locationIds.has(location.id) || locationKeys.has(key))
+        ctx.addIssue({ code: "custom", message: "Hay ubicaciones repetidas." });
+      locationIds.add(location.id);
+      locationKeys.add(key);
+    }
   });
 export type ContactsPayload = z.infer<typeof contactsPayloadSchema>;
-export const EMPTY_CONTACTS: ContactsPayload = { version: 1, entries: [] };
+export const EMPTY_CONTACTS: ContactsPayload = {
+  version: 1,
+  entries: [],
+  locations: initialLocations(),
+};
 export type ContactSettings = {
   revision: string | null;
   contacts: ContactsPayload;

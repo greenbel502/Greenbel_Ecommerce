@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { WhatsAppTestimonials } from "@/presentation/components/whatsapp-testimonials";
 import { ArrowRight, BadgeCheck, BookOpenCheck, GraduationCap, HeartHandshake, MessageCircle, MessageSquareQuote, PackageSearch, ShieldCheck, Sprout, Star, UserRound, Wrench } from "lucide-react";
-import { getFeaturedProducts } from "@/application/use-cases/getProducts";
-import { ProductCard } from "@/presentation/components/product-card";
+import { getProducts } from "@/application/use-cases/getProducts";
+import { selectHomeProducts } from "@/lib/products/home-selection";
+import { HomeProductsCarousel } from "@/presentation/components/home-products-carousel";
 import { AnimatedTitle, Reveal } from "@/presentation/components/motion-primitives";
 import { TestimonialCard } from "@/presentation/components/testimonial-card";
 import { PublicBrands } from "@/presentation/components/public-brands";
@@ -16,9 +17,10 @@ import { serializeStructuredData, siteStructuredData } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const result = await readPublicData(getFeaturedProducts);
+  const result = await readPublicData(getProducts);
   if (result.status === "unavailable") return <PageStatus kind="unavailable" />;
-  const featuredProducts = result.data;
+  const homeSelection = selectHomeProducts(result.data);
+  const featuredProducts = homeSelection.products;
   const hasMockProducts = featuredProducts.some((product) => product.isMockPrice);
   const showMockEditorial = resolveAppEnvironment(process.env) === "DEV";
   return <>
@@ -32,7 +34,7 @@ export default async function HomePage() {
 
     <PublicBrands />
 
-    <section className="section featured-section"><div className="section-heading"><div><Reveal as="span" className="eyebrow">Selección GreenBel</Reveal><AnimatedTitle lines={["Equipos destacados"]} /></div><Reveal delay={0.16}><Link className="inline-link" href="/productos">Ver catálogo completo <ArrowRight size={16} /></Link></Reveal></div>{hasMockProducts && <p className="catalog-demo-notice">Productos destacados de demostración DEV: precios, existencias, garantías y detalles por validar.</p>}<div className="product-grid featured-grid">{featuredProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div></section>
+    {featuredProducts.length > 0 && <section className="section featured-section"><div className="section-heading"><div><Reveal as="span" className="eyebrow">Selección GreenBel</Reveal><AnimatedTitle lines={[homeSelection.title]} /></div><Reveal delay={0.16}><Link className="inline-link" href="/productos">Ver catálogo completo <ArrowRight size={16} /></Link></Reveal></div>{hasMockProducts && <p className="catalog-demo-notice">Productos destacados de demostración DEV: precios, existencias, garantías y detalles por validar.</p>}<HomeProductsCarousel products={featuredProducts} /></section>}
 
     <section className="advice-band"><div><Reveal as="span" className="eyebrow light">Respaldo técnico GreenBel</Reveal><AnimatedTitle lines={["Acompañamiento", "que mantiene tu equipo", "en marcha."]} /><Reveal as="p" delay={0.18}>GreenBel cuenta con servicios especializados para cuidar tus equipos, mejorar su uso y prolongar su vida útil.</Reveal><Reveal delay={0.28}><Link className="lime-button" href="/contacto">Solicitar asesoría <ArrowRight size={17} /></Link></Reveal></div><div className="value-grid">{[["Talleres GreenBel","Diagnóstico y reparación técnica para mantener tu equipo operativo.",Wrench],["Capacitación técnica","Orientación práctica para utilizar y cuidar correctamente cada equipo.",GraduationCap],["Mantenimiento preventivo","Revisiones programadas que ayudan a anticipar fallas y evitar interrupciones.",ShieldCheck]].map(([title,text,Icon], index) => { const ValueIcon = Icon as typeof Wrench; return <Reveal key={String(title)} delay={index * 0.1}><article><ValueIcon /><h3>{String(title)}</h3><p>{String(text)}</p></article></Reveal>; })}</div></section>
 

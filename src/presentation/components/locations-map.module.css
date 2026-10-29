@@ -1,0 +1,317 @@
+.shell {
+  --map-dark: var(--brand-dark, #1e3a1f);
+  --map-olive: var(--brand-olive, #3a4813);
+  --map-lime: var(--brand-vivid, #80ba01);
+  --map-cream: var(--brand-beige, #e7e7cf);
+  color: var(--map-dark);
+  background: white;
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  overflow: hidden;
+  min-width: 0;
+}
+.heading {
+  padding: 32px 36px 0;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--map-olive);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  line-height: 1.7;
+}
+.heading h2 {
+  margin: 12px 0;
+  font-family: var(--font-heading, inherit);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.17;
+  letter-spacing: -0.035em;
+}
+.heading p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin-top: 22px;
+  font-size: 0.85rem;
+  color: var(--map-olive);
+}
+.counts strong {
+  font-size: 1.3rem;
+  font-weight: 800;
+  padding-right: 3px;
+  color: var(--map-dark);
+}
+.content {
+  padding: 24px 36px 32px;
+}
+.mapColumn {
+  min-width: 0;
+}
+.map {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 600 / 660;
+  margin: 0 auto;
+  background: radial-gradient(
+    ellipse at 48% 65%,
+    color-mix(in srgb, var(--map-cream) 40%, white),
+    white 68%
+  );
+}
+.geography {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 5px 5px #1e3a1f0c);
+}
+.department {
+  fill: color-mix(in srgb, var(--map-cream) 76%, white);
+  stroke: white;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  transition: fill 0.2s ease;
+}
+.covered {
+  fill: var(--map-dark);
+}
+.selectedDepartment {
+  fill: var(--map-olive);
+}
+.marker {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 48px;
+  transform: translate(-50%, -91%);
+  border: 0;
+  border-radius: 50% 50% 10px 10px;
+  padding: 3px;
+  background: transparent;
+  cursor: pointer;
+  isolation: isolate;
+}
+.pin {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  padding: 5px;
+  border: 2px solid var(--map-dark);
+  border-radius: 50% 50% 50% 0;
+  background: white;
+  transform: rotate(-45deg);
+  box-shadow: 0 3px 8px #1e3a1f28;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+.pin img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: rotate(45deg);
+}
+.markerCount {
+  position: absolute;
+  right: -9px;
+  top: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--map-dark);
+  color: white;
+  border: 2px solid white;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  font-weight: 800;
+  transform: rotate(45deg);
+}
+.activeMarker {
+  z-index: 5;
+}
+.activeMarker .pin {
+  border-color: var(--map-lime);
+  transform: translateY(-3px) rotate(-45deg);
+  outline: 3px solid #ffffffb3;
+}
+.marker:hover {
+  z-index: 6;
+}
+.marker:hover .pin {
+  transform: translateY(-3px) rotate(-45deg);
+}
+.marker:focus-visible {
+  outline: 3px solid var(--map-olive);
+  outline-offset: 4px;
+  z-index: 6;
+}
+.markerTip {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 50%;
+  width: max-content;
+  max-width: min(200px, calc(100vw - 64px));
+  padding: 7px 10px;
+  background: white;
+  border-radius: 6px;
+  color: var(--map-dark);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.45;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  box-shadow: 0 3px 10px #1e3a1f21;
+  transform: translateX(var(--tooltip-translate, -50%));
+  pointer-events: none;
+}
+.countryName {
+  position: absolute;
+  left: 35%;
+  top: 11%;
+  color: var(--map-olive);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.mapLegend {
+  display: grid;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--map-olive);
+  line-height: 1.5;
+}
+.mapLegend > span {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.mapLegend i {
+  display: block;
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  background: var(--map-dark);
+}
+.mapLegend small {
+  color: var(--text-muted);
+  font-size: 0.69rem;
+}
+.attribution {
+  display: block;
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+.attribution a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 300px;
+  padding: 26px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  background: var(--surface-soft);
+}
+.emptyIcon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: var(--map-cream);
+  color: var(--map-olive);
+}
+.empty h3 {
+  margin: 18px 0 8px;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+.empty p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+.compact .heading {
+  padding: 24px 24px 0;
+}
+.compact .heading h2 {
+  font-size: 1.5rem;
+}
+.compact .heading p {
+  font-size: 0.8rem;
+}
+.compact .content {
+  padding: 16px 24px 24px;
+}
+.compact .map {
+  max-width: 330px;
+}
+.compact .empty {
+  min-height: 0;
+  padding: 20px;
+}
+.compact .emptyIcon {
+  display: none;
+}
+.compact .empty h3 {
+  margin-top: 0;
+}
+@media (max-width: 800px) {
+  .map {
+    max-width: 390px;
+  }
+  .empty {
+    min-height: 0;
+  }
+}
+@media (max-width: 480px) {
+  .heading,
+  .compact .heading {
+    padding: 22px 20px 0;
+  }
+  .content,
+  .compact .content {
+    padding: 14px 20px 22px;
+  }
+  .counts {
+    gap: 8px 18px;
+    margin-top: 15px;
+  }
+  .countryName {
+    font-size: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .department,
+  .pin {
+    transition: none;
+  }
+}

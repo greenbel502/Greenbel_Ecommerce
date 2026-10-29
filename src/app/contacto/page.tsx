@@ -1,6 +1,10 @@
-import { readPublicGreenbelContacts } from "@/lib/server/contact-settings";
+import {
+  readPublicGreenbelContacts,
+  readPublicLocations,
+} from "@/lib/server/contact-settings";
 import type { Metadata } from "next";
-import { Clock3, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Clock3, Mail, MessageCircle, Phone } from "lucide-react";
+import { LocationsMap } from "@/presentation/components/locations-map";
 import { ContactForm } from "@/presentation/components/contact-form";
 import { pageMetadata } from "@/lib/seo";
 import {
@@ -36,7 +40,10 @@ const questions = [
 
 export const dynamic = "force-dynamic";
 export default async function ContactPage() {
-  const contact = await readPublicGreenbelContacts();
+  const [contact, locations] = await Promise.all([
+    readPublicGreenbelContacts(),
+    readPublicLocations("greenbel"),
+  ]);
   return (
     <>
       <section className="contact-hero">
@@ -107,13 +114,17 @@ export default async function ContactPage() {
               </span>
             </article>
           </div>
-          <div className="map-placeholder">
-            <MapPin />
-            <span>
-              <strong>Guatemala</strong>
-              <small>Ubicación y cobertura por confirmar</small>
-            </span>
-          </div>
+          <LocationsMap
+            company="greenbel"
+            locations={locations.locations}
+            title="Encuentra GreenBel"
+            description={
+              locations.available
+                ? "Conoce nuestra presencia por departamento. Pasa el cursor o toca un marcador para ver su nombre."
+                : "Las ubicaciones no están disponibles en este momento. Puedes consultarnos mediante el formulario."
+            }
+            compact
+          />
         </div>
         <ContactForm />
       </section>

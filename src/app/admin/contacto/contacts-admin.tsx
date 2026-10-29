@@ -15,6 +15,7 @@ import {
   Trash2,
 } from "lucide-react";
 import type { ContactEntry, ContactSettings } from "@/lib/contacts/model";
+import { LocationsAdmin } from "./locations-admin";
 import { CatalogDrawer } from "../catalogo/catalog-drawer";
 import {
   saveContactAction,
@@ -263,6 +264,7 @@ function DeleteContact({
   );
 }
 export function ContactsAdmin({ initial }: { initial: ContactSettings }) {
+  const [view, setView] = useState<"channels" | "locations">("channels");
   const [settings, setSettings] = useState(initial),
     [editor, setEditor] = useState<Editor | null>(null),
     [deleting, setDeleting] = useState<ContactEntry | null>(null),
@@ -283,7 +285,8 @@ export function ContactsAdmin({ initial }: { initial: ContactSettings }) {
           Contacto
         </h1>
         <p>
-          Administra los teléfonos y correos de GreenBel y de la cooperativa.
+          Administra los teléfonos, correos y ubicaciones de GreenBel y de la
+          cooperativa.
         </p>
       </header>
       {notice && (
@@ -291,111 +294,138 @@ export function ContactsAdmin({ initial }: { initial: ContactSettings }) {
           {notice}
         </p>
       )}
-      <div className={styles.grid}>
-        {(["greenbel", "cooperative"] as const).map((company) => (
-          <section className={styles.card} key={company}>
-            <header>
-              <Building2 size={23} />
-              <div>
-                <h2>{companyName[company]}</h2>
-                <p>
-                  {company === "greenbel"
-                    ? "Contacto público y compras por WhatsApp."
-                    : "Contactos para la gestión de financiamiento."}
-                </p>
-              </div>
-            </header>
-            {(["phone", "email"] as const).map((kind) => {
-              const entries = settings.contacts.entries.filter(
-                (e) => e.company === company && e.kind === kind,
-              );
-              return (
-                <section className={styles.group} key={kind}>
-                  <div className={styles.groupHeading}>
-                    <h3>
-                      {kind === "phone" ? (
-                        <Phone size={18} />
-                      ) : (
-                        <Mail size={18} />
-                      )}{" "}
-                      {kind === "phone" ? "Teléfonos" : "Correos"}
-                    </h3>
-                    <button
-                      id={`add-contact-${company}-${kind}`}
-                      type="button"
-                      className={styles.secondary}
-                      onClick={() => setEditor({ company, kind })}
-                      aria-label={`Agregar ${kind === "phone" ? "teléfono" : "correo"} de ${companyName[company]}`}
-                    >
-                      <Plus size={16} />
-                      Agregar
-                    </button>
-                  </div>
-                  {!entries.length && (
-                    <p className={styles.empty}>
-                      Aún no hay {kind === "phone" ? "teléfonos" : "correos"}{" "}
-                      registrados.
+      <nav className={styles.tabs} aria-label="Configuración de contacto">
+        <button
+          type="button"
+          aria-pressed={view === "channels"}
+          onClick={() => setView("channels")}
+        >
+          Teléfonos y correos
+        </button>
+        <button
+          type="button"
+          aria-pressed={view === "locations"}
+          onClick={() => setView("locations")}
+        >
+          Ubicaciones
+        </button>
+      </nav>
+      {view === "locations" ? (
+        <LocationsAdmin settings={settings} onSaved={saved} />
+      ) : (
+        <>
+          <div className={styles.grid}>
+            {(["greenbel", "cooperative"] as const).map((company) => (
+              <section className={styles.card} key={company}>
+                <header>
+                  <Building2 size={23} />
+                  <div>
+                    <h2>{companyName[company]}</h2>
+                    <p>
+                      {company === "greenbel"
+                        ? "Contacto público y compras por WhatsApp."
+                        : "Contactos para la gestión de financiamiento."}
                     </p>
-                  )}
-                  {entries.map((entry) => (
-                    <article className={styles.entry} key={entry.id}>
-                      <div>
-                        <strong>
-                          {kind === "phone" ? "+" : ""}
-                          {entry.value}
-                        </strong>
-                        {entry.label && <small>{entry.label}</small>}
-                        {entry.primary && (
-                          <span className={styles.badge}>
-                            <Check size={13} />
-                            {company === "greenbel" && kind === "phone"
-                              ? "Compras por WhatsApp"
-                              : "Principal"}
-                          </span>
-                        )}
-                      </div>
-                      <div className={styles.actions}>
+                  </div>
+                </header>
+                {(["phone", "email"] as const).map((kind) => {
+                  const entries = settings.contacts.entries.filter(
+                    (e) => e.company === company && e.kind === kind,
+                  );
+                  return (
+                    <section className={styles.group} key={kind}>
+                      <div className={styles.groupHeading}>
+                        <h3>
+                          {kind === "phone" ? (
+                            <Phone size={18} />
+                          ) : (
+                            <Mail size={18} />
+                          )}{" "}
+                          {kind === "phone" ? "Teléfonos" : "Correos"}
+                        </h3>
                         <button
-                          id={`edit-contact-${entry.id}`}
+                          id={`add-contact-${company}-${kind}`}
                           type="button"
                           className={styles.secondary}
-                          onClick={() => setEditor({ company, kind, entry })}
-                          aria-label={`Editar ${entry.value}`}
+                          onClick={() => setEditor({ company, kind })}
+                          aria-label={`Agregar ${kind === "phone" ? "teléfono" : "correo"} de ${companyName[company]}`}
                         >
-                          <Pencil size={16} />
-                          <span className={styles.actionText}>Editar</span>
-                        </button>
-                        <button
-                          type="button"
-                          className={styles.danger}
-                          onClick={() => setDeleting(entry)}
-                          aria-label={`Eliminar ${entry.value}`}
-                        >
-                          <Trash2 size={16} />
-                          <span className={styles.actionText}>Eliminar</span>
+                          <Plus size={16} />
+                          Agregar
                         </button>
                       </div>
-                    </article>
-                  ))}
-                  {company === "greenbel" &&
-                    kind === "phone" &&
-                    !entries.some((e) => e.primary) && (
-                      <p className={styles.help}>
-                        Selecciona un número principal para habilitar las
-                        compras por WhatsApp.
-                      </p>
-                    )}
-                </section>
-              );
-            })}
-          </section>
-        ))}
-      </div>
-      <p className={styles.help}>
-        El correo principal de Cooperativa recibirá las solicitudes de
-        financiamiento confirmadas. La conexión Gmail se administra en
-        Consultas.
-      </p>
+                      {!entries.length && (
+                        <p className={styles.empty}>
+                          Aún no hay{" "}
+                          {kind === "phone" ? "teléfonos" : "correos"}{" "}
+                          registrados.
+                        </p>
+                      )}
+                      {entries.map((entry) => (
+                        <article className={styles.entry} key={entry.id}>
+                          <div>
+                            <strong>
+                              {kind === "phone" ? "+" : ""}
+                              {entry.value}
+                            </strong>
+                            {entry.label && <small>{entry.label}</small>}
+                            {entry.primary && (
+                              <span className={styles.badge}>
+                                <Check size={13} />
+                                {company === "greenbel" && kind === "phone"
+                                  ? "Compras por WhatsApp"
+                                  : "Principal"}
+                              </span>
+                            )}
+                          </div>
+                          <div className={styles.actions}>
+                            <button
+                              id={`edit-contact-${entry.id}`}
+                              type="button"
+                              className={styles.secondary}
+                              onClick={() =>
+                                setEditor({ company, kind, entry })
+                              }
+                              aria-label={`Editar ${entry.value}`}
+                            >
+                              <Pencil size={16} />
+                              <span className={styles.actionText}>Editar</span>
+                            </button>
+                            <button
+                              type="button"
+                              className={styles.danger}
+                              onClick={() => setDeleting(entry)}
+                              aria-label={`Eliminar ${entry.value}`}
+                            >
+                              <Trash2 size={16} />
+                              <span className={styles.actionText}>
+                                Eliminar
+                              </span>
+                            </button>
+                          </div>
+                        </article>
+                      ))}
+                      {company === "greenbel" &&
+                        kind === "phone" &&
+                        !entries.some((e) => e.primary) && (
+                          <p className={styles.help}>
+                            Selecciona un número principal para habilitar las
+                            compras por WhatsApp.
+                          </p>
+                        )}
+                    </section>
+                  );
+                })}
+              </section>
+            ))}
+          </div>
+          <p className={styles.help}>
+            El correo principal de Cooperativa recibirá las solicitudes de
+            financiamiento confirmadas. La conexión Gmail se administra en
+            Consultas.
+          </p>
+        </>
+      )}
       {editor && (
         <CatalogDrawer
           id="contact-editor"

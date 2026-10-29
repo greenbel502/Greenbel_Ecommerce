@@ -21,6 +21,33 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.tabs button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 9px;
+  background: var(--white);
+  color: var(--brand-dark);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+.tabs button[aria-pressed="true"] {
+  background: var(--brand-dark);
+  border-color: var(--brand-dark);
+  color: var(--white);
+}
+.tabs button:focus-visible {
+  outline: 2px solid var(--brand-olive);
+  outline-offset: 3px;
+}
 .card {
   background: var(--white);
   border: 1px solid var(--border-subtle);

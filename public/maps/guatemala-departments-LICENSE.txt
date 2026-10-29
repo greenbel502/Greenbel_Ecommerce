@@ -1,0 +1,29 @@
+Guatemala departmental map — source and license
+
+Source: OpenStreetMap contributors / Wambacher, via geoBoundaries (William & Mary).
+Dataset: GTM-ADM1-53557124, 22 departments, year represented 2017.
+geoBoundaries build: December 12, 2023. Retrieved October 29, 2026.
+Pinned release: https://github.com/wmgeolab/geoBoundaries/tree/9469f09/releaseData/gbOpen/GTM/ADM1
+Metadata: https://www.geoboundaries.org/api/current/gbOpen/GTM/ADM1/
+
+The dataset-specific license is Open Data Commons Open Database License 1.0
+(ODbL), as stated by geoBoundaries' GTM metadata. It is not represented here as
+being CC BY solely because it belongs to gbOpen.
+License: https://opendatacommons.org/licenses/odbl/1-0/
+Attribution: © OpenStreetMap contributors — https://www.openstreetmap.org/copyright
+geoBoundaries: https://www.geoboundaries.org/
+
+The downloaded source is provided without modification at:
+/maps/guatemala-departments-source.geojson
+
+The local derived map geometry at /maps/guatemala-departments.json is made
+available under ODbL 1.0 as well. Changes: Web Mercator projection to a 600 × 660
+SVG view, Douglas–Peucker simplification (0.35 SVG unit), rounded projected
+coordinates, slug identifiers and representative interior department centers.
+It contains only departmental geometry, not GreenBel/cooperative locations.
+The company's configured locations are an independent database.
+
+This visualization is for locating registered offices, not navigation or a
+statement of international borders. When exact office coordinates are absent,
+the marker is an approximate position within its department and is labeled as
+such. Addresses are supplied and maintained by the administrator.

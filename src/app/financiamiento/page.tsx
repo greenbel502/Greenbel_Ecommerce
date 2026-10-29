@@ -18,6 +18,9 @@ import {
 } from "@/presentation/components/motion-primitives";
 import { FinancingForm } from "@/presentation/components/financing-form";
 import { pageMetadata } from "@/lib/seo";
+import { readPublicLocations } from "@/lib/server/contact-settings";
+import { LocationsMap } from "@/presentation/components/locations-map";
+import styles from "./financing-page.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Financiamiento con Cooperativa Concepción",
@@ -73,10 +76,13 @@ const process = [
   ],
 ];
 
-export default function FinancingPage() {
+export const dynamic = "force-dynamic";
+
+export default async function FinancingPage() {
+  const locations = await readPublicLocations("cooperative");
   return (
     <>
-      <section className="financing-hero">
+      <section className={`financing-hero ${styles.hero}`}>
         <div className="financing-hero-copy">
           <Reveal as="span" className="eyebrow">
             Alianza para el campo
@@ -86,7 +92,7 @@ export default function FinancingPage() {
             lines={["Financiamiento para", "impulsar tu trabajo."]}
             delay={0.05}
           />
-          <Reveal as="p" delay={0.2}>
+          <Reveal as="p" className={styles.secondaryCopy} delay={0.2}>
             GreenBel mantiene una alianza con Cooperativa Concepción R.L. para
             consultar opciones de financiamiento. Los requisitos y condiciones
             aún deben confirmarse con la cooperativa.
@@ -124,7 +130,10 @@ export default function FinancingPage() {
         </Reveal>
       </section>
 
-      <section className="financing-partner" aria-labelledby="partner-title">
+      <section
+        className={`financing-partner ${styles.partner}`}
+        aria-labelledby="partner-title"
+      >
         <Reveal className="financing-partner-logo">
           <Image
             src="/images/coorporativ.png"
@@ -142,7 +151,7 @@ export default function FinancingPage() {
             id="partner-title"
             lines={["Crecer con una opción", "pensada para tu proyecto."]}
           />
-          <Reveal as="p" delay={0.16}>
+          <Reveal as="p" className={styles.secondaryCopy} delay={0.16}>
             Los documentos, plazos, tasas y condiciones aplicables deben
             confirmarse con la cooperativa. GreenBel comparte tu solicitud y
             selección únicamente con tu consentimiento y una sesión activa.
@@ -161,8 +170,23 @@ export default function FinancingPage() {
         </div>
       </section>
 
+      <div
+        className={`section financing-locations ${locations.available ? styles.locations : ""}`}
+      >
+        <LocationsMap
+          company="cooperative"
+          locations={locations.locations}
+          title="La cooperativa, cerca de tu proyecto"
+          description={
+            locations.available
+              ? "Conoce la presencia de Cooperativa Concepción R.L. Pasa el cursor o toca un marcador para ver su nombre."
+              : "Las ubicaciones de la cooperativa no están disponibles en este momento. Puedes solicitar información con el formulario de financiamiento."
+          }
+        />
+      </div>
+
       <section
-        className="section financing-options"
+        className={`section financing-options ${styles.options}`}
         aria-labelledby="preparation-title"
       >
         <header className="financing-section-heading">
@@ -175,7 +199,7 @@ export default function FinancingPage() {
               lines={["Explora antes de solicitar."]}
             />
           </div>
-          <Reveal as="p" delay={0.16}>
+          <Reveal as="p" className={styles.secondaryCopy} delay={0.16}>
             Agrega los productos al carrito y completa este formulario para
             preparar tu PDF, ingresar con tu cuenta y confirmar el envío.
           </Reveal>
@@ -189,7 +213,7 @@ export default function FinancingPage() {
                     <Icon />
                   </span>
                   <h3>{title}</h3>
-                  <p>{text}</p>
+                  <p className={styles.secondaryCopy}>{text}</p>
                   <Link href={href}>
                     {action} <ArrowRight size={16} />
                   </Link>
@@ -201,7 +225,7 @@ export default function FinancingPage() {
       </section>
 
       <section
-        className="financing-process"
+        className={`financing-process ${styles.process}`}
         aria-labelledby="financing-process-title"
       >
         <div className="financing-process-intro">
@@ -212,7 +236,7 @@ export default function FinancingPage() {
             id="financing-process-title"
             lines={["De tu equipo", "a una solicitud."]}
           />
-          <Reveal as="p" delay={0.17}>
+          <Reveal as="p" className={styles.secondaryCopy} delay={0.17}>
             Seleccionar productos no envía datos. Primero preparas el PDF,
             autorizas compartir tu información y accedes a tu cuenta. Tú
             confirmas el envío final.
@@ -224,7 +248,7 @@ export default function FinancingPage() {
               <article>
                 <span>{number}</span>
                 <h3>{title}</h3>
-                <p>{text}</p>
+                <p className={styles.secondaryCopy}>{text}</p>
               </article>
             </Reveal>
           ))}
@@ -232,7 +256,7 @@ export default function FinancingPage() {
       </section>
 
       <section
-        className="financing-contact"
+        className={`financing-contact ${styles.contact}`}
         id="solicitud"
         aria-labelledby="financing-contact-title"
       >
@@ -253,8 +277,9 @@ export default function FinancingPage() {
             id="financing-contact-title"
             lines={["Tu proyecto", "empieza aquí."]}
           />
-          <Reveal as="p" delay={0.16}>
-            Comparte los productos que te interesan. Ingresa con tu cuenta para revisar y confirmar el envío de tus datos y tu PDF a Cooperativa
+          <Reveal as="p" className={styles.secondaryCopy} delay={0.16}>
+            Comparte los productos que te interesan. Ingresa con tu cuenta para
+            revisar y confirmar el envío de tus datos y tu PDF a Cooperativa
             Concepción R.L.
           </Reveal>
           <Reveal className="financing-contact-list" delay={0.24}>

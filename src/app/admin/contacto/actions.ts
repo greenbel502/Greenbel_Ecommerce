@@ -12,6 +12,7 @@ import {
   normalizePhone,
   type ContactSettings,
 } from "@/lib/contacts/model";
+import { saveLocationSchema } from "@/lib/contacts/locations";
 export type ContactActionResult = {
   status: "success" | "error";
   message: string;
@@ -58,6 +59,7 @@ async function writeSettings(
     };
   revalidatePath("/admin/contacto");
   revalidatePath("/contacto");
+  revalidatePath("/financiamiento");
   revalidatePath("/carrito");
   revalidatePath("/", "layout");
   return {
@@ -121,7 +123,10 @@ export async function saveContactAction(
           : e,
       );
     entries.push(entry);
-    const valid = contactsPayloadSchema.safeParse({ version: 1, entries });
+    const valid = contactsPayloadSchema.safeParse({
+      ...current.contacts,
+      entries,
+    });
     if (!valid.success)
       return {
         status: "error",
@@ -166,7 +171,7 @@ export async function deleteContactAction(
     const result = await writeSettings(
       current,
       {
-        version: 1,
+        ...current.contacts,
         entries: current.contacts.entries.filter(
           (e) => e.id !== parsed.data.id,
         ),
@@ -180,6 +185,108 @@ export async function deleteContactAction(
     return {
       status: "error",
       message: "No se pudo comprobar el permiso o eliminar el contacto.",
+    };
+  }
+}
+
+export async function saveLocationAction(
+  input: unknown,
+): Promise<ContactActionResult> {
+  const parsed = saveLocationSchema.safeParse(input);
+  if (!parsed.success)
+    return {
+      status: "error",
+      message:
+        "Revisa nombre, departamento, dirección, enlace de Google Maps y coordenadas de Guatemala.",
+    };
+  try {
+    const actor = await requireStaffActor(["admin"]);
+    const current = await readContactSettings();
+    const { revision, id, ...fields } = parsed.data;
+    if (current.revision !== revision)
+      return {
+        status: "error",
+        message:
+          "La configuración cambió en otra sesión. Actualiza la página antes de guardar.",
+      };
+    const previous = id
+      ? current.contacts.locations.find((item) => item.id === id)
+      : null;
+    if (id && (!previous || previous.company !== fields.company))
+      return {
+        status: "error",
+        message: "La ubicación cambió o ya no existe. Actualiza la página.",
+      };
+    const locations = current.contacts.locations.filter(
+      (item) => item.id !== id,
+    );
+    locations.push({ id: id ?? randomUUID(), ...fields });
+    const valid = contactsPayloadSchema.safeParse({
+      ...current.contacts,
+      locations,
+    });
+    if (!valid.success)
+      return {
+        status: "error",
+        message:
+          "La ubicación ya existe o se alcanzó el límite de 100 ubicaciones.",
+      };
+    const result = await writeSettings(current, valid.data, actor.userId);
+    return result.status === "success"
+      ? { ...result, message: "Ubicación guardada." }
+      : result;
+  } catch {
+    return {
+      status: "error",
+      message: "No se pudo comprobar el permiso o guardar la ubicación.",
+    };
+  }
+}
+
+export async function deleteLocationAction(
+  input: unknown,
+): Promise<ContactActionResult> {
+  const parsed = z
+    .object({
+      id: z.uuid(),
+      revision: z.string().datetime({ offset: true }).nullable(),
+      confirmation: z.literal("delete"),
+    })
+    .strict()
+    .safeParse(input);
+  if (!parsed.success)
+    return {
+      status: "error",
+      message: "Confirma la ubicación que deseas eliminar.",
+    };
+  try {
+    const actor = await requireStaffActor(["admin"]);
+    const current = await readContactSettings();
+    if (
+      current.revision !== parsed.data.revision ||
+      !current.contacts.locations.some((item) => item.id === parsed.data.id)
+    )
+      return {
+        status: "error",
+        message: "La ubicación cambió o ya no existe. Actualiza la página.",
+      };
+    const result = await writeSettings(
+      current,
+      {
+        ...current.contacts,
+        locations: current.contacts.locations.filter(
+          (item) => item.id !== parsed.data.id,
+        ),
+      },
+      actor.userId,
+    );
+    return result.status === "success"
+      ? { ...result, message: "Ubicación eliminada." }
+      : result;
+  } catch {
+    return {
+      status: "error",
+      message: "No se pudo comprobar el permiso o eliminar la ubicación.",
     };
   }
 }
