@@ -42,9 +42,13 @@ export const metadata: Metadata = {
     ? { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } }
     : { index: false, follow: false },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "16x16 32x32 48x48 64x64 128x128 256x256" },
+      { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+      { url: "/favicon.svg", type: "image/svg+xml", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
   },
 };
 
